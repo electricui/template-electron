@@ -1,8 +1,8 @@
 {
-  "name": "@electricui/template-electron",
-  "productName": "ElectricUI Electron Template",
-  "version": "0.2.15",
-  "description": "ElectricUI Electron Template",
+  "name": "PACKAGE_NAME",
+  "productName": "PRODUCT_NAME",
+  "version": "0.0.0",
+  "description": "DESCRIPTION",
   "scripts": {
     "build": "npm run build-dll && concurrently \"npm run build-main\" \"npm run build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
@@ -28,8 +28,8 @@
   },
   "browserslist": "electron 2.0",
   "build": {
-    "productName": "ElectricUI Electron Template",
-    "appId": "io.electricui.ElectricUIElectronTemplate",
+    "productName": "PRODUCT_NAME",
+    "appId": "BACKWARDS_URI.PRODUCT_NAME",
     "files": [
       "dist/",
       "node_modules/",
@@ -68,17 +68,10 @@
       "output": "release"
     }
   },
-  "repository": "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
-  "author": "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
+  "repository": "REPOSITORY",
+  "author": "AUTHOR",
   "license": "See LICENCE",
-  "main-when-published": "lib/index.js",
-  "files": [
-    "lib/*",
-    "manifest.json"
-  ],
-  "publishConfig": {
-    "registry": "http://127.0.0.1:7001"
-  },
+  "private": true,
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
@@ -196,8 +189,5 @@
     "node": ">=8.x",
     "npm": ">=5.x",
     "yarn": ">=1.x"
-  },
-  "resolutions": {
-    "electron-rebuild/node-abi": "2.3.0"
   }
 }
