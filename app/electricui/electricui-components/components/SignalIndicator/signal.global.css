@@ -1,0 +1,7 @@
+/* 
+  Grouped icons are slightly off center, this fixes that
+*/
+
+i.icons .electricSignal.icon:first-child {
+  margin-right: -0.05rem;
+}

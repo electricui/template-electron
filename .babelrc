@@ -1,0 +1,31 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "electron": "2.0"
+        },
+        "useBuiltIns": true,
+        "include": ["transform-es2015-arrow-functions"],
+        "exclude": ["transform-async-to-generator", "transform-regenerator"]
+      }
+    ],
+    "react"
+  ],
+  "plugins": [
+    "add-module-exports",
+    "transform-react-handled-props",
+    "babel-plugin-transform-class-properties",
+    "babel-plugin-transform-object-rest-spread"
+  ],
+  "env": {
+    "production": {
+      "presets": ["react-optimize"],
+      "plugins": ["dev-expression"]
+    },
+    "development": {
+      "plugins": ["transform-class-properties", "transform-es2015-classes"]
+    }
+  }
+}
