@@ -110,79 +110,79 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@electricui/core-device-manager@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/core-device-manager/download/@electricui/core-device-manager-0.2.17.tgz#aa4a8c23caf096665eede35c63340e643d2b3433"
+"@electricui/core-device-manager@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/core-device-manager/download/@electricui/core-device-manager-0.2.40.tgz#aa4a8c23caf096665eede35c63340e643d2b3433"
   dependencies:
-    "@electricui/protocol-constants" "^0.2.17"
+    "@electricui/protocol-constants" "^0.2.40"
     debug "^3.1.0"
 
-"@electricui/discovery-developer@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/discovery-developer/download/@electricui/discovery-developer-0.2.17.tgz#aa7958b26b768381f8c3f6308ffe507a553f1528"
+"@electricui/discovery-developer@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/discovery-developer/download/@electricui/discovery-developer-0.2.40.tgz#aa7958b26b768381f8c3f6308ffe507a553f1528"
   dependencies:
-    "@electricui/protocol-constants" "^0.2.17"
+    "@electricui/protocol-constants" "^0.2.40"
     debug "^3.1.0"
 
-"@electricui/discovery-node-usb@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/discovery-node-usb/download/@electricui/discovery-node-usb-0.2.17.tgz#e5ef862e01b80a6bd922e87e491f8b41e804795c"
+"@electricui/discovery-node-usb@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/discovery-node-usb/download/@electricui/discovery-node-usb-0.2.40.tgz#e5ef862e01b80a6bd922e87e491f8b41e804795c"
   dependencies:
-    "@electricui/protocol-binary" "^0.2.17"
-    "@electricui/protocol-constants" "^0.2.17"
-    "@electricui/protocol-type-transforms" "^0.2.17"
+    "@electricui/protocol-binary" "^0.2.40"
+    "@electricui/protocol-constants" "^0.2.40"
+    "@electricui/protocol-type-transforms" "^0.2.40"
 
-"@electricui/mock-device@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/mock-device/download/@electricui/mock-device-0.2.17.tgz#856cc911788a250c3e0e4a51400489da55b875af"
+"@electricui/mock-device@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/mock-device/download/@electricui/mock-device-0.2.40.tgz#856cc911788a250c3e0e4a51400489da55b875af"
   dependencies:
-    "@electricui/protocol-constants" "^0.2.17"
+    "@electricui/protocol-constants" "^0.2.40"
     debug "^3.1.0"
 
-"@electricui/protocol-binary@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/protocol-binary/download/@electricui/protocol-binary-0.2.17.tgz#b32bbd7cfb1276dfadbaa404aa846785d8737699"
+"@electricui/protocol-binary@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/protocol-binary/download/@electricui/protocol-binary-0.2.40.tgz#b32bbd7cfb1276dfadbaa404aa846785d8737699"
   dependencies:
-    "@electricui/protocol-constants" "^0.2.17"
-    "@electricui/protocol-crc" "^0.2.17"
+    "@electricui/protocol-constants" "^0.2.40"
+    "@electricui/protocol-crc" "^0.2.40"
     debug "^3.1.0"
 
-"@electricui/protocol-constants@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/protocol-constants/download/@electricui/protocol-constants-0.2.17.tgz#d4cbfbe93f0b3fdc6a45e226788812240ba0dd35"
+"@electricui/protocol-constants@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/protocol-constants/download/@electricui/protocol-constants-0.2.40.tgz#d4cbfbe93f0b3fdc6a45e226788812240ba0dd35"
 
-"@electricui/protocol-crc@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/protocol-crc/download/@electricui/protocol-crc-0.2.17.tgz#33daf4fd335c5014101ada9e68ae2db982e6c9d6"
+"@electricui/protocol-crc@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/protocol-crc/download/@electricui/protocol-crc-0.2.40.tgz#33daf4fd335c5014101ada9e68ae2db982e6c9d6"
 
-"@electricui/protocol-large-transfers@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/protocol-large-transfers/download/@electricui/protocol-large-transfers-0.2.17.tgz#e22d988e31ae6bf424498e1b04acb2bb844f454e"
+"@electricui/protocol-large-transfers@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/protocol-large-transfers/download/@electricui/protocol-large-transfers-0.2.40.tgz#e22d988e31ae6bf424498e1b04acb2bb844f454e"
   dependencies:
-    "@electricui/protocol-constants" "^0.2.17"
+    "@electricui/protocol-constants" "^0.2.40"
 
-"@electricui/protocol-type-transforms@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/protocol-type-transforms/download/@electricui/protocol-type-transforms-0.2.17.tgz#4cb6dee9392df52d3e06aeffc90224e2cebf773b"
+"@electricui/protocol-type-transforms@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/protocol-type-transforms/download/@electricui/protocol-type-transforms-0.2.40.tgz#4cb6dee9392df52d3e06aeffc90224e2cebf773b"
   dependencies:
-    "@electricui/protocol-constants" "^0.2.17"
+    "@electricui/protocol-constants" "^0.2.40"
 
-"@electricui/transport-node-serial@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/transport-node-serial/download/@electricui/transport-node-serial-0.2.17.tgz#f5d6f1ec9034a810f0ddddef8be6dd39505912ba"
+"@electricui/transport-node-serial@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/transport-node-serial/download/@electricui/transport-node-serial-0.2.40.tgz#f5d6f1ec9034a810f0ddddef8be6dd39505912ba"
   dependencies:
-    "@electricui/protocol-binary" "^0.2.17"
-    "@electricui/protocol-constants" "^0.2.17"
-    "@electricui/protocol-type-transforms" "^0.2.17"
+    "@electricui/protocol-binary" "^0.2.40"
+    "@electricui/protocol-constants" "^0.2.40"
+    "@electricui/protocol-type-transforms" "^0.2.40"
     debug "^3.1.0"
 
-"@electricui/transport-node-websocket@^0.2.17":
-  version "0.2.17"
-  resolved "http://127.0.0.1:7001/@electricui/transport-node-websocket/download/@electricui/transport-node-websocket-0.2.17.tgz#4322c7bb1409d19365739354f138772729be5128"
+"@electricui/transport-node-websocket@^0.2.40":
+  version "0.2.40"
+  resolved "https://registry.eui.io/@electricui/transport-node-websocket/download/@electricui/transport-node-websocket-0.2.40.tgz#4322c7bb1409d19365739354f138772729be5128"
   dependencies:
-    "@electricui/protocol-binary" "^0.2.17"
-    "@electricui/protocol-constants" "^0.2.17"
-    "@electricui/protocol-type-transforms" "^0.2.17"
+    "@electricui/protocol-binary" "^0.2.40"
+    "@electricui/protocol-constants" "^0.2.40"
+    "@electricui/protocol-type-transforms" "^0.2.40"
     debug "^3.1.0"
     isomorphic-ws "^4.0.0"
     ws "^5.1.1"
