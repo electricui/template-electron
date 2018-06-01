@@ -1,22 +1,19 @@
-// @flow
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 import DeviceIDContextProvider from 'electricui-components/components/DeviceIDContextProvider'
 
 import { Container, Button as SemanticButton } from 'semantic-ui-react'
-
+/*
 type Props = {
   match: {
     params: {
-      deviceID: string
-    }
-  }
-}
+      deviceID: string,
+    },
+  },
+}*/
 
-class MainPage extends PureComponent<Props> {
-  props: Props
-
+class MainPage extends PureComponent {
   render() {
     const deviceID = this.props.match.params.deviceID
 

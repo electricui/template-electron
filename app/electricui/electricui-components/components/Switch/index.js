@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import Switch from 'rc-switch'
@@ -8,17 +7,15 @@ import Electrify from 'electricui-components/components/Electrify'
 import { getDependencyProps, checkHigh } from 'electricui-components/utils'
 
 import './switch.global.css'
-
+/*
 type Props = {
   write: func,
   high: object,
   low: object,
   disabled: boolean
 }
-
-class ElectricSwitch extends Component<Props> {
-  props: Props
-
+*/
+class ElectricSwitch extends Component {
   onChange = checked => {
     const { write, high, low } = this.props
 

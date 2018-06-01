@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Dropdown } from 'semantic-ui-react'
@@ -6,15 +5,13 @@ import { Dropdown } from 'semantic-ui-react'
 import Electrify from 'electricui-components/components/Electrify'
 
 import { getDependencyProps, checkHigh } from 'electricui-components/utils'
-
+/*
 type Props = {
   write: func,
   options: array
 }
-
-class ElectricDropdown extends Component<Props> {
-  props: Props
-
+*/
+class ElectricDropdown extends Component {
   onChange = (e, data) => {
     const { write, options } = this.props
 

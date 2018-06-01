@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import Slider from 'rc-slider'
@@ -8,7 +7,7 @@ import Electrify from 'electricui-components/components/Electrify'
 import { getDependencyProps, accessState } from 'electricui-components/utils'
 
 import './slider.global.css'
-
+/*
 type Props = {
   write: func,
   variable: string,
@@ -17,10 +16,8 @@ type Props = {
   max: number,
   disabled: boolean
 }
-
-class ElectricSlider extends Component<Props> {
-  props: Props
-
+*/
+class ElectricSlider extends Component {
   handleChange = value => {
     const { write, variable, continuous } = this.props
 

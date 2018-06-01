@@ -1,4 +1,3 @@
-// @flow
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -6,11 +5,11 @@ import { Icon } from 'semantic-ui-react'
 
 import {
   getConnectionState,
-  getConnectionLatency
+  getConnectionLatency,
 } from 'electricui-state/device'
 
 import './pulsing.global.css'
-
+/*
 type Props = {
   // since it's used in mapStateToProps
   deviceID: string, // eslint-disable-line
@@ -18,15 +17,13 @@ type Props = {
   connected: boolean,
   latency: number
 }
-
+*/
 const iconReplacements = {
   serial: 'usb',
-  websocket: 'wifi'
+  websocket: 'wifi',
 }
 
 class LatencyAwareIcon extends PureComponent {
-  props: Props
-
   render() {
     const { transportKey, connected, latency } = this.props
 
@@ -59,7 +56,7 @@ class LatencyAwareIcon extends PureComponent {
 function mapStateToProps(state, { deviceID, transportKey }) {
   return {
     connected: getConnectionState(state, deviceID, transportKey),
-    latency: getConnectionLatency(state, deviceID, transportKey)
+    latency: getConnectionLatency(state, deviceID, transportKey),
   }
 }
 

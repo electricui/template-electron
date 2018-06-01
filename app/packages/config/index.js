@@ -1,11 +1,23 @@
-// @flow
-import { MockDiscovery, MockTransport, DelayTransform } from '@electricui/mock-device'
+import {
+  MockDiscovery,
+  MockTransport,
+  DelayTransform,
+} from '@electricui/mock-device'
 
-import { BinaryProtocolDecoder, BinaryProtocolEncoder } from '@electricui/protocol-binary'
+import {
+  BinaryProtocolDecoder,
+  BinaryProtocolEncoder,
+} from '@electricui/protocol-binary'
 
-import { SerialTransport, SerialDiscovery } from '@electricui/transport-node-serial'
+import {
+  SerialTransport,
+  SerialDiscovery,
+} from '@electricui/transport-node-serial'
 
-import { WebSocketTransport, WebSocketDiscovery } from '@electricui/transport-node-websocket'
+import {
+  WebSocketTransport,
+  WebSocketDiscovery,
+} from '@electricui/transport-node-websocket'
 
 import { NodeUSBDiscovery } from '@electricui/discovery-node-usb'
 
@@ -14,10 +26,13 @@ import { DeveloperDiscovery } from '@electricui/discovery-developer'
 import {
   TypeTransform,
   defaultDecoderList,
-  defaultEncoderList
+  defaultEncoderList,
 } from '@electricui/protocol-type-transforms'
 
-import { LargePacketEncoder, LargePacketDecoder } from '@electricui/protocol-large-transfers'
+import {
+  LargePacketEncoder,
+  LargePacketDecoder,
+} from '@electricui/protocol-large-transfers'
 
 // we have to do dependency injection with native dependencies
 import SerialPort from 'serialport'
@@ -50,7 +65,9 @@ const wsFactory = options => {
   wsTypeEncoder.use(defaultEncoderList)
 
   // the interfaces we use to read and write to ws
-  const wsReadInterface = wsTransport.readInterface.pipe(wsDecoder).pipe(wsTypeDecoder)
+  const wsReadInterface = wsTransport.readInterface
+    .pipe(wsDecoder)
+    .pipe(wsTypeDecoder)
 
   const wsWriteInterface = wsTypeEncoder
   wsTypeEncoder.pipe(wsEncoder).pipe(wsTransport.writeInterface)
@@ -63,12 +80,12 @@ const wsFactory = options => {
     readInterface: wsReadInterface,
     writeInterface: wsWriteInterface,
 
-    eventInterface
+    eventInterface,
   }
 }
 
 const wsConfiguration = {
-  WebSocket
+  WebSocket,
 }
 
 const dummyFactory = options => {
@@ -79,7 +96,7 @@ const dummyFactory = options => {
 
   const mockTransport = new MockTransport({
     idRequested,
-    delay: options.delay
+    delay: options.delay,
   })
 
   // we want to run all packets through a binary encoder and decoder
@@ -135,7 +152,7 @@ const dummyFactory = options => {
     readInterface,
     writeInterface,
 
-    eventInterface
+    eventInterface,
   }
 }
 
@@ -147,7 +164,7 @@ const serialConfiguration = {
     }
     return false
   },
-  SerialPort
+  SerialPort,
 }
 
 const serialFactory = options => {
@@ -155,7 +172,9 @@ const serialFactory = options => {
   const eventInterface = new PassThrough({ objectMode: true })
 
   // setup the serial transport with our options, plus the event interface
-  const serialTransport = new SerialTransport(Object.assign({}, options, { eventInterface }))
+  const serialTransport = new SerialTransport(
+    Object.assign({}, options, { eventInterface }),
+  )
 
   // setup our binary protocol encoder and decoder
   const serialEncoder = new BinaryProtocolEncoder()
@@ -180,7 +199,7 @@ const serialFactory = options => {
   const largePacketEncoder = new LargePacketEncoder({
     eventInterface,
     writeInterface: options.deviceManagerWriteInterface, // the recursive functionality
-    maxPacketLength: 100 // 100 bytes per packet, despite being able to do 1024
+    maxPacketLength: 100, // 100 bytes per packet, despite being able to do 1024
   })
 
   const largePacketDecoder = new LargePacketDecoder({ eventInterface })
@@ -235,26 +254,26 @@ const serialFactory = options => {
     readInterface: serialReadInterface,
     writeInterface: serialWriteInterface,
 
-    eventInterface
+    eventInterface,
   }
 }
 
 const discovery = [
   new MockDiscovery({
     ids: ['fridge', 'oven'],
-    transportKey: 'lightning'
+    transportKey: 'lightning',
   }),
   new MockDiscovery({
     ids: ['fridge', 'kettle'],
-    transportKey: 'mail'
+    transportKey: 'mail',
   }),
   new SerialDiscovery({
     factory: serialFactory,
-    configuration: serialConfiguration
+    configuration: serialConfiguration,
   }),
   new WebSocketDiscovery({
     factory: wsFactory,
-    configuration: wsConfiguration
+    configuration: wsConfiguration,
   }),
   new NodeUSBDiscovery({ usb }),
   new DeveloperDiscovery({
@@ -263,8 +282,8 @@ const discovery = [
       //  {
       //    uri: 'ws://10.69.186.174:9998'
       //  }
-    ]
-  })
+    ],
+  }),
 ]
 
 /*
@@ -275,24 +294,24 @@ const transports = {
   lightning: {
     factory: dummyFactory,
     configuration: {
-      transportKey: 'lightning'
-    }
+      transportKey: 'lightning',
+    },
   },
   mail: {
     factory: dummyFactory,
     configuration: {
       transportKey: 'mail',
-      delay: 200
-    }
+      delay: 200,
+    },
   },
   serial: {
     factory: serialFactory,
-    configuration: serialConfiguration
+    configuration: serialConfiguration,
   },
   websocket: {
     factory: wsFactory,
-    configuration: wsConfiguration
-  }
+    configuration: wsConfiguration,
+  },
 }
 
 /*
@@ -301,7 +320,7 @@ const transports = {
 
 const manager = new DeviceManager({
   transports,
-  discovery
+  discovery,
 })
 
 export { manager, transports, discovery }

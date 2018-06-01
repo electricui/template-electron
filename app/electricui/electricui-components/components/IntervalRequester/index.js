@@ -1,19 +1,16 @@
-// @flow
 import React, { Component } from 'react'
 
 import Electrify from 'electricui-components/components/Electrify'
-
+/*
 type Props = {
   variable: string,
   variables: array,
   interval: number,
   request: func,
   deviceID: string
-}
+}*/
 
-class IntervalRequester extends Component<Props> {
-  props: Props
-
+class IntervalRequester extends Component {
   componentDidMount() {
     const { interval = 100 } = this.props
     this.intervalometer = setInterval(this.tick, interval)

@@ -1,4 +1,4 @@
-/* eslint global-require: 0, flowtype-errors/show-errors: 0 */
+/* eslint global-require: 0 */
 
 /**
  * This module executes inside of electron's main process. You can start
@@ -8,8 +8,8 @@
  * When running `npm run build` or `npm run build-main`, this file is compiled to
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  *
- * @flow
  */
+
 import { app, BrowserWindow } from 'electron'
 import MenuBuilder from './menu'
 
@@ -36,7 +36,7 @@ const installExtensions = async () => {
   const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
 
   return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
+    extensions.map(name => installer.default(installer[name], forceDownload)),
   ).catch(console.log)
 }
 
@@ -63,7 +63,7 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
   })
 
   mainWindow.loadURL(`file://${__dirname}/app.html`)

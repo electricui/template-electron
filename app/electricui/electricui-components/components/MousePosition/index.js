@@ -1,10 +1,9 @@
-// @flow
 import React, { Component } from 'react'
 
 import ReactCursorPosition from 'react-cursor-position'
 
 import Electrify from 'electricui-components/components/Electrify'
-
+/*
 type Props = {
   write: func,
   x: string,
@@ -15,10 +14,8 @@ type Props = {
   xMax: number,
   yMax: number
 }
-
-class ElectricMousePosition extends Component<Props> {
-  props: Props
-
+*/
+class ElectricMousePosition extends Component {
   handleChange = changes => {
     const { write, x, y, xMin, yMin, xMax, yMax } = this.props
 
@@ -36,9 +33,9 @@ class ElectricMousePosition extends Component<Props> {
     write(
       {
         [x]: outputX,
-        [y]: outputY
+        [y]: outputY,
       },
-      true
+      true,
     )
   }
 

@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 // import { flushSync } from 'react-dom'
 
@@ -16,7 +15,7 @@ import DisablerContext from './../Disabler/provider'
 import SaveContainerContext from './../SaveContainer/provider'
 
 // const AsyncMode = React.unstable_AsyncMode
-
+/*
 type ElectricProps = {
   deviceID: string,
   commit: func,
@@ -25,7 +24,7 @@ type ElectricProps = {
   variables: array,
   variable: string
 }
-
+*/
 /*
   options = {
     noupdates: false,
@@ -37,8 +36,6 @@ type ElectricProps = {
 function Electrify(ComponentToWrap, options = {}) {
   // first we take the component and add our ElectricUI methods
   class ElectricComponent extends Component {
-    props: ElectricProps
-
     constructor(props) {
       super(props)
 
@@ -111,7 +108,7 @@ function Electrify(ComponentToWrap, options = {}) {
       const uiValue = UIActions.getUIVariable(
         currentState,
         ownProps.deviceID,
-        messageID
+        messageID,
       )
 
       if (uiValue instanceof Object) {
@@ -129,7 +126,7 @@ function Electrify(ComponentToWrap, options = {}) {
         const hwValue = HWActions.getDeviceVariable(
           currentState,
           ownProps.deviceID,
-          messageID
+          messageID,
         )
 
         if (hwValue instanceof Object) {
@@ -155,7 +152,7 @@ function Electrify(ComponentToWrap, options = {}) {
   // we wrap the component into the redux context
   const ConnectedComponent = connect(
     options.noupdates ? null : mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
   )(ElectricComponent)
 
   // then we grab the current deviceID out of our context, and put that on the

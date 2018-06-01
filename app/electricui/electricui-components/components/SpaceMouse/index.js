@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import HID from 'node-hid'
@@ -6,7 +5,7 @@ import HID from 'node-hid'
 import Electrify from 'electricui-components/components/Electrify'
 
 import SpaceMouse from '@electricui/spacemouse'
-
+/*
 type Props = {
   write: func,
 
@@ -21,10 +20,8 @@ type Props = {
   min: number,
   max: number
 }
-
-class ElectricSpaceMouse extends Component<Props> {
-  props: Props
-
+*/
+class ElectricSpaceMouse extends Component {
   componentDidMount() {
     this.spaceMouse = new SpaceMouse(HID)
     this.spaceMouse.on('data', this.parseData)

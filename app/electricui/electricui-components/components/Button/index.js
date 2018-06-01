@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Button } from 'semantic-ui-react'
@@ -6,15 +5,13 @@ import { Button } from 'semantic-ui-react'
 import Electrify from 'electricui-components/components/Electrify'
 
 import { getDependencyProps } from 'electricui-components/utils'
-
+/*
 type Props = {
   write: func,
   high: object
 }
-
-class ElectricButton extends Component<Props> {
-  props: Props
-
+*/
+class ElectricButton extends Component {
   onClick = () => {
     const { write, high } = this.props
 

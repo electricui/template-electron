@@ -1,8 +1,7 @@
-import chalk from "chalk"
-import detectPort from "detect-port"
-
+import chalk from 'chalk'
+import detectPort from 'detect-port'
 ;(function CheckPortInUse() {
-  const port = process.env.PORT || "1212"
+  const port = process.env.PORT || '1212'
 
   detectPort(port, (err, availablePort) => {
     if (port !== String(availablePort)) {

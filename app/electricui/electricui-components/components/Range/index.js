@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Range } from 'rc-slider'
@@ -8,7 +7,7 @@ import Electrify from 'electricui-components/components/Electrify'
 import { getDependencyProps, accessState } from 'electricui-components/utils'
 
 import './../Slider/slider.global.css'
-
+/*
 type Props = {
   write: func,
   variables: array,
@@ -16,11 +15,9 @@ type Props = {
   min: number,
   max: number,
   disabled: boolean
-}
+}*/
 
-class ElectricRange extends Component<Props> {
-  props: Props
-
+class ElectricRange extends Component {
   push = (value, final) => {
     const { write, variables, continuous } = this.props
 

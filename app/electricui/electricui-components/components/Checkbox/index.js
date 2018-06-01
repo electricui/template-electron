@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Checkbox } from 'semantic-ui-react'
@@ -6,16 +5,14 @@ import { Checkbox } from 'semantic-ui-react'
 import Electrify from 'electricui-components/components/Electrify'
 
 import { getDependencyProps, checkHigh } from 'electricui-components/utils'
-
+/*
 type Props = {
   write: func,
   high: object,
   low: object
 }
-
-class ElectricCheckbox extends Component<Props> {
-  props: Props
-
+*/
+class ElectricCheckbox extends Component {
   onChange = (e, data) => {
     const { write, high, low } = this.props
 

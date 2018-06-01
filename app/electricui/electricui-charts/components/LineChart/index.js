@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import ReactEcharts from 'echarts-for-react'
@@ -8,14 +7,12 @@ import { getDependencyProps } from 'electricui-components/utils'
 import { EVENT_DEVICE_HEARTBEAT_UPDATE } from '@electricui/protocol-constants'
 
 import { manager } from 'config'
-
+/*
 type Props = {
   deviceID: string
 }
-
-class ElectricLineChart extends Component<Props> {
-  props: Props
-
+*/
+class ElectricLineChart extends Component {
   constructor(props) {
     super(props)
 
@@ -43,7 +40,7 @@ class ElectricLineChart extends Component<Props> {
     }
 
     this.data[transportKey].push({
-      value: [new Date(), averageLatency]
+      value: [new Date(), averageLatency],
     })
 
     if (this.data[transportKey].length > 150) {
@@ -61,25 +58,25 @@ class ElectricLineChart extends Component<Props> {
     addDataAnimation: false,
     animationEasing: 'linear',
     xAxis: {
-      type: 'time'
+      type: 'time',
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
     },
     series: Object.keys(this.data).map(transportHash => ({
       name: transportHash,
       type: 'line',
       showSymbol: false,
       hoverAnimation: false,
-      data: this.data[transportHash]
+      data: this.data[transportHash],
     })),
     legend: {
       data: Object.keys(this.data),
-      y: 'bottom'
+      y: 'bottom',
     },
     title: {
-      text: 'Latency averages over each transport'
-    }
+      text: 'Latency averages over each transport',
+    },
   })
 
   render() {

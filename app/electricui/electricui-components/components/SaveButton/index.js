@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Button } from 'semantic-ui-react'
@@ -7,19 +6,17 @@ import Electrify from 'electricui-components/components/Electrify'
 
 import {
   getDependencyProps,
-  accessState
+  accessState,
   // deepEqual
 } from 'electricui-components/utils'
-
+/*
 type Props = {
   push: func,
   disabled: boolean,
   saveContainer: element
-}
+}*/
 
-class SaveButton extends Component<Props> {
-  props: Props
-
+class SaveButton extends Component {
   onClick = () => {
     const { push, saveContainer } = this.props
 

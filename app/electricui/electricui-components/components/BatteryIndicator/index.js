@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Icon } from 'semantic-ui-react'
@@ -6,7 +5,7 @@ import { Icon } from 'semantic-ui-react'
 import Electrify from 'electricui-components/components/Electrify'
 
 import { accessState, getDependencyProps } from 'electricui-components/utils'
-
+/*
 type Props = {
   variable: string,
   low: number,
@@ -19,10 +18,8 @@ type Props = {
   highColor: string,
   fullColor: string
 }
-
-class BatteryIndicator extends Component<Props> {
-  props: Props
-
+*/
+class BatteryIndicator extends Component {
   render() {
     const {
       variable,
@@ -34,7 +31,7 @@ class BatteryIndicator extends Component<Props> {
       lowColor,
       mediumColor,
       highColor,
-      fullColor
+      fullColor,
     } = this.props
 
     const value = accessState(this.props, variable)

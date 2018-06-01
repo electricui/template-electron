@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 import { Node } from 'gl-react'
 
@@ -6,7 +5,7 @@ import Electrify from 'electricui-components/components/Electrify'
 
 import { accessState } from 'electricui-components/utils'
 import raf from 'raf'
-
+/*
 type Props = {
   uniforms: object,
   constantUniforms: object,
@@ -16,10 +15,8 @@ type Props = {
   paused: boolean,
   refreshRate: number
 }
-
-class WebGLNode extends Component<Props> {
-  props: Props
-
+*/
+class WebGLNode extends Component {
   constructor(props) {
     super(props)
     this.state = { time: 0, tick: 0 }
@@ -61,7 +58,7 @@ class WebGLNode extends Component<Props> {
         lastTime = t
         this.setState({
           time: (t - startTime) / 1000,
-          tick: this.state.tick + 1
+          tick: this.state.tick + 1,
         })
       }
     }
@@ -83,7 +80,7 @@ class WebGLNode extends Component<Props> {
       shader,
       hardware,
       injectTime,
-      constantUniforms = {}
+      constantUniforms = {},
     } = this.props
 
     const uniformInjection = constantUniforms

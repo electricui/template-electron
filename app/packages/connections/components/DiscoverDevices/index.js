@@ -1,4 +1,3 @@
-// @flow
 import React, { PureComponent } from 'react'
 
 import { bindActionCreators } from 'redux'
@@ -7,7 +6,7 @@ import { connect } from 'react-redux'
 import { Button } from 'semantic-ui-react'
 
 import * as deviceActions from 'electricui-state/device'
-
+/*
 type Props = {
   pollDiscovery: func,
   children: element,
@@ -15,10 +14,8 @@ type Props = {
   compact: boolean,
   color: string
 }
-
+*/
 class DiscoverDevices extends PureComponent {
-  props: Props
-
   onClick = () => {
     const { pollDiscovery } = this.props
 
@@ -32,8 +29,7 @@ class DiscoverDevices extends PureComponent {
         onClick={this.onClick}
         fluid={fluid}
         compact={compact}
-        color={color}
-      >
+        color={color}>
         {children}
       </Button>
     )

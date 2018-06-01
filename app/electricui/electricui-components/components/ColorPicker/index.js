@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { AlphaPicker, HuePicker } from 'react-color'
@@ -6,7 +5,7 @@ import { AlphaPicker, HuePicker } from 'react-color'
 import Electrify from 'electricui-components/components/Electrify'
 
 import { getDependencyProps, accessState } from 'electricui-components/utils'
-
+/*
 type Props = {
   write: func,
   red: string,
@@ -16,10 +15,8 @@ type Props = {
   alphaMultiplier: number,
   continuous: boolean
 }
-
-class ElectricColorPicker extends Component<Props> {
-  props: Props
-
+*/
+class ElectricColorPicker extends Component {
   handleChangeComplete = color => {
     const { write, red, green, blue, alpha, alphaMultiplier } = this.props
 
@@ -29,18 +26,18 @@ class ElectricColorPicker extends Component<Props> {
           [red]: color.rgb.r,
           [green]: color.rgb.g,
           [blue]: color.rgb.b,
-          [alpha]: color.rgb.a * (alphaMultiplier || 1)
+          [alpha]: color.rgb.a * (alphaMultiplier || 1),
         },
-        true
+        true,
       )
     } else {
       write(
         {
           [red]: color.rgb.r,
           [green]: color.rgb.g,
-          [blue]: color.rgb.b
+          [blue]: color.rgb.b,
         },
-        true
+        true,
       )
     }
   }
@@ -53,7 +50,7 @@ class ElectricColorPicker extends Component<Props> {
       blue,
       alpha,
       alphaMultiplier,
-      continuous
+      continuous,
     } = this.props
 
     if (color.rgb.a !== undefined && alpha) {
@@ -62,20 +59,20 @@ class ElectricColorPicker extends Component<Props> {
           [red]: color.rgb.r,
           [green]: color.rgb.g,
           [blue]: color.rgb.b,
-          [alpha]: color.rgb.a * (alphaMultiplier || 1)
+          [alpha]: color.rgb.a * (alphaMultiplier || 1),
         },
         continuous, // push
-        false // no ack
+        false, // no ack
       )
     } else {
       write(
         {
           [red]: color.rgb.r,
           [green]: color.rgb.g,
-          [blue]: color.rgb.b
+          [blue]: color.rgb.b,
         },
         continuous, // push
-        false // no ack
+        false, // no ack
       )
     }
   }
@@ -89,7 +86,7 @@ class ElectricColorPicker extends Component<Props> {
       b: accessState(this.props, blue),
       a: alpha
         ? accessState(this.props, alpha) / (alphaMultiplier || 1)
-        : undefined
+        : undefined,
     }
 
     const restAlpha = getDependencyProps(AlphaPicker, this.props)

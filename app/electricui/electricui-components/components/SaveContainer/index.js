@@ -1,15 +1,12 @@
-// @flow
 import React, { Component } from 'react'
 
 import SaveContainerContext from './provider'
-
+/*
 type Props = {
   children: element
-}
+}*/
 
-export default class SaveContainer extends Component<Props> {
-  props: Props
-
+export default class SaveContainer extends Component {
   constructor(props) {
     super(props)
 

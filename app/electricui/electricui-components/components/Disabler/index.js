@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import Electrify from 'electricui-components/components/Electrify'
@@ -6,15 +5,13 @@ import Electrify from 'electricui-components/components/Electrify'
 import { checkTrigger } from 'electricui-components/utils'
 
 import DisablerContext from './provider'
-
+/*
 type Props = {
   children: element,
   trigger: array
 }
-
-class Disabler extends Component<Props> {
-  props: Props
-
+*/
+class Disabler extends Component {
   render() {
     const { trigger, children } = this.props
 

@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 
 import { Progress } from 'semantic-ui-react'
@@ -6,17 +5,15 @@ import { Progress } from 'semantic-ui-react'
 import Electrify from 'electricui-components/components/Electrify'
 
 import { accessState, getDependencyProps } from 'electricui-components/utils'
-
+/*
 type Props = {
   variable: string,
   min: number,
   max: number,
   children: element
 }
-
-class ElectricProgressBar extends Component<Props> {
-  props: Props
-
+*/
+class ElectricProgressBar extends Component {
   render() {
     const { variable, min, max, children } = this.props
 

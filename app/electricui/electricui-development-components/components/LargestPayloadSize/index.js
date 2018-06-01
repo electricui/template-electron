@@ -1,14 +1,11 @@
-// @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import * as DevActions from 'electricui-state/dev'
-
+/*
 type Props = { largestPacketLength: number }
-
+*/
 class LargestPayloadSize extends Component {
-  props: Props
-
   render() {
     const { largestPacketLength } = this.props
 
@@ -19,7 +16,7 @@ class LargestPayloadSize extends Component {
 // then we grab the state out of redux, memoise it and pass it down
 function mapStateToProps(state) {
   return {
-    largestPacketLength: DevActions.getLargestPayloadLength(state)
+    largestPacketLength: DevActions.getLargestPayloadLength(state),
   }
 }
 

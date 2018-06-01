@@ -1,4 +1,3 @@
-// @flow
 import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -9,13 +8,13 @@ import LatencyAwareIcon from 'connections/components/LatencyAwareIcon'
 
 import {
   getConnectionMethods,
-  getDeviceConnectionState
+  getDeviceConnectionState,
 } from 'electricui-state/device'
 
 import * as deviceActions from 'electricui-state/device'
 
 import { history } from 'state'
-
+/*
 type Props = {
   connect: func,
   disconnect: func,
@@ -23,14 +22,12 @@ type Props = {
   transports: array,
   deviceID: string
 }
-
+*/
 const DISCONNECTED = 0
 const CONNECTING = 1
 const CONNECTED = 2
 
 class ConnectionRow extends PureComponent {
-  props: Props
-
   constructor(props) {
     super(props)
     this.state = { connection: props.connected ? CONNECTED : DISCONNECTED }
@@ -120,7 +117,7 @@ class ConnectionRow extends PureComponent {
 function mapStateToProps(state, { deviceID }) {
   return {
     transports: getConnectionMethods(state, deviceID),
-    connected: getDeviceConnectionState(state, deviceID)
+    connected: getDeviceConnectionState(state, deviceID),
   }
 }
 

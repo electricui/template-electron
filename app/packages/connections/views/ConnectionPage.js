@@ -1,4 +1,3 @@
-// @flow
 import React, { PureComponent } from 'react'
 
 import { connect } from 'react-redux'
@@ -10,14 +9,12 @@ import { getDevices } from 'electricui-state/device'
 import { arrayEquals } from 'electricui-state/utils'
 
 import ConnectionRow from 'connections/components/ConnectionRow'
-
+/*
 type Props = {
   devices: object
 }
-
-class ConnectionPage extends PureComponent<Props> {
-  props: Props
-
+*/
+class ConnectionPage extends PureComponent {
   render() {
     const { devices } = this.props
 
@@ -43,14 +40,14 @@ class ConnectionPage extends PureComponent<Props> {
 
 function mapStateToProps(state) {
   return {
-    devices: getDevices(state)
+    devices: getDevices(state),
   }
 }
 
 const options = {
   // === doesn't work for arrays, we use our own comparitor
   areStatesEqual: (prev, next) =>
-    arrayEquals(getDevices(prev), getDevices(next))
+    arrayEquals(getDevices(prev), getDevices(next)),
 }
 
 export default connect(mapStateToProps, null, null, options)(ConnectionPage)
