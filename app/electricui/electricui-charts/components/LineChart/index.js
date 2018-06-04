@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 
+import { EVENT_DEVICE_HEARTBEAT_UPDATE } from '@electricui/protocol-constants'
 import ReactEcharts from 'echarts-for-react'
-
 import { getDependencyProps } from 'electricui-components/utils'
 
-import { EVENT_DEVICE_HEARTBEAT_UPDATE } from '@electricui/protocol-constants'
+const { manager } = global.electricui
 
-import { manager } from 'config'
 /*
 type Props = {
   deviceID: string

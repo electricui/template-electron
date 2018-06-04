@@ -1,11 +1,11 @@
 import {
-  EVENT_DEVICE_UPDATE,
   EVENT_DEVICE_CONNECTED,
   EVENT_DEVICE_DISCONNECTED,
-  EVENT_DEVICE_HEARTBEAT_UPDATE
+  EVENT_DEVICE_HEARTBEAT_UPDATE,
+  EVENT_DEVICE_UPDATE,
 } from '@electricui/protocol-constants'
 
-import { manager } from 'config'
+const { manager } = global.electricui
 
 // Actions
 const UPDATE = `electricui/device/${EVENT_DEVICE_UPDATE}`
@@ -16,7 +16,7 @@ const HEARTBEAT_UPDATE = `electricui/device/${EVENT_DEVICE_HEARTBEAT_UPDATE}`
 const initialState = {
   available: {},
   connections: {},
-  heartbeats: {}
+  heartbeats: {},
 }
 
 // Reducer
@@ -30,8 +30,8 @@ export default function reducer(state = initialState, action = {}) {
       }
       return Object.assign({}, state, {
         available: Object.assign({}, state.available, {
-          [action.deviceID]: action.transportKeyList
-        })
+          [action.deviceID]: action.transportKeyList,
+        }),
       })
     }
 
@@ -42,10 +42,10 @@ export default function reducer(state = initialState, action = {}) {
             {},
             state.connections[action.deviceID],
             {
-              [action.transportKey]: true
-            }
-          )
-        })
+              [action.transportKey]: true,
+            },
+          ),
+        }),
       })
     }
 
@@ -56,19 +56,19 @@ export default function reducer(state = initialState, action = {}) {
             {},
             state.connections[action.deviceID],
             {
-              [action.transportKey]: undefined
-            }
-          )
+              [action.transportKey]: undefined,
+            },
+          ),
         }),
         heartbeats: Object.assign({}, state.heartbeats, {
           [action.deviceID]: Object.assign(
             {},
             state.connections[action.deviceID],
             {
-              [action.transportKey]: undefined
-            }
-          )
-        })
+              [action.transportKey]: undefined,
+            },
+          ),
+        }),
       })
     }
 
@@ -79,10 +79,10 @@ export default function reducer(state = initialState, action = {}) {
             {},
             state.heartbeats[action.deviceID],
             {
-              [action.transportKey]: action.averageLatency
-            }
-          )
-        })
+              [action.transportKey]: action.averageLatency,
+            },
+          ),
+        }),
       })
     }
 

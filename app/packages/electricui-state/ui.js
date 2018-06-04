@@ -1,11 +1,11 @@
+import {
+  EVENT_DEVICE_CONNECTED,
+  EVENT_UPDATE_STATE
+} from '@electricui/protocol-constants'
+
 import dot from 'dot-object'
 
-import {
-  EVENT_UPDATE_STATE,
-  EVENT_DEVICE_CONNECTED
-  // EVENT_DEVICE_DISCONNECTED
-} from '@electricui/protocol-constants'
-import { manager } from 'config'
+const { manager } = global.electricui
 
 // Actions
 
@@ -46,8 +46,8 @@ export default function reducer(state = initialState, action = {}) {
     case HW_UPDATE_STATE: {
       return Object.assign({}, state, {
         [action.deviceID]: Object.assign({}, state[action.deviceID], {
-          [action.messageID]: action.payload
-        })
+          [action.messageID]: action.payload,
+        }),
       })
     }
 
@@ -55,9 +55,9 @@ export default function reducer(state = initialState, action = {}) {
       return Object.assign(
         {},
         {
-          [action.deviceID]: {} // if we haven't received any messages yet
+          [action.deviceID]: {}, // if we haven't received any messages yet
         },
-        state
+        state,
       )
     }
 
@@ -73,7 +73,7 @@ export default function reducer(state = initialState, action = {}) {
       }
 
       return Object.assign({}, state, {
-        [action.deviceID]: Object.assign({}, state[action.deviceID], target)
+        [action.deviceID]: Object.assign({}, state[action.deviceID], target),
       })
     }
 
@@ -112,7 +112,7 @@ export function push(deviceID, keys, ack = true) {
         ack, // we request acks, we don't re-query
         internal: false,
         messageID: key,
-        payload: getUIVariable(state, deviceID, key)
+        payload: getUIVariable(state, deviceID, key),
       })
     }
   }
@@ -134,7 +134,7 @@ export function request(deviceID, keys) {
         internal: false,
         messageID: key,
         query: true,
-        payload: null
+        payload: null,
       })
     }
   }

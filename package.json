@@ -1,16 +1,16 @@
 {
   "author": "AUTHOR",
   "dependencies": {
-    "@electricui/core-device-manager": "^0.2.63",
-    "@electricui/discovery-developer": "^0.2.63",
-    "@electricui/discovery-node-usb": "^0.2.63",
-    "@electricui/mock-device": "^0.2.63",
-    "@electricui/protocol-binary": "^0.2.63",
-    "@electricui/protocol-constants": "^0.2.63",
-    "@electricui/protocol-large-transfers": "^0.2.63",
-    "@electricui/protocol-type-transforms": "^0.2.63",
-    "@electricui/transport-node-serial": "^0.2.63",
-    "@electricui/transport-node-websocket": "^0.2.63",
+    "@electricui/core-device-manager": "^0.2.87",
+    "@electricui/discovery-developer": "^0.2.87",
+    "@electricui/discovery-node-usb": "^0.2.87",
+    "@electricui/mock-device": "^0.2.87",
+    "@electricui/protocol-binary": "^0.2.87",
+    "@electricui/protocol-constants": "^0.2.87",
+    "@electricui/protocol-large-transfers": "^0.2.87",
+    "@electricui/protocol-type-transforms": "^0.2.87",
+    "@electricui/transport-node-serial": "^0.2.87",
+    "@electricui/transport-node-websocket": "^0.2.87",
     "brain.js": "^1.1.2",
     "devtron": "^1.4.0",
     "echarts": "^4.0.4",
@@ -117,21 +117,14 @@
   "private": true,
   "productName": "PRODUCT_NAME",
   "scripts": {
-    "build":
-      "npm run build-dll && concurrently \"npm run build-main\" \"npm run build-renderer\"",
-    "build-dll":
-      "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
-    "build-main":
-      "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
-    "build-renderer":
-      "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
-    "dev":
-      "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && npm run build-dll && cross-env START_HOT=1 npm run start-renderer-dev",
-    "electron-rebuild":
-      "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
+    "build": "npm run build-dll && concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
+    "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
+    "dev": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && npm run build-dll && cross-env START_HOT=1 npm run start-renderer-dev",
+    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
     "firstinstall": "electron-builder install-app-deps",
-    "lint":
-      "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "lint-fix": "npm run lint -- --fix",
     "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
     "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
@@ -142,10 +135,8 @@
     "postinstall": "forge postinstall",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
-    "start-main-dev":
-      "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
-    "start-renderer-dev":
-      "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js"
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
+    "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js"
   },
   "version": "0.0.0"
 }

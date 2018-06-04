@@ -1,60 +1,62 @@
 import {
-  EVENT_DEVICE_UPDATE,
   EVENT_DEVICE_CONNECTED,
   EVENT_DEVICE_DISCONNECTED,
   EVENT_DEVICE_HEARTBEAT_UPDATE,
-  EVENT_UPDATE_STATE,
-  EVENT_RECEIVED_ACK,
+  EVENT_DEVICE_UPDATE,
   EVENT_FAILURE_TO_DELIVER,
-  EVENT_LARGEST_PAYLOAD_SIZE_SEEN
+  EVENT_LARGEST_PAYLOAD_SIZE_SEEN,
+  EVENT_RECEIVED_ACK,
+  EVENT_UPDATE_STATE,
 } from '@electricui/protocol-constants'
 
-import { manager } from 'config'
 import { history } from 'state'
+
+const { manager } = global.electricui
+
 
 const listeners = {
   [EVENT_DEVICE_UPDATE]: (deviceID, { transportKeyList }) => ({
     type: `electricui/device/${EVENT_DEVICE_UPDATE}`,
     deviceID,
-    transportKeyList
+    transportKeyList,
   }),
 
   [EVENT_DEVICE_CONNECTED]: (
     deviceID,
-    { transportKey /* transportHash, */ }
+    { transportKey /* transportHash, */ },
   ) => ({
     type: `electricui/device/${EVENT_DEVICE_CONNECTED}`,
     deviceID,
-    transportKey
+    transportKey,
     /* transportHash, */
   }),
 
   [EVENT_DEVICE_DISCONNECTED]: (
     deviceID,
-    { transportKey /* transportHash, */ }
+    { transportKey /* transportHash, */ },
   ) => ({
     type: `electricui/device/${EVENT_DEVICE_DISCONNECTED}`,
     deviceID,
-    transportKey
+    transportKey,
     /* transportHash, */
   }),
 
   [EVENT_DEVICE_HEARTBEAT_UPDATE]: (
     deviceID,
-    { transportKey, /* transportHash, */ averageLatency }
+    { transportKey, /* transportHash, */ averageLatency },
   ) => ({
     type: `electricui/device/${EVENT_DEVICE_HEARTBEAT_UPDATE}`,
     deviceID,
     transportKey,
     /* transportHash, */
-    averageLatency: Math.ceil(averageLatency) // we don't need sub-ms precision
+    averageLatency: Math.ceil(averageLatency), // we don't need sub-ms precision
   }),
 
   [EVENT_RECEIVED_ACK]: (deviceID, { packet, payload }) => ({
     type: `electricui/hw/${EVENT_UPDATE_STATE}`,
     deviceID: packet.deviceID,
     messageID: packet.messageID,
-    payload // the payload at the time it was sent (not the packet payload)
+    payload, // the payload at the time it was sent (not the packet payload)
   }),
 
   [EVENT_FAILURE_TO_DELIVER]: (deviceID, { packet }) => {
@@ -62,14 +64,14 @@ const listeners = {
 
     return {
       type: `electricui/device/${EVENT_FAILURE_TO_DELIVER}`,
-      deviceID: packet.deviceID
+      deviceID: packet.deviceID,
     }
   },
 
   [EVENT_LARGEST_PAYLOAD_SIZE_SEEN]: (deviceID, { length }) => ({
     type: `electricui/dev/${EVENT_LARGEST_PAYLOAD_SIZE_SEEN}`,
-    length
-  })
+    length,
+  }),
 }
 
 const MESSAGEID_NOTIFICATION = 'not'
@@ -77,13 +79,13 @@ const MESSAGEID_NOTIFICATION = 'not'
 const callbacks = {
   [MESSAGEID_NOTIFICATION]: () => {
     const notification = new Notification('Test Notification', {
-      body: 'The not callback was called, and a notification arrived.'
+      body: 'The not callback was called, and a notification arrived.',
     })
 
     notification.onclick = () => {
       console.log('Notification clicked')
     }
-  }
+  },
 }
 
 function connectEvents(store) {
@@ -117,7 +119,7 @@ function connectEvents(store) {
             */
             deviceID: packet.deviceID,
             messageID: packet.messageID,
-            payload: packet.payload
+            payload: packet.payload,
           })
         })
       } else if (
