@@ -2,6 +2,7 @@ import { Container, Button as SemanticButton } from 'semantic-ui-react'
 import React, { PureComponent } from 'react'
 
 import { DeviceIDContextProvider } from '@electricui/components'
+import { Link } from 'react-router-dom'
 
 class MainPage extends PureComponent {
   render() {
