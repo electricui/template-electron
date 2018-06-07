@@ -1,44 +1,26 @@
 {
-  "name": "electron-dev-environment",
-  "productName": "ElectricUI Electron Template",
-  "version": "0.2.87",
-  "description": "ElectricUI Electron Template",
-  "scripts": {
-    "build":
-      "npm run build-dll && concurrently \"npm run build-main\" \"npm run build-renderer\"",
-    "build-dll":
-      "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
-    "build-main":
-      "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
-    "build-renderer":
-      "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
-    "dev":
-      "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && npm run build-dll && cross-env START_HOT=1 npm run start-renderer-dev",
-    "electron-rebuild":
-      "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
-    "lint":
-      "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
-    "lint-fix": "npm run lint -- --fix",
-    "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
-    "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
-    "package": "npm run build && build --publish never",
-    "package-all": "npm run build && build -mwl",
-    "package-linux": "npm run build && build --linux",
-    "package-win": "npm run build && build --win --x64",
-    "firstinstall":
-      "node -r babel-register internals/scripts/CheckNativeDep.js && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
-    "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production electron ./app/",
-    "start-main-dev":
-      "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
-    "start-renderer-dev":
-      "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js"
-  },
-  "private": true,
+  "author": "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
   "browserslist": "electron 2.0",
   "build": {
-    "productName": "ElectricUI Electron Template",
     "appId": "io.electricui.ElectricUIElectronTemplate",
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "path": "/Applications",
+          "type": "link",
+          "x": 410,
+          "y": 220
+        }
+      ]
+    },
     "files": [
       "dist/",
       "node_modules/",
@@ -47,40 +29,63 @@
       "main.prod.js.map",
       "package.json"
     ],
-    "dmg": {
-      "contents": [
-        {
-          "x": 130,
-          "y": 220
-        },
-        {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
+    "linux": {
+      "category": "Development",
+      "target": [
+        "deb",
+        "AppImage"
       ]
     },
+    "productName": "ElectricUI Electron Template",
     "win": {
-      "target": ["nsis"]
-    },
-    "linux": {
-      "target": ["deb", "AppImage"],
-      "category": "Development"
-    },
-    "directories": {
-      "buildResources": "resources",
-      "output": "release"
+      "target": [
+        "nsis"
+      ]
     }
   },
-  "repository":
-    "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
-  "author":
-    "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
-  "license": "See LICENCE",
-  "publishConfig": {
-    "registry": "http://127.0.0.1:7001"
+  "dependencies": {
+    "@electricui/charts": "^0.2.94",
+    "@electricui/components": "^0.2.94",
+    "@electricui/core-device-manager": "^0.2.87",
+    "@electricui/developer-components": "^0.2.94",
+    "@electricui/discovery-developer": "^0.2.87",
+    "@electricui/discovery-node-usb": "^0.2.87",
+    "@electricui/mock-device": "^0.2.87",
+    "@electricui/protocol-binary": "^0.2.87",
+    "@electricui/protocol-constants": "^0.2.87",
+    "@electricui/protocol-large-transfers": "^0.2.87",
+    "@electricui/protocol-type-transforms": "^0.2.87",
+    "@electricui/transport-node-serial": "^0.2.87",
+    "@electricui/transport-node-websocket": "^0.2.87",
+    "brain.js": "^1.1.2",
+    "devtron": "^1.4.0",
+    "electron-debug": "^1.5.0",
+    "font-awesome": "^4.7.0",
+    "gl-react": "^3.15.0",
+    "gl-react-dom": "^3.15.0",
+    "history": "^4.7.2",
+    "isomorphic-ws": "^4.0.0",
+    "rc-input-number": "^4.0.5",
+    "rc-slider": "^8.6.1",
+    "rc-switch": "^1.6.0",
+    "react": "^16.3.0",
+    "react-color": "^2.14.0",
+    "react-cursor-position": "^2.4.1",
+    "react-dom": "^16.3.0",
+    "react-hot-loader": "^4.0.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.78.3",
+    "source-map-support": "^0.5.4",
+    "ws": "^5.1.1"
   },
+  "description": "ElectricUI Electron Template",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
@@ -146,54 +151,42 @@
     "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.2"
   },
-  "dependencies": {
-    "@electricui/core-device-manager": "^0.2.87",
-    "@electricui/discovery-developer": "^0.2.87",
-    "@electricui/discovery-node-usb": "^0.2.87",
-    "@electricui/mock-device": "^0.2.87",
-    "@electricui/protocol-binary": "^0.2.87",
-    "@electricui/protocol-constants": "^0.2.87",
-    "@electricui/protocol-large-transfers": "^0.2.87",
-    "@electricui/protocol-type-transforms": "^0.2.87",
-    "@electricui/transport-node-serial": "^0.2.87",
-    "@electricui/transport-node-websocket": "^0.2.87",
-    "@electricui/components": "^0.2.87",
-    "@electricui/charts": "^0.2.87",
-    "@electricui/developer-components": "^0.2.87",
-    "brain.js": "^1.1.2",
-    "devtron": "^1.4.0",
-    "electron-debug": "^1.5.0",
-    "font-awesome": "^4.7.0",
-    "gl-react": "^3.15.0",
-    "gl-react-dom": "^3.15.0",
-    "history": "^4.7.2",
-    "isomorphic-ws": "^4.0.0",
-    "rc-input-number": "^4.0.5",
-    "rc-slider": "^8.6.1",
-    "rc-switch": "^1.6.0",
-    "react": "^16.3.0",
-    "react-color": "^2.14.0",
-    "react-cursor-position": "^2.4.1",
-    "react-dom": "^16.3.0",
-    "react-hot-loader": "^4.0.0",
-    "react-redux": "^5.0.7",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "^5.0.0-alpha.9",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "semantic-ui-css": "^2.3.1",
-    "semantic-ui-react": "^0.78.3",
-    "source-map-support": "^0.5.4",
-    "ws": "^5.1.1"
-  },
   "devEngines": {
     "node": ">=8.x",
     "npm": ">=5.x",
     "yarn": ">=1.x"
   },
+  "license": "See LICENCE",
+  "name": "electron-dev-environment",
+  "private": true,
+  "productName": "ElectricUI Electron Template",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:7001"
+  },
+  "repository": "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
   "resolutions": {
     "electron-rebuild/node-abi": "2.3.0"
-  }
+  },
+  "scripts": {
+    "build": "npm run build-dll && concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
+    "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
+    "dev": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && npm run build-dll && cross-env START_HOT=1 npm run start-renderer-dev",
+    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
+    "firstinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint-fix": "npm run lint -- --fix",
+    "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
+    "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
+    "package": "npm run build && build --publish never",
+    "package-all": "npm run build && build -mwl",
+    "package-linux": "npm run build && build --linux",
+    "package-win": "npm run build && build --win --x64",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
+    "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js"
+  },
+  "version": "0.2.94"
 }
