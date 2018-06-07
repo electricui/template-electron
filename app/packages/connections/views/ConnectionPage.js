@@ -9,11 +9,7 @@ import { getDevices } from 'electricui-state/device'
 import { arrayEquals } from 'electricui-state/utils'
 
 import ConnectionRow from 'connections/components/ConnectionRow'
-/*
-type Props = {
-  devices: object
-}
-*/
+
 class ConnectionPage extends PureComponent {
   render() {
     const { devices } = this.props

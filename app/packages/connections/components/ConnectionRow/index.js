@@ -14,15 +14,7 @@ import {
 import * as deviceActions from 'electricui-state/device'
 
 import { history } from 'state'
-/*
-type Props = {
-  connect: func,
-  disconnect: func,
-  connected: boolean,
-  transports: array,
-  deviceID: string
-}
-*/
+
 const DISCONNECTED = 0
 const CONNECTING = 1
 const CONNECTED = 2

@@ -4,7 +4,7 @@ import electricui from 'electricui-state/reducer'
 
 const rootReducer = combineReducers({
   electricui,
-  router
+  router,
 })
 
 export default rootReducer

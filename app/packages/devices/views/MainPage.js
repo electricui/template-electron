@@ -1,17 +1,7 @@
-import React, { PureComponent } from 'react'
-import { Link } from 'react-router-dom'
-
-import DeviceIDContextProvider from 'electricui-components/components/DeviceIDContextProvider'
-
 import { Container, Button as SemanticButton } from 'semantic-ui-react'
-/*
-type Props = {
-  match: {
-    params: {
-      deviceID: string,
-    },
-  },
-}*/
+import React, { PureComponent } from 'react'
+
+import { DeviceIDContextProvider } from '@electricui/components'
 
 class MainPage extends PureComponent {
   render() {

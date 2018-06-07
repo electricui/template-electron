@@ -9,15 +9,7 @@ import {
 } from 'electricui-state/device'
 
 import './pulsing.global.css'
-/*
-type Props = {
-  // since it's used in mapStateToProps
-  deviceID: string, // eslint-disable-line
-  transportKey: string,
-  connected: boolean,
-  latency: number
-}
-*/
+
 const iconReplacements = {
   serial: 'usb',
   websocket: 'wifi',

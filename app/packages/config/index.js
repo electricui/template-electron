@@ -1,49 +1,41 @@
 import {
-  MockDiscovery,
-  MockTransport,
-  DelayTransform,
-} from '@electricui/mock-device'
-
-import {
   BinaryProtocolDecoder,
   BinaryProtocolEncoder,
 } from '@electricui/protocol-binary'
-
 import {
-  SerialTransport,
+  DelayTransform,
+  MockDiscovery,
+  MockTransport,
+} from '@electricui/mock-device'
+import {
+  LargePacketDecoder,
+  LargePacketEncoder,
+} from '@electricui/protocol-large-transfers'
+import {
   SerialDiscovery,
+  SerialTransport,
 } from '@electricui/transport-node-serial'
-
-import {
-  WebSocketTransport,
-  WebSocketDiscovery,
-} from '@electricui/transport-node-websocket'
-
-import { NodeUSBDiscovery } from '@electricui/discovery-node-usb'
-
-import { DeveloperDiscovery } from '@electricui/discovery-developer'
-
 import {
   TypeTransform,
   defaultDecoderList,
   defaultEncoderList,
 } from '@electricui/protocol-type-transforms'
-
 import {
-  LargePacketEncoder,
-  LargePacketDecoder,
-} from '@electricui/protocol-large-transfers'
+  WebSocketDiscovery,
+  WebSocketTransport,
+} from '@electricui/transport-node-websocket'
+import { colorDecoder, colorEncoder } from './customtypes'
 
+import { DeveloperDiscovery } from '@electricui/discovery-developer'
+import DeviceManager from '@electricui/core-device-manager'
+import { PassThrough } from 'stream'
 // we have to do dependency injection with native dependencies
 import SerialPort from 'serialport'
 import WebSocket from 'isomorphic-ws'
-import usb from 'usb'
 
-import DeviceManager from '@electricui/core-device-manager'
+// import { NodeUSBDiscovery } from '@electricui/discovery-node-usb'
 
-import { PassThrough } from 'stream'
-
-import { colorEncoder, colorDecoder } from './customtypes'
+// import usb from 'usb'
 
 // have a type cache that's global
 const typeCache = {}
@@ -275,7 +267,7 @@ const discovery = [
     factory: wsFactory,
     configuration: wsConfiguration,
   }),
-  new NodeUSBDiscovery({ usb }),
+  //  new NodeUSBDiscovery({ usb }),
   new DeveloperDiscovery({
     transportKey: 'websocket',
     hints: [
@@ -323,4 +315,9 @@ const manager = new DeviceManager({
   discovery,
 })
 
-export { manager, transports, discovery }
+// yeah.
+global.electricui = {
+  manager,
+  transports,
+  discovery,
+}

@@ -1,12 +1,12 @@
-import React from 'react'
-import { render } from 'react-dom'
+import 'config'
+
 import { configureStore, history } from 'state'
 
 import { AppContainer } from 'react-hot-loader'
-
-import connectEvents from 'electricui-state/events'
-
+import React from 'react'
 import Root from './Root'
+import connectEvents from 'electricui-state/events'
+import { render } from 'react-dom'
 
 const store = configureStore()
 
@@ -16,7 +16,7 @@ render(
   <AppContainer>
     <Root store={store} history={history} />
   </AppContainer>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 
 if (module.hot) {
@@ -26,7 +26,7 @@ if (module.hot) {
       <AppContainer>
         <NextRoot store={store} history={history} />
       </AppContainer>,
-      document.getElementById('root')
+      document.getElementById('root'),
     )
   })
 }

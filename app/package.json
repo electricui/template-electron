@@ -4,18 +4,21 @@
   "version": "0.2.0",
   "description": "Electric UI Boilerplate Electron project",
   "main": "./main.prod.js",
-  "repository": "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
-  "author": "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
+  "repository":
+    "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
+  "author":
+    "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
   "scripts": {
-    "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
+    "electron-rebuild":
+      "node -r babel-register ../internals/scripts/ElectronRebuild.js",
     "postinstall": "npm run electron-rebuild"
   },
   "license": "None",
   "private": true,
   "dependencies": {
     "serialport": "^6.2.0",
+    "node-hid": "^0.7.2",
     "bufferutil": "^3.0.5",
-    "utf-8-validate": "^4.0.2",
-    "usb": "^1.3.1"
+    "utf-8-validate": "^4.0.2"
   }
 }

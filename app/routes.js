@@ -1,11 +1,11 @@
-import React from 'react'
+import { Route, Switch } from 'react-router'
 
-import { Switch, Route } from 'react-router'
-import Layout from 'layout/views/Layout'
 import ConnectionPage from 'connections/views/ConnectionPage'
-import MainPage from 'devices/views/MainPage'
-import Header from 'layout/components/Header'
 import Footer from 'layout/components/Footer'
+import Header from 'layout/components/Header'
+import Layout from 'layout/views/Layout'
+import MainPage from 'devices/views/MainPage'
+import React from 'react'
 
 export default () => (
   <div className="app">

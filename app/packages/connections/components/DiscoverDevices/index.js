@@ -6,15 +6,7 @@ import { connect } from 'react-redux'
 import { Button } from 'semantic-ui-react'
 
 import * as deviceActions from 'electricui-state/device'
-/*
-type Props = {
-  pollDiscovery: func,
-  children: element,
-  fluid: boolean,
-  compact: boolean,
-  color: string
-}
-*/
+
 class DiscoverDevices extends PureComponent {
   onClick = () => {
     const { pollDiscovery } = this.props

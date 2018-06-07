@@ -1,21 +1,14 @@
+import './app.global.css'
+
 import React, { Component } from 'react'
 
-import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
-
+import { Provider } from 'react-redux'
 import Routes from './routes'
-import './app.global.css'
 
 // const AsyncMode = React.unstable_AsyncMode
 
-type Props = {
-  store: {},
-  history: {}
-}
-
-export default class Root extends Component<Props> {
-  props: Props
-
+export default class Root extends Component {
   render() {
     return (
       <Provider store={this.props.store}>

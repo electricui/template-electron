@@ -27,6 +27,7 @@
     "no-console": "off",
     "semi": "off",
     "indent": "off",
+    "import/first": "off",
     "no-use-before-define": "off",
     "no-multi-assign": "off",
     "no-mixed-operators": "off",
