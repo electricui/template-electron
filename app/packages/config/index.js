@@ -151,7 +151,7 @@ const dummyFactory = options => {
 const serialConfiguration = {
   baudRate: 115200,
   filter: ({ manufacturer }) => {
-    if (manufacturer && manufacturer.includes('Arduino')) {
+    if (manufacturer) {
       return true
     }
     return false
