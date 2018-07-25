@@ -55,7 +55,7 @@
     "@electricui/protocol-constants": "^0.2.87",
     "@electricui/protocol-large-transfers": "^0.2.87",
     "@electricui/protocol-type-transforms": "^0.2.87",
-    "@electricui/transport-node-serial": "^0.2.87",
+    "@electricui/transport-node-serial": "^0.2.113",
     "@electricui/transport-node-websocket": "^0.2.87",
     "brain.js": "^1.1.2",
     "devtron": "^1.4.0",
