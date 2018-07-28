@@ -8,10 +8,10 @@ const colorEncoder = {
         Uint16Array.from([
           packet.payload.red,
           packet.payload.green,
-          packet.payload.blue
-        ]).buffer
-      )
-    })
+          packet.payload.blue,
+        ]).buffer,
+      ),
+    }),
 }
 
 const colorDecoder = {
@@ -21,18 +21,18 @@ const colorDecoder = {
       new Uint16Array(
         packet.payload.buffer,
         packet.payload.byteOffset,
-        packet.payload.byteLength / Uint16Array.BYTES_PER_ELEMENT
-      ).values()
+        packet.payload.byteLength / Uint16Array.BYTES_PER_ELEMENT,
+      ).values(),
     )
 
     return Object.assign({}, packet, {
       payload: {
         red: arr[0],
         green: arr[1],
-        blue: arr[2]
-      }
+        blue: arr[2],
+      },
     })
-  }
+  },
 }
 
 export default { colorEncoder, colorDecoder }
