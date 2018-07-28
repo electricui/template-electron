@@ -1,11 +1,10 @@
+import * as deviceActions from 'electricui-state/device'
+
 import React, { PureComponent } from 'react'
 
+import { Button } from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-import { Button } from 'semantic-ui-react'
-
-import * as deviceActions from 'electricui-state/device'
 
 class DiscoverDevices extends PureComponent {
   onClick = () => {
@@ -28,12 +27,11 @@ class DiscoverDevices extends PureComponent {
   }
 }
 
-function mapStateToProps() {
-  return {}
-}
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(deviceActions, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DiscoverDevices)
+export default connect(
+  null,
+  mapDispatchToProps,
+)(DiscoverDevices)
