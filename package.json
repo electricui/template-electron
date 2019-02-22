@@ -160,9 +160,6 @@
   "name": "electron-dev-environment",
   "private": true,
   "productName": "ElectricUI Electron Template",
-  "publishConfig": {
-    "registry": "http://127.0.0.1:7001"
-  },
   "repository": "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
   "resolutions": {
     "electron-rebuild/node-abi": "2.3.0"
