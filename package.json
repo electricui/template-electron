@@ -1,5 +1,5 @@
 {
-  "author": "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
+  "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "browserslist": "electron 2.0",
   "build": {
     "appId": "io.electricui.ElectricUIElectronTemplate",
@@ -156,11 +156,10 @@
     "npm": ">=5.x",
     "yarn": ">=1.x"
   },
-  "license": "See LICENCE",
+  "license": "SEE LICENCE IN LICENCE.MD",
   "name": "electron-dev-environment",
   "private": true,
   "productName": "ElectricUI Electron Template",
-  "repository": "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
   "resolutions": {
     "electron-rebuild/node-abi": "2.3.0"
   },

@@ -4,8 +4,7 @@
   "version": "0.2.0",
   "description": "Electric UI Boilerplate Electron project",
   "main": "./main.prod.js",
-  "repository": "https://Mike-Dax@github.com/Scottapotamas/electricui-interface.git",
-  "author": "Michael Orenstein <mike@whiteshadows.me>, Scott Rapson <scottapotamas@gmail.com>",
+  "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "scripts": {
     "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
     "postinstall": "npm run electron-rebuild"
