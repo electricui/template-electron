@@ -1,16 +1,14 @@
-'use strict'
-
-import { app, BrowserWindow, session } from 'electron'
+import { app, session, BrowserWindow } from 'electron'
 import { join as pathJoin } from 'path'
 import { format as formatUrl } from 'url'
-import setupElectricUIHandlers from './pkg'
 
+import setupElectricUIHandlers from './pkg'
 import installDevTools from './pkg/install-dev-tools'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // global reference to mainWindows (necessary to prevent window from being garbage collected)
-global.mainWindows = []
+let mainWindows: Array<BrowserWindow> = []
 
 function createMainWindow() {
   const window = new BrowserWindow({
@@ -38,7 +36,7 @@ function createMainWindow() {
   }
 
   window.on('closed', () => {
-    global.mainWindows = global.mainWindows.filter(win => win !== window) // remove the window from the list
+    mainWindows = mainWindows.filter(win => win !== window) // remove the window from the list
   })
 
   window.webContents.on('devtools-opened', () => {
@@ -63,14 +61,14 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   // on macOS it is common to re-create a window even after all windows have been closed
-  if (global.mainWindows.length === 0) {
-    global.mainWindows.push(createMainWindow()) // add a new window
+  if (mainWindows.length === 0) {
+    mainWindows.push(createMainWindow()) // add a new window
   }
 })
 
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
-  global.mainWindows.push(createMainWindow()) // add a new window
+  mainWindows.push(createMainWindow()) // add a new window
 
   // A secure policy to prevent running scripts external to this browser.
 
@@ -88,4 +86,4 @@ app.on('ready', () => {
   */
 })
 
-setupElectricUIHandlers(global.mainWindows)
+setupElectricUIHandlers(mainWindows)

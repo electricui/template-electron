@@ -1,9 +1,11 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
-import { format as formatUrl } from 'url'
+import { app, ipcMain, BrowserWindow, IpcMessageEvent, WebContents } from 'electron'
 import { join as pathJoin } from 'path'
+import { format as formatUrl } from 'url'
 
 // global reference to electricWindow (necessary to prevent window from being garbage collected)
-let electricWindow
+
+let electricWindow: BrowserWindow | null = null
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function createElectricWindow() {
@@ -52,17 +54,19 @@ function createElectricWindow() {
   return window
 }
 
-let transportIPCPath = null
+let transportIPCPath: string | null = null
 
-function sendTransportPath(mainWindows) {
-  for (const window of mainWindows) {
-    if (window) {
-      window.send('transport-ipc-path', transportIPCPath)
+function sendTransportPath(windowWebContents: Array<WebContents>) {
+  for (const webContents of windowWebContents) {
+    if (webContents) {
+      webContents.send('transport-ipc-path', transportIPCPath)
     }
   }
 }
 
-export default function setupElectricUIHandlers(mainWindows) {
+export default function setupElectricUIHandlers(
+  mainWindows: Array<BrowserWindow>,
+) {
   app.on('activate', () => {
     // on macOS it is common to re-create a window even after all windows have been closed
     if (electricWindow === null) {
@@ -75,33 +79,41 @@ export default function setupElectricUIHandlers(mainWindows) {
     electricWindow = createElectricWindow()
   })
 
-  let resolveHasIPCPath = null
+  let resolveHasIPCPath: (() => void) | null = null
 
   const hasIPCPath = new Promise((resolve, reject) => {
     resolveHasIPCPath = resolve
   })
 
   // set the transport IPC path
-  ipcMain.on('set-transport-ipc-path', (event, path) => {
-    transportIPCPath = path
+  ipcMain.on(
+    'set-transport-ipc-path',
+    (event: IpcMessageEvent, path: string) => {
+      transportIPCPath = path
 
-    // resolve the promise, all the windows that have been asking will receive it now
-    resolveHasIPCPath()
+      // resolve the promise, all the windows that have been asking will receive it now
+      if (resolveHasIPCPath != null) {
+        resolveHasIPCPath()
+      }
 
-    // send it to the main window
+      // send it to the main window
 
-    sendTransportPath(mainWindows)
-  })
+      sendTransportPath(mainWindows.map(window => window.webContents))
+    },
+  )
 
   // set the transport IPC path
-  ipcMain.on('get-transport-ipc-path', async (event, path) => {
-    await hasIPCPath
+  ipcMain.on(
+    'get-transport-ipc-path',
+    async (event: IpcMessageEvent, path: string) => {
+      await hasIPCPath
 
-    sendTransportPath([event.sender])
-  })
+      sendTransportPath([event.sender])
+    },
+  )
 
   // open the debug window on command
-  ipcMain.on('open-debug-window', (event, arg) => {
+  ipcMain.on('open-debug-window', () => {
     if (electricWindow) {
       electricWindow.show()
       electricWindow.webContents.openDevTools()
@@ -109,7 +121,7 @@ export default function setupElectricUIHandlers(mainWindows) {
   })
 
   // open the debug window dev tools on command
-  ipcMain.on('open-debug-window-dev-tools', (event, arg) => {
+  ipcMain.on('open-debug-window-dev-tools', () => {
     for (const window of mainWindows) {
       if (window) {
         window.webContents.openDevTools()
