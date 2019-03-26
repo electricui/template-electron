@@ -14,45 +14,8 @@ import {
 } from '@electricui/components-desktop-blueprint'
 import { navigate, RouteComponentProps } from '@reach/router'
 
-import DeviceIDTestComponent from './pkg/components/DeviceIDTestComponent'
-import XBoxController from './XBoxController'
-
 const FirstDevicePage = (props: RouteComponentProps) => (
   <div className="connection-page">
-    <DeviceIDTestComponent />
-    {/*
-    <IntervalRequester
-      variables={['plugged_in', 'bat_voltage', 'bat_percent', 'bat_state']}
-      interval={250}
-    />
-    plugged_in: <Printer accessor="plugged_in" />
-    <br />
-    bat_voltage: <Printer accessor="bat_voltage" />
-    <br />
-    bat_percent: <Printer accessor="bat_percent" />
-    <br />
-    bat_state: <Printer accessor="bat_state" />
-    <br />
-    <br />
-    <br />
-    <hr />
-    <br />
-    <br />
-    <Checkbox checked={{ plugged_in: 1 }} unchecked={{ plugged_in: 0 }}>
-      Plugged In?
-    </Checkbox>
-    <br />
-    <br />
-    <Slider min={10} max={15} stepSize={5} labelStepSize={3}>
-      <Slider.Handle accessor="bat_voltage" />
-    </Slider>
-    <br />
-    <br />
-    <Button writer={{ load_adj: -10 }}>Load to -10mV</Button>
-    <Button writer={{ load_adj: 0 }}>Load to 0mV</Button>
-    <Button writer={{ load_adj: 5 }}>Load to 5mV</Button>
-    <Button writer={{ load_adj: 10 }}>Load to 10mV</Button>
-     */}
     <IntervalRequester variables={['led_state', 'led_blink']} interval={200} />
     <p>If it's a real device:</p>
     led_state: <Printer accessor="led_state" />
