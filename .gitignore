@@ -69,6 +69,3 @@ dist
 
 # Release folder
 release
-
-# Internal bin files
-/*.bin
