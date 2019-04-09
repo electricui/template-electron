@@ -13,6 +13,9 @@ import { Link, Router, RouteComponentProps } from '@reach/router'
 import ConnectionPage from './ConnectionPage'
 import FirstDevicePage from './FirstDevicePage'
 
+import { TimeSeriesDataStore } from '@electricui/components-desktop-charts'
+import { sourceFactory, timeseriesFactories } from './charts'
+
 // const AsyncMode = React.unstable_AsyncMode
 
 interface RootProps {
@@ -45,12 +48,19 @@ export default class Root extends React.Component<RootProps> {
       <Provider store={store} context={ReactReduxContext}>
         <DeviceManagerProxy>
           <EventConnector />
-          <Router>
-            <ConnectionPage path="/" />
-            <WrapDeviceContextWithLocation path="devices/:deviceID/">
-              <FirstDevicePage path="/" />
-            </WrapDeviceContextWithLocation>
-          </Router>
+          <TimeSeriesDataStore
+            sourceFactory={sourceFactory}
+            timeseriesFactories={timeseriesFactories}
+            duration={30 * 1000}
+            maxItems={1000}
+          >
+            <Router>
+              <ConnectionPage path="/" />
+              <WrapDeviceContextWithLocation path="devices/:deviceID/">
+                <FirstDevicePage path="/" />
+              </WrapDeviceContextWithLocation>
+            </Router>
+          </TimeSeriesDataStore>
         </DeviceManagerProxy>
       </Provider>
     )

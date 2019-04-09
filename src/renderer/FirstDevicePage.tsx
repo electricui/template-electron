@@ -3,6 +3,7 @@ import React from 'react'
 import { Button as BlueprintButton } from '@blueprintjs/core'
 import { IntervalRequester } from '@electricui/components-core'
 import { Printer } from '@electricui/components-desktop'
+import { Chart } from '@electricui/components-desktop-charts'
 import {
   Button,
   Checkbox,
@@ -17,6 +18,16 @@ import { navigate, RouteComponentProps } from '@reach/router'
 const FirstDevicePage = (props: RouteComponentProps) => (
   <div className="connection-page">
     <IntervalRequester variables={['led_state', 'led_blink']} interval={200} />
+    <Chart
+      timeseriesKey="led_state"
+      duration={20000}
+      delay={1}
+      hideLegend={true}
+      yMin={0}
+      yMax={1}
+      height={250}
+      width={900}
+    />
     <p>If it's a real device:</p>
     led_state: <Printer accessor="led_state" />
     <br />

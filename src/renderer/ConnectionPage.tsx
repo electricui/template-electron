@@ -10,7 +10,15 @@ import { navigate, RouteComponentProps } from '@reach/router'
 const ConnectionPage = (props: RouteComponentProps) => (
   <React.Fragment>
     <div style={{ height: '100vh' }}>
-      <Connections onConnect={deviceID => navigate(`/devices/${deviceID}`)} />
+      <Connections
+        preConnect={deviceID => navigate(`/device_loading/${deviceID}`)}
+        postHandshake={deviceID =>
+          deviceID.includes('xbox')
+            ? navigate(`/xbox/${deviceID}`)
+            : navigate(`/devices/${deviceID}`)
+        }
+        onFailure={deviceID => navigate(`/`)}
+      />
     </div>
     <Button
       onClick={() => {
