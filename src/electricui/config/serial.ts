@@ -30,7 +30,7 @@ const typeCache = new TypeCache()
 
 const SerialPort = require('serialport')
 
-const USB = require('usb')
+const USB = require('@electricui/node-usb')
 
 const serialProducer = new SerialPortHintProducer({
   SerialPort,
