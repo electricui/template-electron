@@ -25,6 +25,7 @@ import {
   SerialTransport,
 } from '@electricui/transport-node-serial'
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
+import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-large-packet-handler'
 
 const typeCache = new TypeCache()
 
@@ -65,6 +66,11 @@ const serialTransportFactory = new TransportFactory(options => {
   const codecPipeline = new CodecDuplexPipeline()
   codecPipeline.addCodecs(defaultCodecList)
 
+  const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
+    connectionInterface,
+    maxPayloadLength: 10,
+  })
+
   const connectionStaticMetadata = new ConnectionStaticMetadataReporter({
     name: 'Serial',
     baudRate: options.baudRate,
@@ -82,6 +88,7 @@ const serialTransportFactory = new TransportFactory(options => {
   connectionInterface.setPipelines([
     cobsPipeline,
     binaryPipeline,
+    largePacketPipeline,
     codecPipeline,
     typeCachePipeline,
   ])
