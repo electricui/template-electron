@@ -90,9 +90,7 @@ const serialTransportFactory = new TransportFactory(options => {
     heartbeatMetadata,
   ])
 
-  connectionInterface.finalise()
-
-  return connectionInterface
+  return connectionInterface.finalise()
 })
 
 const serialConsumer = new DiscoveryHintConsumer({
