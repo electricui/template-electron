@@ -27,6 +27,8 @@ import {
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
 import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-large-packet-handler'
 
+import { LoadCodec } from './codecs'
+
 const typeCache = new TypeCache()
 
 const SerialPort = require('serialport')
@@ -65,6 +67,7 @@ const serialTransportFactory = new TransportFactory(options => {
 
   const codecPipeline = new CodecDuplexPipeline()
   codecPipeline.addCodecs(defaultCodecList)
+  codecPipeline.addCodecs([new LoadCodec()])
 
   const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
     connectionInterface,
