@@ -10,15 +10,17 @@ import DebugInterface from './DebugInterface'
 const root = document.createElement('div')
 document.body.appendChild(root)
 
+// TODO: Figure out why the webpack env isn't taking
+declare const module: any
+
 const server = setupProxyServer(deviceManager)
 
 console.log('Rendering Debug Interface')
 
 ReactDOM.render(<DebugInterface />, root)
 
-if ((module as any).hot) {
-  const mod = module as any // Fix weird prettier bug where it prepends a ;
-  mod.hot.accept('./DebugInterface', () => {
+if (module.hot) {
+  module.hot.accept('./DebugInterface', () => {
     const NextDebugInterface = require('./DebugInterface').default
     ReactDOM.render(<NextDebugInterface />, root)
   })

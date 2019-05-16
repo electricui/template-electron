@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 // import { createLogger } from 'redux-logger'
-import rootReducer from '../reducers'
+import rootReducer from '../reducers/index'
 
 const configureStore: () => Store = () => {
   // Redux Configuration
@@ -22,8 +22,8 @@ const configureStore: () => Store = () => {
 
   if (module.hot) {
     module.hot.accept(
-      '../reducers',
-      () => store.replaceReducer(require('../reducers')), // eslint-disable-line global-require
+      '../reducers/index',
+      () => store.replaceReducer(require('../reducers/index')), // eslint-disable-line global-require
     )
   }
 

@@ -4,6 +4,9 @@ import '@blueprintjs/core/lib/css/blueprint.css'
 import '@electricui/components-desktop-blueprint/lib/bundle.css'
 import './index.css'
 
+// TODO: Figure out why the webpack env isn't taking
+declare const module: any
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -21,10 +24,8 @@ function render(Component: any) {
 
 render(Root)
 
-const mod = module as any
-
-if (mod.hot) {
-  mod.hot.accept('./Root', () => {
+if (module.hot) {
+  module.hot.accept('./Root', () => {
     const NextRoot = require('./Root').default
     render(NextRoot)
   })
