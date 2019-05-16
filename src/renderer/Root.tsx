@@ -5,7 +5,6 @@ import { Store } from 'redux'
 import {
   DeviceIDContextProvider,
   DeviceManagerProxy,
-  EventConnector,
 } from '@electricui/components-core'
 import { ReactReduxContext } from '@electricui/core-redux-state'
 import { Link, Router, RouteComponentProps } from '@reach/router'
@@ -47,7 +46,6 @@ export default class Root extends React.Component<RootProps> {
     return (
       <Provider store={store} context={ReactReduxContext}>
         <DeviceManagerProxy>
-          <EventConnector />
           <TimeSeriesDataStore
             sourceFactory={sourceFactory}
             timeseriesFactories={timeseriesFactories}
