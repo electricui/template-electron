@@ -7,15 +7,13 @@ import {
   DeviceManagerProxy,
 } from '@electricui/components-core'
 import { ReactReduxContext } from '@electricui/core-redux-state'
-import { Link, Router, RouteComponentProps } from '@reach/router'
+import { Router, RouteComponentProps, navigate } from '@reach/router'
 
 import ConnectionPage from './ConnectionPage'
 import FirstDevicePage from './FirstDevicePage'
 
 import { TimeSeriesDataStore } from '@electricui/components-desktop-charts'
 import { sourceFactory, timeseriesFactories } from './charts'
-
-// const AsyncMode = React.unstable_AsyncMode
 
 interface RootProps {
   store: Store
@@ -24,12 +22,45 @@ interface RootProps {
 interface InjectDeviceIDFromLocation {
   deviceID?: string
 }
+interface PotentialErrorState {
+  hasError: boolean
+}
 
 class WrapDeviceContextWithLocation extends React.Component<
-  RouteComponentProps & InjectDeviceIDFromLocation
+  RouteComponentProps & InjectDeviceIDFromLocation,
+  PotentialErrorState
 > {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true }
+  }
+
+  componentDidCatch(error, info) {
+    console.log('Caught error', error, info)
+  }
+
   render() {
     const { children, deviceID } = this.props
+
+    if (this.state.hasError) {
+      return (
+        <div>
+          Something went wrong, go back?
+          <Button
+            onClick={() => {
+              navigate('/')
+            }}
+          >
+            Back
+          </Button>
+        </div>
+      )
+    }
 
     return (
       <DeviceIDContextProvider deviceID={deviceID!}>

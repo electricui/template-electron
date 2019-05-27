@@ -69,3 +69,6 @@ dist
 
 # Release folder
 release
+
+# For now, ignore bin files
+/*.bin

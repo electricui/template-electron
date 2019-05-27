@@ -18,5 +18,5 @@
       "*": ["*", "packages/*"]
     }
   },
-  "include": ["src/**/*.ts", "typings/*.d.ts"]
+  "include": ["src/**/*.tsx", "typings/*.d.ts"]
 }
