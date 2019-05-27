@@ -1,7 +1,10 @@
 import React from 'react'
 
-import { Button as BlueprintButton } from '@blueprintjs/core'
-import { IntervalRequester } from '@electricui/components-core'
+import { Button as BlueprintButton, Intent } from '@blueprintjs/core'
+import {
+  IntervalRequester,
+  DisconnectionModal,
+} from '@electricui/components-core'
 import { Printer } from '@electricui/components-desktop'
 import { Chart } from '@electricui/components-desktop-charts'
 import {
@@ -16,7 +19,17 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router'
 
 const FirstDevicePage = (props: RouteComponentProps) => (
-  <div className="connection-page">
+  <React.Fragment>
+    <DisconnectionModal
+      intent={Intent.WARNING}
+      icon="satellite"
+      navigateToConnectionsScreen={() => navigate('/')}
+    >
+      <p>
+        Connection has been lost with your device. If we successfully reconnect
+        this dialog will be dismissed.
+      </p>
+    </DisconnectionModal>
     <IntervalRequester variables={['led_state', 'led_blink']} interval={200} />
     <Chart
       timeseriesKey="led_state"
@@ -72,7 +85,7 @@ const FirstDevicePage = (props: RouteComponentProps) => (
     >
       Back
     </BlueprintButton>
-  </div>
+  </React.Fragment>
 )
 
 export default FirstDevicePage
