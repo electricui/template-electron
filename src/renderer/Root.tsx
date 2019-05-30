@@ -8,6 +8,7 @@ import {
 } from '@electricui/components-core'
 import { ReactReduxContext } from '@electricui/core-redux-state'
 import { Router, RouteComponentProps, navigate } from '@reach/router'
+import { Button } from '@blueprintjs/core'
 
 import ConnectionPage from './ConnectionPage'
 import FirstDevicePage from './FirstDevicePage'

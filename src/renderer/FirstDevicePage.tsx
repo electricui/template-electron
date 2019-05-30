@@ -1,10 +1,7 @@
 import React from 'react'
 
 import { Button as BlueprintButton, Intent } from '@blueprintjs/core'
-import {
-  IntervalRequester,
-  DisconnectionModal,
-} from '@electricui/components-core'
+import { IntervalRequester } from '@electricui/components-core'
 import { Printer } from '@electricui/components-desktop'
 import { Chart } from '@electricui/components-desktop-charts'
 import {
@@ -14,6 +11,7 @@ import {
   RadioGroup,
   Slider,
   Switch,
+  DisconnectionModal,
   TextInput,
 } from '@electricui/components-desktop-blueprint'
 import { navigate, RouteComponentProps } from '@reach/router'
