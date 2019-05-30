@@ -39,7 +39,6 @@ const FirstDevicePage = (props: RouteComponentProps) => (
       height={250}
       width={900}
     />
-    <p>If it's a real device:</p>
     led_state: <Printer accessor="led_state" />
     <br />
     led_blink: <Printer accessor="led_blink" />
