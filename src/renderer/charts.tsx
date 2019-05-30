@@ -2,7 +2,6 @@ import { DeviceID } from '@electricui/core'
 
 import {
   TimeSeriesFactory,
-  DataStoreEventSelector,
   DataSource,
 } from '@electricui/components-desktop-charts'
 
@@ -11,13 +10,9 @@ import {
  */
 export function sourceFactory(device: DeviceID): DataSource[] {
   return [
-    new DataSource(
-      'led_state',
-      new DataStoreEventSelector({
-        filter: message => message.messageID === 'led_state',
-        processor: message => message.payload,
-      }),
-    ),
+    new DataSource({
+      name: 'led_state',
+    }),
   ]
 }
 
