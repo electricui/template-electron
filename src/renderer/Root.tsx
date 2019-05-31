@@ -13,7 +13,7 @@ import { Button } from '@blueprintjs/core'
 import ConnectionPage from './ConnectionPage'
 import FirstDevicePage from './FirstDevicePage'
 
-import { TimeSeriesDataStore } from '@electricui/components-desktop-charts'
+import { TimeSeriesDataStore } from '@electricui/core-timeseries'
 import { sourceFactory, timeseriesFactories } from './charts'
 
 interface RootProps {
