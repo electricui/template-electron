@@ -11,6 +11,7 @@ import { Router, RouteComponentProps, navigate } from '@reach/router'
 import { Button } from '@blueprintjs/core'
 
 import ConnectionPage from './ConnectionPage'
+import DeviceLoadingPage from './DeviceLoadingPage'
 import FirstDevicePage from './FirstDevicePage'
 
 import { TimeSeriesDataStore } from '@electricui/core-timeseries'
@@ -86,6 +87,9 @@ export default class Root extends React.Component<RootProps> {
           >
             <Router>
               <ConnectionPage path="/" />
+              <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
+                <DeviceLoadingPage path="/" />
+              </WrapDeviceContextWithLocation>
               <WrapDeviceContextWithLocation path="devices/:deviceID/">
                 <FirstDevicePage path="/" />
               </WrapDeviceContextWithLocation>
