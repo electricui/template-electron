@@ -1,4 +1,10 @@
-import { app, ipcMain, BrowserWindow, IpcMessageEvent, WebContents } from 'electron'
+import {
+  app,
+  ipcMain,
+  BrowserWindow,
+  IpcMessageEvent,
+  WebContents,
+} from 'electron'
 import { join as pathJoin } from 'path'
 import { format as formatUrl } from 'url'
 
@@ -11,6 +17,8 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 function createElectricWindow() {
   const window = new BrowserWindow({
     show: false,
+    width: 1500,
+    height: 800,
 
     webPreferences: {
       nodeIntegration: true,
@@ -116,7 +124,9 @@ export default function setupElectricUIHandlers(
   ipcMain.on('open-debug-window', () => {
     if (electricWindow) {
       electricWindow.show()
-      electricWindow.webContents.openDevTools()
+      electricWindow.webContents.openDevTools({
+        mode: 'undocked',
+      })
     }
   })
 
@@ -124,7 +134,9 @@ export default function setupElectricUIHandlers(
   ipcMain.on('open-debug-window-dev-tools', () => {
     for (const window of mainWindows) {
       if (window) {
-        window.webContents.openDevTools()
+        window.webContents.openDevTools({
+          mode: 'undocked',
+        })
       }
     }
   })
