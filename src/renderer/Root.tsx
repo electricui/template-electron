@@ -15,7 +15,7 @@ import DeviceLoadingPage from './DeviceLoadingPage'
 import FirstDevicePage from './FirstDevicePage'
 
 import { TimeSeriesDataStore } from '@electricui/core-timeseries'
-import { sourceFactory, timeseriesFactories } from './charts'
+import { sourceFactory, timeseriesFactories } from './timeseries'
 
 interface RootProps {
   store: Store
