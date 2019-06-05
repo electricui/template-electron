@@ -1,3 +1,5 @@
+require('@electricui/helpers')
+
 import { ipcRenderer } from 'electron'
 import React from 'react'
 import ReactDOM from 'react-dom'
