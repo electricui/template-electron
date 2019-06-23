@@ -28,6 +28,7 @@
     "@electricui/transport-node-serial": "^0.6.1-prerelease.4",
     "@electricui/transport-node-usb-discovery": "^0.6.1-prerelease.4",
     "@electricui/transport-node-websocket": "^0.6.1-prerelease.4",
+    "@electricui/utility-electron": "^0.6.1-prerelease.7",
     "@electricui/utility-ipc": "^0.6.1-prerelease.7",
     "@reach/router": "^1.2.1",
     "@types/resolve": "^0.0.8",

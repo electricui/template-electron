@@ -1,9 +1,11 @@
-import { app, session, BrowserWindow } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import { join as pathJoin } from 'path'
 import { format as formatUrl } from 'url'
 
-import setupElectricUIHandlers from './pkg'
-import installDevTools from './pkg/install-dev-tools'
+import {
+  installDevTools,
+  setupElectricUIHandlers,
+} from '@electricui/utility-electron'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
