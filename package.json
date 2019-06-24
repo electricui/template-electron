@@ -104,7 +104,6 @@
   "name": "user-configurable-name",
   "private": true,
   "resolutions": {
-    "node-abi": "2.7.1",
     "upath": "^1.1.0"
   },
   "version": "0.0.0"
