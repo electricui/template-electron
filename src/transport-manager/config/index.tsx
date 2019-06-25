@@ -7,12 +7,29 @@ import {
   Hint,
   MessageRouterLogRatioMetadata,
 } from '@electricui/core'
+
 import { HintValidatorBinaryHandshake } from '@electricui/protocol-binary'
 import { BinaryConnectionHandshake } from '@electricui/protocol-binary-connection-handshake'
 import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
+import { HIDHintProducer } from '@electricui/transport-node-hid'
 
-import { ProcessName, RequestName } from './metadata'
-import { serialConsumer, serialProducer, usbProducer, usbToSerialTransformer } from './serial'
+import {
+  ProcessBatteryPercentage,
+  ProcessName,
+  ProcessWS,
+  RequestName,
+  RequestWS,
+} from './metadata'
+
+import {
+  serialConsumer,
+  serialProducer,
+  usbProducer,
+  usbToSerialTransformer,
+} from './serial'
+import { websocketConsumer } from './websocket'
+
+//import { bleConsumer, bleProducer } from './ble'
 
 const deviceManager = new DeviceManager()
 
@@ -37,10 +54,27 @@ function hintValidators(hint: Hint, connection: Connection) {
     return [validator]
   }
 
+  // Wifi
+  if (hint.getTransportKey() === 'websockets') {
+    const validator = new HintValidatorBinaryHandshake(hint, connection, 5000) // 5 second timeout
+
+    return [validator]
+  }
+
+  // BLE
+  if (hint.getTransportKey() === 'ble') {
+    const validator = new HintValidatorBinaryHandshake(hint, connection, 10000) // 10 second timeout
+
+    return [validator]
+  }
+
   return []
 }
 
 function createHandshakes(device: Device) {
+  const metadata = device.getMetadata()
+
+  // Otherwise its an eUI device, do the binary handshakes
   const connectionHandshakeReadWrite = new BinaryConnectionHandshake({
     device: device,
     preset: 'default',
@@ -51,13 +85,20 @@ function createHandshakes(device: Device) {
 
 const requestName = new RequestName()
 const processName = new ProcessName()
+const requestWS = new RequestWS()
+const processWS = new ProcessWS()
+const processBatteryPercentage = new ProcessBatteryPercentage()
 
 deviceManager.setCreateHintValidatorsCallback(hintValidators)
 deviceManager.addHintProducers([serialProducer, usbProducer])
-deviceManager.addHintConsumers([serialConsumer])
+deviceManager.addHintConsumers([serialConsumer, websocketConsumer])
 deviceManager.addHintTransformers([usbToSerialTransformer])
-deviceManager.addDeviceMetadataRequesters([requestName])
-deviceManager.addDiscoveryMetadataProcessors([processName])
+deviceManager.addDeviceMetadataRequesters([requestName, requestWS])
+deviceManager.addDiscoveryMetadataProcessors([
+  processName,
+  processWS,
+  processBatteryPercentage,
+])
 deviceManager.setCreateRouterCallback(createRouter)
 deviceManager.setCreateQueueCallback(createQueue)
 deviceManager.setCreateHandshakesCallback(createHandshakes)
@@ -71,8 +112,17 @@ deviceManager.addConnectionMetadataRatios([
 deviceManager.addConnectionMetadataRules([
   new ConnectionMetadataRule(['latency'], ({ latency }) => latency < 400),
   new ConnectionMetadataRule(
-    ['packetLoss'],
-    ({ packetLoss }) => packetLoss <= 0.2,
+    ['packetLoss', 'consecutiveHeartbeats'],
+    ({ packetLoss, consecutiveHeartbeats }) => {
+      // If there are more than three consecutive heartbeats, then for
+      // packet loss reasons, the connection is acceptable
+      if (consecutiveHeartbeats > 3) {
+        return true
+      }
+
+      // Otherwise we require less than 20% packet loss
+      return packetLoss <= 0.2
+    },
   ),
 ])
 

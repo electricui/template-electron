@@ -12,10 +12,11 @@ declare const module: any
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { configureStore } from './packages/state'
+import { configureStore } from './state'
 import Root from './Root'
 
 let root = document.createElement('div')
+root.className = 'root'
 document.body.appendChild(root)
 
 const store = configureStore()

@@ -17,3 +17,8 @@ a[href^="ftp://"] {
   user-select: none;
   cursor: default;
 }
+
+body {
+  background: #f5f8fa;
+  color: #182026;
+}

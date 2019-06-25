@@ -1,12 +1,9 @@
 import {
-  Codec,
   CodecDuplexPipeline,
   ConnectionInterface,
   ConnectionStaticMetadataReporter,
   DiscoveryHintConsumer,
   Hint,
-  Message,
-  PushCallback,
   TransportFactory,
   TypeCache,
 } from '@electricui/core'
@@ -19,38 +16,19 @@ import {
 import { COBSPipeline } from '@electricui/protocol-binary-cobs'
 import { defaultCodecList } from '@electricui/protocol-binary-codecs'
 import { HeartbeatConnectionMetadataReporter } from '@electricui/protocol-binary-heartbeats'
-import {
-  SerialPortHintProducer,
-  SerialPortHintTransformer,
-  SerialTransport,
-} from '@electricui/transport-node-serial'
-import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
-import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-large-packet-handler'
+import { WebSocketTransport } from '@electricui/transport-node-websocket'
 
 import { RGBCodec } from './codecs'
 import { TemperatureArrayCodec } from './codecs'
 
 const typeCache = new TypeCache()
 
-const SerialPort = require('serialport')
-
-const USB = require('@electricui/node-usb')
-
-const serialProducer = new SerialPortHintProducer({
-  SerialPort,
-  baudRate: 115200,
-})
-
-const usbProducer = new USBHintProducer({
-  USB,
-  attachmentDelay: 500,
-})
-
-// Serial Ports
-const serialTransportFactory = new TransportFactory(options => {
+// Websocket
+const WebSocket = require('ws')
+const websocketTransportFactory = new TransportFactory(options => {
   const connectionInterface = new ConnectionInterface()
 
-  const transport = new SerialTransport(options)
+  const transport = new WebSocketTransport(options)
 
   const deliverabilityManager = new DeliverabilityManagerBinaryProtocol({
     connectionInterface,
@@ -78,20 +56,18 @@ const serialTransportFactory = new TransportFactory(options => {
 
   codecPipeline.addCodecs(defaultCodecList)
 
-  const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
-    connectionInterface,
-    maxPayloadLength: 10,
-  })
+  // Pass the array of custom codecs to the pipeline
+  codecPipeline.addCodecs([rgbCodec, temperatureCodec])
 
   const connectionStaticMetadata = new ConnectionStaticMetadataReporter({
-    name: 'Serial',
-    baudRate: options.baudRate,
+    name: 'Websocket',
+    uri: options.uri,
   })
 
   const heartbeatMetadata = new HeartbeatConnectionMetadataReporter({
-    interval: 500,
-    timeout: 1000,
-    // measurePipeline: true,
+    interval: 2000,
+    timeout: 5000,
+    measurePipeline: true,
   })
 
   connectionInterface.setTransport(transport)
@@ -100,7 +76,6 @@ const serialTransportFactory = new TransportFactory(options => {
   connectionInterface.setPipelines([
     cobsPipeline,
     binaryPipeline,
-    largePacketPipeline,
     codecPipeline,
     typeCachePipeline,
   ])
@@ -112,41 +87,19 @@ const serialTransportFactory = new TransportFactory(options => {
   return connectionInterface.finalise()
 })
 
-const serialConsumer = new DiscoveryHintConsumer({
-  factory: serialTransportFactory,
+const websocketConsumer = new DiscoveryHintConsumer({
+  factory: websocketTransportFactory,
   canConsume: (hint: Hint) => {
-    if (hint.getTransportKey() === 'serial') {
-      const identification = hint.getIdentification()
-
-      // TODO: Write docs to explain that this is a good spot to
-      // define which serial ports you want to attempt connection with
-
-      return true
-
-      /*
-      return (
-        identification.manufacturer && (
-          identification.manufacturer.includes('Arduino') ||
-          identification.manufacturer.includes('Silicon'))
-      )
-      */
-    }
-    return false
+    return hint.getTransportKey() === 'websockets'
   },
   configure: (hint: Hint) => {
-    const identification = hint.getIdentification()
     const configuration = hint.getConfiguration()
 
     return {
-      SerialPort,
-      comPath: identification.comPath,
-      baudRate: configuration.baudRate,
+      WebSocket,
+      uri: configuration.uri,
     }
   },
 })
 
-const usbToSerialTransformer = new SerialPortHintTransformer({
-  producer: serialProducer,
-})
-
-export { serialConsumer, serialProducer, usbProducer, usbToSerialTransformer }
+export { websocketConsumer }

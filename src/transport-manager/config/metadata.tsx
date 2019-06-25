@@ -30,6 +30,7 @@ class RequestWS extends DiscoveryMetadataRequester {
     const wsPathRequest = new Message('ws', null)
     wsPathRequest.metadata.query = true
     wsPathRequest.metadata.internal = false
+    wsPathRequest.metadata.ackNum = 0
 
     return device.write(wsPathRequest)
   }
@@ -43,7 +44,16 @@ class ProcessWS extends DiscoveryMetadataProcessor {
     }
 
     // if it's a ws packet, process it
-    return message.messageID === 'ws'
+    if (message.messageID !== 'ws') {
+      return false
+    }
+
+    // if it's a blank payload, don't process it
+    if (message.payload === '') {
+      return false
+    }
+
+    return true
   }
 
   processMetadata(message: Message, device: Device, foundHint: FoundHint) {
@@ -71,8 +81,16 @@ class RequestName extends DiscoveryMetadataRequester {
     const nameRequest = new Message('name', null)
     nameRequest.metadata.query = true
     nameRequest.metadata.internal = false
+    nameRequest.metadata.ackNum = 0
 
-    return device.write(nameRequest)
+    return device
+      .write(nameRequest)
+      .then(res => {
+        console.log('requested name, response:', res)
+      })
+      .catch(err => {
+        console.log('Couldnt request name err:', err)
+      })
   }
 }
 

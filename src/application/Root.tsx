@@ -2,74 +2,27 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 
-import {
-  DeviceIDContextProvider,
-  DeviceManagerProxy,
-} from '@electricui/components-core'
+import { DeviceManagerProxy } from '@electricui/components-core'
 import { ReactReduxContext } from '@electricui/core-redux-state'
-import { Router, RouteComponentProps, navigate } from '@reach/router'
-import { Button } from '@blueprintjs/core'
+import {
+  DeviceManagerStatusModal,
+  DarkModeWrapper,
+} from '@electricui/components-desktop-blueprint'
+import { DarkModeProvider } from '@electricui/components-desktop'
 
-import ConnectionPage from './ConnectionPage'
-import DeviceLoadingPage from './DeviceLoadingPage'
-import FirstDevicePage from './FirstDevicePage'
+import { Router } from '@reach/router'
 
+import ConnectionPage from './pages/ConnectionPage'
+import DevicePages from './pages/DevicePages'
+import DeviceLoadingPage from './pages/DeviceLoadingPage'
 import { TimeSeriesDataStore } from '@electricui/core-timeseries'
-import { sourceFactory, timeseriesFactories } from './timeseries'
+import { sourceFactory, timeseriesFactories } from './datasources'
+
+import WrapDeviceContextWithLocation from './pages/WrapDeviceContextWithLocation'
+import { UnitProvider, reviver } from '@electricui/core-quantities'
 
 interface RootProps {
   store: Store
-}
-
-interface InjectDeviceIDFromLocation {
-  deviceID?: string
-}
-interface PotentialErrorState {
-  hasError: boolean
-}
-
-class WrapDeviceContextWithLocation extends React.Component<
-  RouteComponentProps & InjectDeviceIDFromLocation,
-  PotentialErrorState
-> {
-  constructor(props) {
-    super(props)
-    this.state = { hasError: false }
-  }
-
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true }
-  }
-
-  componentDidCatch(error, info) {
-    console.log('Caught error', error, info)
-  }
-
-  render() {
-    const { children, deviceID } = this.props
-
-    if (this.state.hasError) {
-      return (
-        <div>
-          Something went wrong, go back?
-          <Button
-            onClick={() => {
-              navigate('/')
-            }}
-          >
-            Back
-          </Button>
-        </div>
-      )
-    }
-
-    return (
-      <DeviceIDContextProvider deviceID={deviceID!}>
-        {children}
-      </DeviceIDContextProvider>
-    )
-  }
 }
 
 export default class Root extends React.Component<RootProps> {
@@ -78,22 +31,32 @@ export default class Root extends React.Component<RootProps> {
 
     return (
       <Provider store={store} context={ReactReduxContext}>
-        <DeviceManagerProxy>
+        <DeviceManagerProxy reviver={reviver}>
           <TimeSeriesDataStore
             sourceFactory={sourceFactory}
             timeseriesFactories={timeseriesFactories}
             duration={30 * 1000}
-            maxItems={1000}
+            maxItems={10000}
           >
-            <Router>
-              <ConnectionPage path="/" />
-              <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
-                <DeviceLoadingPage path="/" />
-              </WrapDeviceContextWithLocation>
-              <WrapDeviceContextWithLocation path="devices/:deviceID/">
-                <FirstDevicePage path="/" />
-              </WrapDeviceContextWithLocation>
-            </Router>
+            <UnitProvider
+              defaults={{
+                temperature: 'tempC',
+              }}
+            >
+              <DarkModeProvider>
+                <DarkModeWrapper>
+                  <Router>
+                    <ConnectionPage path="/" />
+                    <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
+                      <DeviceLoadingPage path="/" />
+                    </WrapDeviceContextWithLocation>
+                    <WrapDeviceContextWithLocation path="devices/:deviceID/">
+                      <DevicePages path="*" />
+                    </WrapDeviceContextWithLocation>
+                  </Router>
+                </DarkModeWrapper>
+              </DarkModeProvider>
+            </UnitProvider>
           </TimeSeriesDataStore>
         </DeviceManagerProxy>
       </Provider>

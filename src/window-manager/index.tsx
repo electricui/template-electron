@@ -17,11 +17,16 @@ function createMainWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    minHeight: 680,
+    minWidth: 1200,
+    height: 680,
+    width: 1200,
+    title: 'Electric UI',
   })
 
-  //if (isDevelopment) {
-  window.webContents.openDevTools()
-  //}
+  if (isDevelopment) {
+    window.webContents.openDevTools()
+  }
 
   if (isDevelopment) {
     window.loadURL(

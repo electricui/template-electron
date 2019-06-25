@@ -7,7 +7,8 @@ import ReactDOM from 'react-dom'
 import { setupProxyServer } from '@electricui/components-core'
 
 import deviceManager from './config'
-import DebugInterface from './DebugInterface'
+
+import Debug from './pages/Debug'
 
 const root = document.createElement('div')
 document.body.appendChild(root)
@@ -17,17 +18,13 @@ declare const module: any
 
 const server = setupProxyServer(deviceManager)
 
-console.log('Rendering Debug Interface')
-
-ReactDOM.render(<DebugInterface />, root)
+ReactDOM.render(<Debug />, root)
 
 if (module.hot) {
-  module.hot.accept('./DebugInterface', () => {
-    const NextDebugInterface = require('./DebugInterface').default
-    ReactDOM.render(<NextDebugInterface />, root)
+  module.hot.accept('./pages/Debug', () => {
+    const NextDebug = require('./pages/Debug').default
+    ReactDOM.render(<NextDebug />, root)
   })
 }
-
-console.log('rendered the debug interface')
 
 ipcRenderer.send('open-debug-window-dev-tools')
