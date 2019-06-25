@@ -77,7 +77,7 @@ const serialTransportFactory = new TransportFactory(options => {
 
   const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
     connectionInterface,
-    maxPayloadLength: 10,
+    maxPayloadLength: 100,
   })
 
   const connectionStaticMetadata = new ConnectionStaticMetadataReporter({
