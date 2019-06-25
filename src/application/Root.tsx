@@ -19,7 +19,6 @@ import { TimeSeriesDataStore } from '@electricui/core-timeseries'
 import { sourceFactory, timeseriesFactories } from './datasources'
 
 import WrapDeviceContextWithLocation from './pages/WrapDeviceContextWithLocation'
-import { UnitProvider, reviver } from '@electricui/core-quantities'
 
 interface RootProps {
   store: Store
@@ -31,32 +30,26 @@ export default class Root extends React.Component<RootProps> {
 
     return (
       <Provider store={store} context={ReactReduxContext}>
-        <DeviceManagerProxy reviver={reviver}>
+        <DeviceManagerProxy>
           <TimeSeriesDataStore
             sourceFactory={sourceFactory}
             timeseriesFactories={timeseriesFactories}
             duration={30 * 1000}
             maxItems={10000}
           >
-            <UnitProvider
-              defaults={{
-                temperature: 'tempC',
-              }}
-            >
-              <DarkModeProvider>
-                <DarkModeWrapper>
-                  <Router>
-                    <ConnectionPage path="/" />
-                    <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
-                      <DeviceLoadingPage path="/" />
-                    </WrapDeviceContextWithLocation>
-                    <WrapDeviceContextWithLocation path="devices/:deviceID/">
-                      <DevicePages path="*" />
-                    </WrapDeviceContextWithLocation>
-                  </Router>
-                </DarkModeWrapper>
-              </DarkModeProvider>
-            </UnitProvider>
+            <DarkModeProvider>
+              <DarkModeWrapper>
+                <Router>
+                  <ConnectionPage path="/" />
+                  <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
+                    <DeviceLoadingPage path="/" />
+                  </WrapDeviceContextWithLocation>
+                  <WrapDeviceContextWithLocation path="devices/:deviceID/">
+                    <DevicePages path="*" />
+                  </WrapDeviceContextWithLocation>
+                </Router>
+              </DarkModeWrapper>
+            </DarkModeProvider>
           </TimeSeriesDataStore>
         </DeviceManagerProxy>
       </Provider>

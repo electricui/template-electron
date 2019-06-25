@@ -10,7 +10,6 @@
     "@electricui/components-desktop-blueprint": "^0.6.1-prerelease.7",
     "@electricui/components-desktop-charts": "^0.6.1-prerelease.7",
     "@electricui/core": "^0.6.1-prerelease.4",
-    "@electricui/core-quantities": "^0.6.1-prerelease.8",
     "@electricui/core-redux-state": "^0.6.1-prerelease.4",
     "@electricui/core-timeseries": "^0.6.1-prerelease.7",
     "@electricui/device-xbox-one-controller": "^0.6.1-prerelease.4",

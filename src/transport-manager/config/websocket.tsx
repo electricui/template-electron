@@ -19,7 +19,6 @@ import { HeartbeatConnectionMetadataReporter } from '@electricui/protocol-binary
 import { WebSocketTransport } from '@electricui/transport-node-websocket'
 
 import { RGBCodec } from './codecs'
-import { TemperatureArrayCodec } from './codecs'
 
 const typeCache = new TypeCache()
 
@@ -47,17 +46,12 @@ const websocketTransportFactory = new TransportFactory(options => {
   const codecPipeline = new CodecDuplexPipeline()
 
   // Create instances of the custom codecs
-  const rgbCodec = new RGBCodec() // RGBCodec takes a messageID
-  // Create instances of the custom codecs
-  const temperatureCodec = new TemperatureArrayCodec('temps', 6) // temperatureCodec takes a messageID
+  const rgbCodec = new RGBCodec()
 
   // Pass the array of custom codecs to the pipeline
-  codecPipeline.addCodecs([rgbCodec, temperatureCodec])
+  codecPipeline.addCodecs([rgbCodec])
 
   codecPipeline.addCodecs(defaultCodecList)
-
-  // Pass the array of custom codecs to the pipeline
-  codecPipeline.addCodecs([rgbCodec, temperatureCodec])
 
   const connectionStaticMetadata = new ConnectionStaticMetadataReporter({
     name: 'Websocket',

@@ -11,7 +11,6 @@ import {
 import { HintValidatorBinaryHandshake } from '@electricui/protocol-binary'
 import { BinaryConnectionHandshake } from '@electricui/protocol-binary-connection-handshake'
 import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
-import { HIDHintProducer } from '@electricui/transport-node-hid'
 
 import {
   ProcessBatteryPercentage,
