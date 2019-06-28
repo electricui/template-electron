@@ -24,11 +24,9 @@ function createMainWindow() {
     title: 'Electric UI',
   })
 
-  console.log('create main window called, ui should be displayed')
-
-  //if (isDevelopment) {
-  window.webContents.openDevTools()
-  //}
+  if (isDevelopment) {
+    window.webContents.openDevTools()
+  }
 
   if (isDevelopment) {
     window.loadURL(
@@ -107,6 +105,5 @@ app.on('ready', () => {
   })
   */
 })
-console.log('booted ui probably, booting eui handlers now')
+
 setupElectricUIHandlers(mainWindows)
-console.log('main ran')
