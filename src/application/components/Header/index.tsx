@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar, Button, Alignment } from '@blueprintjs/core'
-import { navigate, RouteComponentProps } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
+import { navigate } from '@electricui/utility-electron'
 import {
   IntervalRequester,
   useHardwareState,

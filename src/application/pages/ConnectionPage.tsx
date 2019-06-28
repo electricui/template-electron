@@ -3,7 +3,8 @@ import React from 'react'
 
 import { Button } from '@blueprintjs/core'
 import { Connections } from '@electricui/components-desktop-blueprint'
-import { navigate, RouteComponentProps } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
+import { navigate } from '@electricui/utility-electron'
 
 import Logo from '../components/Logo'
 

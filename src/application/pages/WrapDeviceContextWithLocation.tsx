@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@blueprintjs/core'
-import { RouteComponentProps, navigate } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
+import { navigate } from '@electricui/utility-electron'
 
 import { DeviceIDContextProvider } from '@electricui/components-core'
 

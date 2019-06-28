@@ -10,7 +10,8 @@ import {
 } from '@electricui/components-desktop-blueprint'
 import { DarkModeProvider } from '@electricui/components-desktop'
 
-import { Router } from '@reach/router'
+import { LocationProvider, Router } from '@reach/router'
+import { history } from '@electricui/utility-electron'
 
 import ConnectionPage from './pages/ConnectionPage'
 import DevicePages from './pages/DevicePages'
@@ -39,15 +40,17 @@ export default class Root extends React.Component<RootProps> {
           >
             <DarkModeProvider>
               <DarkModeWrapper>
-                <Router>
-                  <ConnectionPage path="/" />
-                  <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
-                    <DeviceLoadingPage path="/" />
-                  </WrapDeviceContextWithLocation>
-                  <WrapDeviceContextWithLocation path="devices/:deviceID/">
-                    <DevicePages path="*" />
-                  </WrapDeviceContextWithLocation>
-                </Router>
+                <LocationProvider history={history}>
+                  <Router>
+                    <ConnectionPage path="/" />
+                    <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
+                      <DeviceLoadingPage path="/" />
+                    </WrapDeviceContextWithLocation>
+                    <WrapDeviceContextWithLocation path="devices/:deviceID/">
+                      <DevicePages path="*" />
+                    </WrapDeviceContextWithLocation>
+                  </Router>
+                </LocationProvider>
               </DarkModeWrapper>
             </DarkModeProvider>
           </TimeSeriesDataStore>

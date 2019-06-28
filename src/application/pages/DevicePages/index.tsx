@@ -3,7 +3,8 @@ import React from 'react'
 import './device-pages.css'
 
 import Header from '../../components/Header'
-import { Router, navigate, RouteComponentProps } from '@reach/router'
+import { Router, RouteComponentProps } from '@reach/router'
+import { navigate } from '@electricui/utility-electron'
 
 import OverviewPage from './OverviewPage'
 import SecondaryPage from './SecondaryPage'
