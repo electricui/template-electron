@@ -128,5 +128,25 @@
   "resolutions": {
     "upath": "^1.1.0"
   },
+  "build": {
+    "productName": "Electric UI",
+    "appId": "electric.ui",
+    "files": [
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "release/"
+    },
+    "mac": {
+      "target": "zip"
+    },
+    "win": {
+      "target": "zip"
+    },
+    "linux": {
+      "target": "zip"
+    },
+    "npmRebuild": false
+  },
   "version": "0.0.0"
 }
