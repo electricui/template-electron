@@ -24,9 +24,11 @@ function createMainWindow() {
     title: 'Electric UI',
   })
 
-  if (isDevelopment) {
-    window.webContents.openDevTools()
-  }
+  console.log('create main window called, ui should be displayed')
+
+  //if (isDevelopment) {
+  window.webContents.openDevTools()
+  //}
 
   if (isDevelopment) {
     window.loadURL(
@@ -46,6 +48,12 @@ function createMainWindow() {
     mainWindows = mainWindows.filter(win => win !== window) // remove the window from the list
   })
 
+  // since right now we only support one window, if it gets closed, kill the app.
+  window.on('close', event => {
+    // Exit the app, don't 'quit', quit asks each window to close.
+    app.exit()
+  })
+
   window.webContents.on('devtools-opened', () => {
     window.focus()
     setImmediate(() => {
@@ -58,7 +66,14 @@ function createMainWindow() {
   return window
 }
 
+// Since we always have a window open, this always fails, so lets just terminate without asking permission.
+app.on('before-quit', event => {
+  event.preventDefault()
+  app.exit()
+})
+
 // quit application when all windows are closed
+// this never actually gets called since our transport window is always open, just hidden.
 app.on('window-all-closed', () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
   if (process.platform !== 'darwin') {
@@ -92,5 +107,6 @@ app.on('ready', () => {
   })
   */
 })
-
+console.log('booted ui probably, booting eui handlers now')
 setupElectricUIHandlers(mainWindows)
+console.log('main ran')
