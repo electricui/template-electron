@@ -27,7 +27,7 @@ import {
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
 import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-large-packet-handler'
 
-import { RGBCodec } from './codecs'
+import customCodecs from './codecs'
 
 const typeCache = new TypeCache()
 
@@ -67,11 +67,8 @@ const serialTransportFactory = new TransportFactory(options => {
 
   const codecPipeline = new CodecDuplexPipeline()
 
-  // Create instances of the custom codecs
-  const rgbCodec = new RGBCodec()
-
   // Pass the array of custom codecs to the pipeline
-  codecPipeline.addCodecs([rgbCodec])
+  codecPipeline.addCodecs(customCodecs)
 
   codecPipeline.addCodecs(defaultCodecList)
 

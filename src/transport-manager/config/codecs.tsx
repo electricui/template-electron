@@ -34,7 +34,6 @@ export class RGBCodec extends Codec {
     message: Message<Buffer>,
     push: PushCallback<Message<RGBPayload | null>>,
   ) {
-    console.log('decoding led')
     // The null case
     if (message.payload === null) {
       console.log('payload was null wat')
@@ -59,3 +58,11 @@ export class RGBCodec extends Codec {
     return push(message.setPayload(rgb))
   }
 }
+
+// Create the instances of the codecs
+const customCodecs = [
+  new RGBCodec(), // An instance of the RGB Codec
+]
+
+// Export them for use in each of the transports
+export default customCodecs
