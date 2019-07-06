@@ -28,8 +28,6 @@ import {
 } from './serial'
 import { websocketConsumer } from './websocket'
 
-//import { bleConsumer, bleProducer } from './ble'
-
 const deviceManager = new DeviceManager()
 
 function createRouter(device: Device) {
