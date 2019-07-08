@@ -9,7 +9,6 @@ import {
   useDeviceDisconnect,
   useDeviceConnectionRequested,
 } from '@electricui/components-core'
-import { SetDarkModeButton } from '../SetDarkModeButton'
 
 interface InjectDeviceIDFromLocation {
   deviceID?: string
@@ -59,8 +58,6 @@ const Header = (props: RouteComponentProps & InjectDeviceIDFromLocation) => {
                 }}
               />
             )}
-
-            <SetDarkModeButton />
           </Navbar.Group>{' '}
           <Navbar.Group align={Alignment.RIGHT}>
             <Button
