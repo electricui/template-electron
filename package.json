@@ -1,7 +1,7 @@
 {
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "dependencies": {
-    "@blueprintjs/core": "^3.13.0",
+    "@blueprintjs/core": "^3.17.1",
     "@electricui/components-core": "^0.6.1-prerelease.16",
     "@electricui/components-desktop": "^0.6.1-prerelease.20",
     "@electricui/components-desktop-blueprint": "^0.6.1-prerelease.20",
