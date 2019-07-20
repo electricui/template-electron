@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader/root'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 
@@ -25,7 +26,7 @@ interface RootProps {
   store: Store
 }
 
-export default class Root extends React.Component<RootProps> {
+class Root extends React.Component<RootProps> {
   render() {
     const { store } = this.props
 
@@ -59,3 +60,6 @@ export default class Root extends React.Component<RootProps> {
     )
   }
 }
+
+// Use react-hot-loader for the root element
+export default hot(Root)

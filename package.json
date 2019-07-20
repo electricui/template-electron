@@ -30,6 +30,8 @@
     "@electricui/utility-crc16": "^0.6.1-prerelease.2",
     "@electricui/utility-electron": "^0.6.1-prerelease.20",
     "@electricui/utility-ipc": "^0.6.1-prerelease.7",
+    "react-hot-loader": "^4.12.8",
+    "@hot-loader/react-dom": "^16.8.6",
     "about-window": "^1.13.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",

@@ -1,4 +1,5 @@
 require('@electricui/helpers')
+import 'react-hot-loader' // Enable hot reloading react components
 
 import 'normalize.css/normalize.css'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
