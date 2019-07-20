@@ -6,7 +6,7 @@ import { Store } from 'redux'
 import { DeviceManagerProxy } from '@electricui/components-core'
 import { ReactReduxContext } from '@electricui/core-redux-state'
 import {
-  DeviceManagerStatusModal,
+  NoIPCModal,
   DarkModeWrapper,
 } from '@electricui/components-desktop-blueprint'
 import { DarkModeProvider } from '@electricui/components-desktop'
@@ -32,7 +32,7 @@ class Root extends React.Component<RootProps> {
 
     return (
       <Provider store={store} context={ReactReduxContext}>
-        <DeviceManagerProxy>
+        <DeviceManagerProxy renderIfNoIPC={<NoIPCModal />}>
           <TimeSeriesDataStore
             sourceFactory={sourceFactory}
             timeseriesFactories={timeseriesFactories}

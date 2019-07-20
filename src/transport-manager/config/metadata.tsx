@@ -18,12 +18,7 @@ class RequestWS extends DiscoveryMetadataRequester {
       return false
     }
 
-    // Mock devices don't operate over WS
-    if (metadata.type && metadata.type === 'Mock Device') {
-      return false
-    }
-
-    return true // always ask
+    return true // otherwise always ask
   }
 
   requestMetadata(device: Device) {
@@ -32,7 +27,14 @@ class RequestWS extends DiscoveryMetadataRequester {
     wsPathRequest.metadata.internal = false
     wsPathRequest.metadata.ackNum = 0
 
-    return device.write(wsPathRequest)
+    return device
+      .write(wsPathRequest)
+      .then(res => {
+        console.log('requested ws, response:', res)
+      })
+      .catch(err => {
+        console.log('Couldnt request ws err:', err)
+      })
   }
 }
 
