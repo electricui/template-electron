@@ -128,8 +128,7 @@
   "name": "user-configurable-name",
   "private": true,
   "resolutions": {
-    "upath": "^1.1.0",
-    "**/fsevents": "1.2.7"
+    "upath": "^1.1.0"
   },
   "build": {
     "productName": "Electric UI",
