@@ -4,30 +4,36 @@ import darkOn from './dark-on.png'
 import darkOff from './dark-off.png'
 import brightOn from './bright-on.png'
 import brightOff from './bright-off.png'
+import { ImageSwitcher } from '@electricui/components-desktop'
+import { useDarkMode } from '@electricui/components-desktop'
+import { useHardwareState } from '@electricui/components-core'
 
-type LightbulbProps = {
-  on: boolean
-  darkMode: boolean
+type LightBulbProps = {
   style: React.CSSProperties
 }
 
-const Lightbulb = (props: LightbulbProps) => {
-  let image = darkOn
-  if (props.darkMode) {
-    if (props.on) {
-      image = darkOn
+const LightBulb = (props: LightBulbProps) => {
+  const isOn = useHardwareState('led_state')
+  const isDarkMode = useDarkMode()
+
+  const images = [darkOn, darkOff, brightOn, brightOff]
+
+  let image = 0
+  if (isDarkMode) {
+    if (isOn) {
+      image = 0
     } else {
-      image = darkOff
+      image = 1
     }
   } else {
-    if (props.on) {
-      image = brightOn
+    if (isOn) {
+      image = 2
     } else {
-      image = brightOff
+      image = 3
     }
   }
 
-  return <img src={image} style={props.style} />
+  return <ImageSwitcher images={images} active={image} style={props.style} />
 }
 
-export default Lightbulb
+export default LightBulb

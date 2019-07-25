@@ -18,7 +18,7 @@ import {
 import LightBulb from '../../components/Lightbulb'
 
 const BlinkIndicator = () => {
-  const isBlinking = useHardwareState<number>('led_blink') === 1
+  const isBlinking = useHardwareState<boolean>('led_blink')
   if (isBlinking) {
     return <div>blinking</div>
   }
@@ -27,10 +27,6 @@ const BlinkIndicator = () => {
 }
 
 const OverviewPage = (props: RouteComponentProps) => {
-  const litTime = useHardwareState('lit_time')
-  const isOn = useHardwareState('led_state')
-  const isDarkMode = useDarkMode()
-
   return (
     <React.Fragment>
       <Grid columns={1}>
@@ -56,14 +52,14 @@ const OverviewPage = (props: RouteComponentProps) => {
         <Grid columns={2}>
           <Cell>
             <LightBulb
-              on={isOn}
-              darkMode={isDarkMode}
               style={{ maxWidth: 200, display: 'block', margin: '20px auto' }}
             />
           </Cell>
           <Cell>
             <Card>
-              <Text>Lit time: {litTime}</Text>
+              <Text>
+                Lit time: <Printer accessor="lit_time" />
+              </Text>
               <div style={{ margin: 20 }}>
                 <Slider
                   min={20}
