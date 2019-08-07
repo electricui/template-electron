@@ -52,7 +52,9 @@ const OverviewPage = (props: RouteComponentProps) => {
         <Grid columns={2}>
           <Cell>
             <LightBulb
-              style={{ maxWidth: 200, display: 'block', margin: '20px auto' }}
+                style={{ margin: '20px auto' }}
+                width={502}
+                height={346}
             />
           </Cell>
           <Cell>

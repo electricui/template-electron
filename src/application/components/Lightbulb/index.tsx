@@ -10,6 +10,8 @@ import { useHardwareState } from '@electricui/components-core'
 
 type LightBulbProps = {
   style: React.CSSProperties
+  width: number
+  height: number
 }
 
 const LightBulb = (props: LightBulbProps) => {
@@ -33,7 +35,15 @@ const LightBulb = (props: LightBulbProps) => {
     }
   }
 
-  return <ImageSwitcher images={images} active={image} style={props.style} />
+  return (
+    <ImageSwitcher
+      images={images}
+      active={image}
+      style={props.style}
+      width={props.width}
+      height={props.height}
+    />
+  )
 }
 
 export default LightBulb
