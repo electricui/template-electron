@@ -11,14 +11,7 @@ import {
 
 class RequestWS extends DiscoveryMetadataRequester {
   canRequestMetadata(device: Device) {
-    const metadata = device.getMetadata()
-
-    // Xbox controllers don't operate over WS
-    if (metadata.type && metadata.type === 'Xbox Wireless Controller') {
-      return false
-    }
-
-    return true // otherwise always ask
+    return true // always ask
   }
 
   requestMetadata(device: Device) {
