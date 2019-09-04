@@ -1,19 +1,13 @@
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import {
-  ProgressBar,
-  Slider,
-  Button,
-} from '@electricui/components-desktop-blueprint'
+import { Slider, Button } from '@electricui/components-desktop-blueprint'
 import { Printer } from '@electricui/components-desktop'
-import { Card, Divider, ButtonGroup, Label, Text } from '@blueprintjs/core'
+import { Card, Text } from '@blueprintjs/core'
 import { Grid, Cell } from 'styled-css-grid'
 import { Chart } from '@electricui/components-desktop-charts'
-import { useDarkMode } from '@electricui/components-desktop'
 import {
   IntervalRequester,
   useHardwareState,
-  StateTree,
 } from '@electricui/components-core'
 import { LightBulb } from '../../components/Lightbulb'
 

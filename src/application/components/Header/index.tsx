@@ -3,8 +3,6 @@ import { Navbar, Button, Alignment } from '@blueprintjs/core'
 import { RouteComponentProps } from '@reach/router'
 import { navigate } from '@electricui/utility-electron'
 import {
-  IntervalRequester,
-  useHardwareState,
   useDeviceConnect,
   useDeviceDisconnect,
   useDeviceConnectionRequested,

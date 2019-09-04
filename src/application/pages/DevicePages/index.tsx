@@ -2,10 +2,10 @@ import React from 'react'
 
 import './device-pages.css'
 
-import { Header } from '../../components/Header'
 import { Router, RouteComponentProps } from '@reach/router'
 import { navigate } from '@electricui/utility-electron'
 
+import { Header } from '../../components/Header'
 import { OverviewPage } from './OverviewPage'
 import { SecondaryPage } from './SecondaryPage'
 

@@ -1,12 +1,12 @@
 import React from 'react'
 
+import { ImageSwitcher } from '@electricui/components-desktop'
+import { useDarkMode } from '@electricui/components-desktop'
+import { useHardwareState } from '@electricui/components-core'
 import darkOn from './dark-on.png'
 import darkOff from './dark-off.png'
 import brightOn from './bright-on.png'
 import brightOff from './bright-off.png'
-import { ImageSwitcher } from '@electricui/components-desktop'
-import { useDarkMode } from '@electricui/components-desktop'
-import { useHardwareState } from '@electricui/components-core'
 
 type LightBulbProps = {
   style: React.CSSProperties
