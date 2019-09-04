@@ -7,18 +7,11 @@ import {
   Hint,
   MessageRouterLogRatioMetadata,
 } from '@electricui/core'
-
 import { HintValidatorBinaryHandshake } from '@electricui/protocol-binary'
 import { BinaryConnectionHandshake } from '@electricui/protocol-binary-connection-handshake'
 import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
 
-import {
-  ProcessBatteryPercentage,
-  ProcessName,
-  ProcessWS,
-  RequestName,
-  RequestWS,
-} from './metadata'
+import { ProcessName, ProcessWS, RequestName, RequestWS } from './metadata'
 
 import {
   serialConsumer,
@@ -26,13 +19,18 @@ import {
   usbProducer,
   usbToSerialTransformer,
 } from './serial'
+
 import { websocketConsumer } from './websocket'
 
+/**
+ * Create our device manager!
+ */
 export const deviceManager = new DeviceManager()
 
 function createRouter(device: Device) {
   return new MessageRouterLogRatioMetadata({ device, reportRankings: true })
 }
+
 function createQueue(device: Device) {
   return new MessageQueueBinaryFIFO({
     device,
@@ -71,7 +69,7 @@ function hintValidators(hint: Hint, connection: Connection) {
 function createHandshakes(device: Device) {
   const metadata = device.getMetadata()
 
-  // Otherwise its an eUI device, do the binary handshakes
+  // Assume it's an eUI device, do the binary handshakes
   const connectionHandshakeReadWrite = new BinaryConnectionHandshake({
     device: device,
     preset: 'default',
@@ -84,18 +82,13 @@ const requestName = new RequestName()
 const processName = new ProcessName()
 const requestWS = new RequestWS()
 const processWS = new ProcessWS()
-const processBatteryPercentage = new ProcessBatteryPercentage()
 
 deviceManager.setCreateHintValidatorsCallback(hintValidators)
 deviceManager.addHintProducers([serialProducer, usbProducer])
 deviceManager.addHintConsumers([serialConsumer, websocketConsumer])
 deviceManager.addHintTransformers([usbToSerialTransformer])
 deviceManager.addDeviceMetadataRequesters([requestName, requestWS])
-deviceManager.addDiscoveryMetadataProcessors([
-  processName,
-  processWS,
-  processBatteryPercentage,
-])
+deviceManager.addDiscoveryMetadataProcessors([processName, processWS])
 deviceManager.setCreateRouterCallback(createRouter)
 deviceManager.setCreateQueueCallback(createQueue)
 deviceManager.setCreateHandshakesCallback(createHandshakes)
@@ -123,7 +116,7 @@ deviceManager.addConnectionMetadataRules([
   ),
 ])
 
-// start polling immediately!
+// start polling immediately.
 deviceManager.poll()
 
 if (module.hot) {

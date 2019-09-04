@@ -1,24 +1,25 @@
 import React from 'react'
 
-import { ImageSwitcher } from '@electricui/components-desktop'
-import { useDarkMode } from '@electricui/components-desktop'
-import { useHardwareState } from '@electricui/components-core'
 import darkOn from './dark-on.png'
 import darkOff from './dark-off.png'
-import brightOn from './bright-on.png'
-import brightOff from './bright-off.png'
+import lightOn from './light-on.png'
+import lightOff from './light-off.png'
+import { useDarkMode, ImageSwitcher } from '@electricui/components-desktop'
+import { useHardwareState } from '@electricui/components-core'
+import { WidthProperty } from 'csstype'
 
 type LightBulbProps = {
-  style: React.CSSProperties
-  width: number
-  height: number
+  style?: React.CSSProperties
+  containerStyle?: React.CSSProperties
+  width?: WidthProperty<string | number>
+  height?: WidthProperty<string | number>
 }
 
 export const LightBulb = (props: LightBulbProps) => {
   const isOn = useHardwareState('led_state')
   const isDarkMode = useDarkMode()
 
-  const images = [darkOn, darkOff, brightOn, brightOff]
+  const images = [darkOn, darkOff, lightOn, lightOff]
 
   let image = 0
   if (isDarkMode) {
@@ -40,6 +41,7 @@ export const LightBulb = (props: LightBulbProps) => {
       images={images}
       active={image}
       style={props.style}
+      containerStyle={props.containerStyle}
       width={props.width}
       height={props.height}
     />

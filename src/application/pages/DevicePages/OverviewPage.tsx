@@ -1,35 +1,25 @@
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { Slider, Button } from '@electricui/components-desktop-blueprint'
-import { Printer } from '@electricui/components-desktop'
-import { Card, Text } from '@blueprintjs/core'
+import { Card } from '@blueprintjs/core'
 import { Grid, Cell } from 'styled-css-grid'
+
+import { IntervalRequester } from '@electricui/components-core'
+import { Slider } from '@electricui/components-desktop-blueprint'
 import { Chart } from '@electricui/components-desktop-charts'
-import {
-  IntervalRequester,
-  useHardwareState,
-} from '@electricui/components-core'
-import { LightBulb } from '../../components/Lightbulb'
 
-const BlinkIndicator = () => {
-  const isBlinking = useHardwareState<boolean>('led_blink')
-  if (isBlinking) {
-    return <div>blinking</div>
-  }
-
-  return <div>not blinking</div>
-}
+import { LightBulb } from '../../components/LightBulb'
 
 export const OverviewPage = (props: RouteComponentProps) => {
   return (
     <React.Fragment>
+      <IntervalRequester interval={200} variables={['led_state']} />
+
       <Grid columns={1}>
         <Cell>
           <Card>
             <div style={{ textAlign: 'center', marginBottom: '1em' }}>
               <b>LED State</b>
             </div>
-
             <Chart
               timeseriesKey="led_state"
               duration={28000}
@@ -39,23 +29,17 @@ export const OverviewPage = (props: RouteComponentProps) => {
               yMax={1}
               height={200}
             />
-
-            <IntervalRequester interval={200} variables={['led_state']} />
           </Card>
         </Cell>
         <Grid columns={2}>
           <Cell>
             <LightBulb
-              style={{ margin: '20px auto' }}
-              width={502}
-              height={346}
+              containerStyle={{ margin: '20px auto', width: '80%' }}
+              width="40vw"
             />
           </Cell>
           <Cell>
             <Card>
-              <Text>
-                Lit time: <Printer accessor="lit_time" />
-              </Text>
               <div style={{ margin: 20 }}>
                 <Slider
                   min={20}
@@ -67,17 +51,6 @@ export const OverviewPage = (props: RouteComponentProps) => {
                   <Slider.Handle accessor="lit_time" />
                 </Slider>
               </div>
-              <Grid columns={3}>
-                <Cell>
-                  <Button writer={{ led_blink: 1 }}>Turn on blinking</Button>
-                </Cell>
-                <Cell style={{ textAlign: 'center' }}>
-                  <BlinkIndicator />
-                </Cell>
-                <Cell style={{ textAlign: 'right' }}>
-                  <Button writer={{ led_blink: 0 }}>Turn off blinking</Button>
-                </Cell>
-              </Grid>
             </Card>
           </Cell>
         </Grid>
