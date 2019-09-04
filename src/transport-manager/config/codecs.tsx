@@ -61,10 +61,7 @@ export class RGBCodec extends Codec {
   }
 }
 
-// Create the instances of the codecs
-const customCodecs = [
+// Create the instances of the codecs and export them for use in each of the transports
+export const customCodecs = [
   new RGBCodec(), // An instance of the RGB Codec
 ]
-
-// Export them for use in each of the transports
-export default customCodecs

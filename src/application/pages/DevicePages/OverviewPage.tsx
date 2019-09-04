@@ -15,7 +15,7 @@ import {
   useHardwareState,
   StateTree,
 } from '@electricui/components-core'
-import LightBulb from '../../components/Lightbulb'
+import { LightBulb } from '../../components/Lightbulb'
 
 const BlinkIndicator = () => {
   const isBlinking = useHardwareState<boolean>('led_blink')
@@ -26,7 +26,7 @@ const BlinkIndicator = () => {
   return <div>not blinking</div>
 }
 
-const OverviewPage = (props: RouteComponentProps) => {
+export const OverviewPage = (props: RouteComponentProps) => {
   return (
     <React.Fragment>
       <Grid columns={1}>
@@ -91,5 +91,3 @@ const OverviewPage = (props: RouteComponentProps) => {
     </React.Fragment>
   )
 }
-
-export default OverviewPage

@@ -6,9 +6,9 @@ import { Connections } from '@electricui/components-desktop-blueprint'
 import { RouteComponentProps } from '@reach/router'
 import { navigate } from '@electricui/utility-electron'
 
-import Logo from '../components/Logo'
+import { Logo } from '../components/Logo'
 
-const ConnectionPage = (props: RouteComponentProps) => {
+export const ConnectionPage = (props: RouteComponentProps) => {
   return (
     <React.Fragment>
       <div style={{ height: '100vh' }}>
@@ -35,5 +35,3 @@ const ConnectionPage = (props: RouteComponentProps) => {
     </React.Fragment>
   )
 }
-
-export default ConnectionPage

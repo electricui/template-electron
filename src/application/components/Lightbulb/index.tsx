@@ -14,7 +14,7 @@ type LightBulbProps = {
   height: number
 }
 
-const LightBulb = (props: LightBulbProps) => {
+export const LightBulb = (props: LightBulbProps) => {
   const isOn = useHardwareState('led_state')
   const isDarkMode = useDarkMode()
 
@@ -45,5 +45,3 @@ const LightBulb = (props: LightBulbProps) => {
     />
   )
 }
-
-export default LightBulb

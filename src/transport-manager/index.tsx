@@ -6,9 +6,9 @@ import ReactDOM from 'react-dom'
 
 import { setupProxyServer } from '@electricui/components-core'
 
-import deviceManager from './config'
+import { deviceManager } from './config'
 
-import Debug from './pages/Debug'
+import { Debug } from './pages/Debug'
 
 const root = document.createElement('div')
 document.body.appendChild(root)

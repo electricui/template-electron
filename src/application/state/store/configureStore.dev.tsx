@@ -3,18 +3,20 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 // import { createLogger } from 'redux-logger'
-import rootReducer from '../reducers/index'
+import { rootReducer } from '../reducers/index'
 
-const configureStore: () => Store = () => {
+export const configureStore: () => Store = () => {
   // Redux Configuration
   const middleware = []
 
   // Thunk Middleware
   middleware.push(thunk)
 
+  const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 })
+
   const store = createStore(
     rootReducer,
-    composeWithDevTools(
+    composeEnhancers(
       applyMiddleware(...middleware),
       // other store enhancers if any
     ),
@@ -29,4 +31,3 @@ const configureStore: () => Store = () => {
 
   return store
 }
-export default configureStore

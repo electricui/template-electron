@@ -18,7 +18,7 @@ import { defaultCodecList } from '@electricui/protocol-binary-codecs'
 import { HeartbeatConnectionMetadataReporter } from '@electricui/protocol-binary-heartbeats'
 import { WebSocketTransport } from '@electricui/transport-node-websocket'
 
-import customCodecs from './codecs'
+import { customCodecs } from './codecs'
 
 const typeCache = new TypeCache()
 

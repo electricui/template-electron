@@ -28,7 +28,7 @@ import {
 } from './serial'
 import { websocketConsumer } from './websocket'
 
-const deviceManager = new DeviceManager()
+export const deviceManager = new DeviceManager()
 
 function createRouter(device: Device) {
   return new MessageRouterLogRatioMetadata({ device, reportRankings: true })
@@ -154,5 +154,3 @@ if (module.hot) {
     )
   }
 }
-
-export default deviceManager

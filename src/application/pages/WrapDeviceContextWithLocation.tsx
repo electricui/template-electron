@@ -12,7 +12,7 @@ interface PotentialErrorState {
   hasError: boolean
 }
 
-class WrapDeviceContextWithLocation extends React.Component<
+export class WrapDeviceContextWithLocation extends React.Component<
   RouteComponentProps & InjectDeviceIDFromLocation,
   PotentialErrorState
 > {
@@ -57,5 +57,3 @@ class WrapDeviceContextWithLocation extends React.Component<
     )
   }
 }
-
-export default WrapDeviceContextWithLocation

@@ -4,7 +4,7 @@ import { NonIdealState, ProgressBar } from '@blueprintjs/core'
 import { RouteComponentProps } from '@reach/router'
 import { useDeviceHandshakeProgress } from '@electricui/components-core'
 
-const DeviceLoadingPage = (props: RouteComponentProps) => {
+export const DeviceLoadingPage = (props: RouteComponentProps) => {
   const deviceHandshakes = useDeviceHandshakeProgress()
 
   return (
@@ -33,5 +33,3 @@ const DeviceLoadingPage = (props: RouteComponentProps) => {
     </div>
   )
 }
-
-export default DeviceLoadingPage

@@ -4,7 +4,7 @@ import { useDarkMode } from '@electricui/components-desktop'
 import logo from './logo.png'
 import logoOrange from './logo-orange.png'
 
-const Logo = () => {
+export const Logo = () => {
   const isDark = useDarkMode()
 
   if (isDark) {
@@ -33,5 +33,3 @@ const Logo = () => {
     />
   )
 }
-
-export default Logo

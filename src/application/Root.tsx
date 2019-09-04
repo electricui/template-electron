@@ -14,13 +14,13 @@ import { DarkModeProvider } from '@electricui/components-desktop'
 import { LocationProvider, Router } from '@reach/router'
 import { history } from '@electricui/utility-electron'
 
-import ConnectionPage from './pages/ConnectionPage'
-import DevicePages from './pages/DevicePages'
-import DeviceLoadingPage from './pages/DeviceLoadingPage'
+import { ConnectionPage } from './pages/ConnectionPage'
+import { DevicePages } from './pages/DevicePages'
+import { DeviceLoadingPage } from './pages/DeviceLoadingPage'
 import { TimeSeriesDataStore } from '@electricui/core-timeseries'
 import { sourceFactory, timeseriesFactories } from './datasources'
 
-import WrapDeviceContextWithLocation from './pages/WrapDeviceContextWithLocation'
+import { WrapDeviceContextWithLocation } from './pages/WrapDeviceContextWithLocation'
 
 interface RootProps {
   store: Store
@@ -62,4 +62,4 @@ class Root extends React.Component<RootProps> {
 }
 
 // Use react-hot-loader for the root element
-export default hot(Root)
+export const RootWithHotReloading = hot(Root)

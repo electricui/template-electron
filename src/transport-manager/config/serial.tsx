@@ -27,7 +27,7 @@ import {
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
 import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-large-packet-handler'
 
-import customCodecs from './codecs'
+import { customCodecs } from './codecs'
 
 const typeCache = new TypeCache()
 

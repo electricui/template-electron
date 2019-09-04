@@ -15,7 +15,9 @@ interface InjectDeviceIDFromLocation {
   '*'?: string // we get passed the path as the wildcard
 }
 
-const Header = (props: RouteComponentProps & InjectDeviceIDFromLocation) => {
+export const Header = (
+  props: RouteComponentProps & InjectDeviceIDFromLocation,
+) => {
   const disconnect = useDeviceDisconnect()
   const connect = useDeviceConnect()
   const connectionRequested = useDeviceConnectionRequested()
@@ -86,5 +88,3 @@ const Header = (props: RouteComponentProps & InjectDeviceIDFromLocation) => {
     </div>
   )
 }
-
-export default Header

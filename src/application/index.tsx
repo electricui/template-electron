@@ -16,7 +16,7 @@ import { setupSettingsListenersApplication } from '@electricui/utility-electron'
 setupSettingsListenersApplication()
 
 import { configureStore } from './state'
-import Root from './Root'
+import { RootWithHotReloading } from './Root'
 
 let root = document.createElement('div')
 root.className = 'root'
@@ -28,11 +28,11 @@ function render(Component: any) {
   ReactDOM.render(<Component store={store} />, root)
 }
 
-render(Root)
+render(RootWithHotReloading)
 
 if (module.hot) {
   module.hot.accept('./Root', () => {
-    const NextRoot = require('./Root').default
+    const NextRoot = require('./Root').RootWithHotReloading
     render(NextRoot)
   })
 }
