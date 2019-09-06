@@ -1,12 +1,24 @@
 import { ipcRenderer } from 'electron'
 import React from 'react'
 
-import { Button } from '@blueprintjs/core'
+import { Button, Classes } from '@blueprintjs/core'
 import { Connections } from '@electricui/components-desktop-blueprint'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, Link } from '@reach/router'
 import { navigate } from '@electricui/utility-electron'
 
 import { Logo } from '../components/Logo'
+import { useDeviceMetadataKey } from '@electricui/components-core'
+
+const CardInternals = () => {
+  const metadataName = useDeviceMetadataKey('name')
+
+  return (
+    <React.Fragment>
+      <h3 className={Classes.HEADING}>{metadataName}</h3>
+      <p>Device information!</p>
+    </React.Fragment>
+  )
+}
 
 export const ConnectionPage = (props: RouteComponentProps) => {
   return (
@@ -16,12 +28,20 @@ export const ConnectionPage = (props: RouteComponentProps) => {
 
         <Connections
           preConnect={deviceID => navigate(`/device_loading/${deviceID}`)}
-          postHandshake={deviceID => navigate(`/devices/${deviceID}`)}
-          onFailure={deviceID => navigate(`/`)}
+          postHandshake={deviceID =>
+            deviceID.includes('xbox')
+              ? navigate(`/xbox/${deviceID}`)
+              : navigate(`/devices/${deviceID}`)
+          }
+          onFailure={(deviceID, err) => {
+            console.log('Connections component got error', err, deviceID)
+            navigate(`/`)
+          }}
           style={{
             minHeight: '40vh',
             paddingTop: '10vh',
           }}
+          internalCardComponent={<CardInternals />}
         />
       </div>
       <Button
