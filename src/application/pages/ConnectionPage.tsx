@@ -44,14 +44,16 @@ export const ConnectionPage = (props: RouteComponentProps) => {
           internalCardComponent={<CardInternals />}
         />
       </div>
-      <Button
-        onClick={() => {
-          ipcRenderer.send('open-debug-window')
-        }}
-        style={{ position: 'fixed', bottom: 10, right: 10 }}
-      >
-        Show transport window
-      </Button>
+      {process.env.NODE_ENV === 'development' && (
+        <Button
+          onClick={() => {
+            ipcRenderer.send('open-debug-window')
+          }}
+          style={{ position: 'fixed', bottom: 10, right: 10 }}
+        >
+          Show transport window
+        </Button>
+      )}
     </React.Fragment>
   )
 }
