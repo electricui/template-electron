@@ -1,16 +1,17 @@
-import { app, BrowserWindow, Menu } from 'electron'
-import { join as pathJoin } from 'path'
-import { format as formatUrl } from 'url'
-
+import { BrowserWindow, Menu, app } from 'electron'
 import {
+  fetchSystemDarkModeFromWinManager,
+  getElectricWindow,
+  getSettingFromWinManager,
   installDevTools,
+  setSettingFromWinManager,
   setupElectricUIHandlers,
   setupSettingsListenersWindowManager,
   setupSettingsPathing,
-  setSettingFromWinManager,
-  getSettingFromWinManager,
-  fetchSystemDarkModeFromWinManager,
 } from '@electricui/utility-electron'
+
+import { format as formatUrl } from 'url'
+import { join as pathJoin } from 'path'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -146,7 +147,26 @@ const template = [
   // { role: 'fileMenu' }
   {
     label: 'File',
-    submenu: [{ role: 'quit', label: 'Quit Electric UI' }], // isMac ? { role: 'close' } : { role: 'quit' }
+    submenu: [
+      ...(process.env.NODE_ENV === 'development'
+        ? [
+            {
+              label: 'Show Transport Window',
+              click: () => {
+                const electricWindow = getElectricWindow()
+
+                if (electricWindow) {
+                  electricWindow.show()
+                  electricWindow.webContents.openDevTools({
+                    mode: 'undocked',
+                  })
+                }
+              },
+            },
+          ]
+        : []),
+      { role: 'quit', label: 'Quit Electric UI' },
+    ], // isMac ? { role: 'close' } : { role: 'quit' }
   },
   // { role: 'editMenu' }
   {

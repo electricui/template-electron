@@ -1,12 +1,10 @@
-import { ipcRenderer } from 'electron'
-import React from 'react'
-
 import { Button, Classes } from '@blueprintjs/core'
-import { Connections } from '@electricui/components-desktop-blueprint'
-import { RouteComponentProps, Link } from '@reach/router'
-import { navigate } from '@electricui/utility-electron'
+import { Link, RouteComponentProps } from '@reach/router'
 
+import { Connections } from '@electricui/components-desktop-blueprint'
 import { Logo } from '../components/Logo'
+import React from 'react'
+import { navigate } from '@electricui/utility-electron'
 import { useDeviceMetadataKey } from '@electricui/components-core'
 
 const CardInternals = () => {
@@ -44,16 +42,6 @@ export const ConnectionPage = (props: RouteComponentProps) => {
           internalCardComponent={<CardInternals />}
         />
       </div>
-      {process.env.NODE_ENV === 'development' && (
-        <Button
-          onClick={() => {
-            ipcRenderer.send('open-debug-window')
-          }}
-          style={{ position: 'fixed', bottom: 10, right: 10 }}
-        >
-          Show transport window
-        </Button>
-      )}
     </React.Fragment>
   )
 }
