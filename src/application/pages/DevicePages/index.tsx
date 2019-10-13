@@ -1,16 +1,14 @@
-import React from 'react'
-
 import './device-pages.css'
 
-import { Router, RouteComponentProps } from '@reach/router'
-import { navigate } from '@electricui/utility-electron'
-
-import { Header } from '../../components/Header'
-import { OverviewPage } from './OverviewPage'
-import { SecondaryPage } from './SecondaryPage'
+import { RouteComponentProps, Router } from '@reach/router'
 
 import { DisconnectionModal } from '@electricui/components-desktop-blueprint'
+import { Header } from '../../components/Header'
 import { Intent } from '@blueprintjs/core'
+import { OverviewPage } from './OverviewPage'
+import React from 'react'
+import { SecondaryPage } from './SecondaryPage'
+import { navigate } from '@electricui/utility-electron'
 
 interface InjectDeviceIDFromLocation {
   deviceID?: string
@@ -39,7 +37,7 @@ export const DevicePages = (
       <div className="device-pages">
         <Header deviceID={props.deviceID} {...props} />
         <div className="device-content">
-          <Router>
+          <Router primary={false}>
             <OverviewPage path="/" />
             <SecondaryPage path="secondary" />
           </Router>
