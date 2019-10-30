@@ -13,7 +13,7 @@ import {
 import { format as formatUrl } from 'url'
 import { join as pathJoin } from 'path'
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 // Setup persistent settings helpers
 setupSettingsPathing()
