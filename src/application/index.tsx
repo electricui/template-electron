@@ -1,22 +1,23 @@
 require('@electricui/helpers')
-import 'react-hot-loader' // Enable hot reloading react components
 
-import 'normalize.css/normalize.css'
+import 'react-hot-loader' // Enable hot reloading react components
+import './normalize.css'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 import '@blueprintjs/core/lib/css/blueprint.css'
 import '@electricui/components-desktop-blueprint/lib/bundle.css'
 import './index.css'
 
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { RootWithHotReloading } from './Root'
+import { configureStore } from './state'
+import { setupSettingsListenersApplication } from '@electricui/utility-electron'
+
 // TODO: Figure out why the webpack env isn't taking
 declare const module: any
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { setupSettingsListenersApplication } from '@electricui/utility-electron'
 setupSettingsListenersApplication()
 
-import { configureStore } from './state'
-import { RootWithHotReloading } from './Root'
 
 let root = document.createElement('div')
 root.className = 'root'
