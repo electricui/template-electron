@@ -117,7 +117,15 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.7.2",
     "webpack-merge": "^4.2.1",
-    "yargs": "^13.2.1"
+    "yargs": "^13.2.1",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "mocha": "^5.2.0",
+    "chai": "^4.2.0",
+    "ts-node": "^8.4.1",
+    "spectron": "^8.0.0",
+    "electron-chromedriver": "^6.0.0",
+    "@types/webdriverio": "^4.8.0"
   },
   "description": "User configurable description",
   "license": "SEE LICENCE IN LICENCE.MD",
@@ -146,6 +154,9 @@
       "target": "zip"
     },
     "npmRebuild": false
+  },
+  "scripts": {
+    "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' mocha --require ts-node/register \"test-e2e/**/*.ts\""
   },
   "version": "0.1.0"
 }
