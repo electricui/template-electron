@@ -32,20 +32,6 @@ describe('Basic Integration Test', function() {
     }
   })
 
-  it('Has a title', function() {
-    return (
-      app.client
-        .waitUntilWindowLoaded()
-        // Grab the title
-        .then(() => {
-          return app.browserWindow.getTitle()
-        })
-        .then(title => {
-          // Confirm the title is correct
-          assert.equal(title, 'Electric UI')
-        })
-    )
-  })
   it('Found a device', function() {
     return app.client.waitUntilWindowLoaded().then(async () => {
       // Set the window size
