@@ -156,7 +156,8 @@
     "npmRebuild": false
   },
   "scripts": {
-    "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' mocha --require ts-node/register \"test-e2e/**/*.ts\""
+    "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\"",
+    "test:e2e:win": "yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\""
   },
   "version": "0.1.0"
 }
