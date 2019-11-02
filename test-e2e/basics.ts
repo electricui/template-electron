@@ -32,11 +32,24 @@ describe('Basic Integration Test', function() {
     }
   })
 
-  it('Found a device', function() {
+  it('Can take a screenshot', function() {
     return app.client.waitUntilWindowLoaded().then(async () => {
       // Set the window size
       app.browserWindow.setSize(1920, 1080, false)
 
+      // Take a screenshot for validation
+      const screenshotPath = path.join(__dirname, 'screenshots')
+      await app.browserWindow.capturePage().then(imageBuffer => {
+        return fs.promises.writeFile(
+          path.join(screenshotPath, 'page.png'),
+          imageBuffer,
+        )
+      })
+    })
+  })
+
+  it('Found a device', function() {
+    return app.client.waitUntilWindowLoaded().then(async () => {
       const connectionList = app.client.$('.eui-connections-list')
 
       const connectionPageTextObj = await connectionList.getText()
@@ -47,15 +60,6 @@ describe('Basic Integration Test', function() {
 
       // Make sure the connection page contains a device
       assert.isTrue(connectionPageText.includes('Device information!'))
-
-      // Take a screenshot for validation
-      const screenshotPath = path.join(__dirname, 'screenshots')
-      await app.browserWindow.capturePage().then(imageBuffer => {
-        return fs.promises.writeFile(
-          path.join(screenshotPath, 'page.png'),
-          imageBuffer,
-        )
-      })
     })
   })
 })
