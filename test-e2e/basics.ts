@@ -14,6 +14,21 @@ let app: Application
 
 const electronPathCalculated = (require('electron') as unknown) as string
 
+async function cycleToVisibleWindow() {
+  const windowCount = await app.client.getWindowCount()
+
+  // Iterate over the windows until we find the right one
+  for (let index = 0; index < windowCount; index++) {
+    const visible = await app.client.windowByIndex(index).then(async () => {
+      return app.browserWindow.isVisible()
+    })
+
+    if (visible) {
+      return index
+    }
+  }
+}
+
 describe('Basic Integration Test', function() {
   this.timeout(10000)
 
@@ -21,6 +36,12 @@ describe('Basic Integration Test', function() {
     app = new Application({
       path: electronPathCalculated,
       args: [appPath],
+      chromeDriverArgs: [
+        '--disable-dev-shm-usage',
+        '--no-sandbox',
+        // '--headless',
+        // '--disable-gpu',
+      ],
     })
 
     return app.start()
@@ -34,6 +55,14 @@ describe('Basic Integration Test', function() {
 
   it('Can take a screenshot', function() {
     return app.client.waitUntilWindowLoaded().then(async () => {
+      const visibleIndex = await cycleToVisibleWindow()
+
+      console.log('Visible index:', visibleIndex)
+
+      const title = await app.browserWindow.getTitle()
+
+      console.log('Title of that index:', title)
+
       // Set the window size
       app.browserWindow.setSize(1920, 1080, false)
 
@@ -41,7 +70,7 @@ describe('Basic Integration Test', function() {
       const screenshotPath = path.join(__dirname, 'screenshots')
       await app.browserWindow.capturePage().then(imageBuffer => {
         return fs.promises.writeFile(
-          path.join(screenshotPath, 'page.png'),
+          path.join(screenshotPath, 'ui.png'),
           imageBuffer,
         )
       })
@@ -50,6 +79,8 @@ describe('Basic Integration Test', function() {
 
   it('Found a device', function() {
     return app.client.waitUntilWindowLoaded().then(async () => {
+      await cycleToVisibleWindow()
+
       const connectionList = app.client.$('.eui-connections-list')
 
       const connectionPageTextObj = await connectionList.getText()
