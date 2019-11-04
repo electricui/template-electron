@@ -12,36 +12,30 @@ const appPath = path.join(__dirname, '..')
 
 let app: Application
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 const electronPathCalculated = (require('electron') as unknown) as string
 
 async function cycleToVisibleWindow() {
   console.log('Cycling to visible window')
 
-  const windowCount = await app.client.getWindowCount()
+  const handles = ((await app.client.windowHandles()) as any).value
 
-  console.log('There are', windowCount, 'choices')
+  for (const handle of handles) {
+    const window = app.client.window(handle)
 
-  // Iterate over the windows until we find the right one
-  for (let index = 0; index < windowCount; index++) {
-    const visible: boolean = await app.client
-      .windowByIndex(index)
-      .then(async () => {
-        return app.browserWindow.isVisible()
-      })
-      .catch(e => {
-        console.log('Caught error trying to check if window was visible')
-        console.error(e)
-        return false
-      })
+    const url = await window.getUrl()
 
-    if (visible) {
-      return index
+    console.log('Inspecting window', url)
+
+    if (url.endsWith('renderer/index.html')) {
+      return window
     }
   }
 }
 
 describe('Basic Integration Test', function() {
-  this.timeout(10000)
+  this.timeout(30000)
 
   beforeEach(() => {
     app = new Application({
@@ -66,9 +60,9 @@ describe('Basic Integration Test', function() {
 
   it('Can take a screenshot', function() {
     return app.client.waitUntilWindowLoaded().then(async () => {
-      const visibleIndex = await cycleToVisibleWindow()
+      const visibleWindow = await cycleToVisibleWindow()
 
-      console.log('Visible index:', visibleIndex)
+      console.log('Visible window:', visibleWindow)
 
       const title = await app.browserWindow.getTitle()
 
