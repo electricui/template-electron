@@ -26,6 +26,7 @@ function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
+      devTools: isDevelopment, // Only allow devTools in development mode
     },
     minHeight: 680,
     minWidth: 1200,
@@ -33,10 +34,6 @@ function createMainWindow() {
     width: 1200,
     title: 'Electric UI',
   })
-
-  if (isDevelopment) {
-    window.webContents.openDevTools()
-  }
 
   if (isDevelopment) {
     window.loadURL(
@@ -69,7 +66,11 @@ function createMainWindow() {
     })
   })
 
-  installDevTools()
+  if (isDevelopment) {
+    // Only install extensions in developer mode
+    installDevTools()
+    window.webContents.openDevTools()
+  }
 
   return window
 }
