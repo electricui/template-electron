@@ -15,11 +15,15 @@ let app: Application
 const electronPathCalculated = (require('electron') as unknown) as string
 
 async function cycleToVisibleWindow() {
+  console.log('Cycling to visible window')
+
   const windowCount = await app.client.getWindowCount()
+
+  console.log('There are', windowCount, 'choices')
 
   // Iterate over the windows until we find the right one
   for (let index = 0; index < windowCount; index++) {
-    const visible = await app.client
+    const visible: boolean = await app.client
       .windowByIndex(index)
       .then(async () => {
         return app.browserWindow.isVisible()
