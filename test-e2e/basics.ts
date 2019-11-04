@@ -19,9 +19,16 @@ async function cycleToVisibleWindow() {
 
   // Iterate over the windows until we find the right one
   for (let index = 0; index < windowCount; index++) {
-    const visible = await app.client.windowByIndex(index).then(async () => {
-      return app.browserWindow.isVisible()
-    })
+    const visible = await app.client
+      .windowByIndex(index)
+      .then(async () => {
+        return app.browserWindow.isVisible()
+      })
+      .catch(e => {
+        console.log('Caught error trying to check if window was visible')
+        console.error(e)
+        return false
+      })
 
     if (visible) {
       return index
