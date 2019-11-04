@@ -12,8 +12,6 @@ const appPath = path.join(__dirname, '..')
 
 let app: Application
 
-const isDevelopment = process.env.NODE_ENV === 'development'
-
 const electronPathCalculated = (require('electron') as unknown) as string
 
 async function cycleToVisibleWindow() {
