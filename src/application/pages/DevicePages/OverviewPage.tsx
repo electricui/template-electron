@@ -17,7 +17,7 @@ export const OverviewPage = (props: RouteComponentProps) => {
     <React.Fragment>
       <IntervalRequester interval={200} variables={['led_state']} />
 
-      <Composition areas={areas}>
+      <Composition areas={areas} gap={10} templateCols="1fr 1fr">
         {({ ChartArea, LightArea, SliderArea }) => (
           <React.Fragment>
             <ChartArea>
