@@ -127,7 +127,8 @@
   "name": "user-configurable-name",
   "private": true,
   "resolutions": {
-    "upath": "^1.2.0"
+    "upath": "^1.2.0",
+    "chokidar": "3.3.0"
   },
   "build": {
     "productName": "Electric UI",
