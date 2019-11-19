@@ -7,12 +7,7 @@ import {
   Hint,
   MessageRouterLogRatioMetadata,
 } from '@electricui/core'
-import { HintValidatorBinaryHandshake } from '@electricui/protocol-binary'
-import { BinaryConnectionHandshake } from '@electricui/protocol-binary-connection-handshake'
-import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
-
-import { ProcessName, ProcessWS, RequestName, RequestWS } from './metadata'
-
+import { ProcessName, RequestName } from './metadata'
 import {
   serialConsumer,
   serialProducer,
@@ -20,7 +15,9 @@ import {
   usbToSerialTransformer,
 } from './serial'
 
-import { websocketConsumer } from './websocket'
+import { BinaryConnectionHandshake } from '@electricui/protocol-binary-connection-handshake'
+import { HintValidatorBinaryHandshake } from '@electricui/protocol-binary'
+import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
 
 /**
  * Create our device manager!
@@ -49,20 +46,6 @@ function hintValidators(hint: Hint, connection: Connection) {
     return [validator]
   }
 
-  // Wifi
-  if (hint.getTransportKey() === 'websockets') {
-    const validator = new HintValidatorBinaryHandshake(hint, connection, 5000) // 5 second timeout
-
-    return [validator]
-  }
-
-  // BLE
-  if (hint.getTransportKey() === 'ble') {
-    const validator = new HintValidatorBinaryHandshake(hint, connection, 10000) // 10 second timeout
-
-    return [validator]
-  }
-
   return []
 }
 
@@ -80,15 +63,13 @@ function createHandshakes(device: Device) {
 
 const requestName = new RequestName()
 const processName = new ProcessName()
-const requestWS = new RequestWS()
-const processWS = new ProcessWS()
 
 deviceManager.setCreateHintValidatorsCallback(hintValidators)
 deviceManager.addHintProducers([serialProducer, usbProducer])
-deviceManager.addHintConsumers([serialConsumer, websocketConsumer])
+deviceManager.addHintConsumers([serialConsumer])
 deviceManager.addHintTransformers([usbToSerialTransformer])
-deviceManager.addDeviceMetadataRequesters([requestName, requestWS])
-deviceManager.addDiscoveryMetadataProcessors([processName, processWS])
+deviceManager.addDeviceMetadataRequesters([requestName])
+deviceManager.addDiscoveryMetadataProcessors([processName])
 deviceManager.setCreateRouterCallback(createRouter)
 deviceManager.setCreateQueueCallback(createQueue)
 deviceManager.setCreateHandshakesCallback(createHandshakes)
@@ -104,8 +85,8 @@ deviceManager.addConnectionMetadataRules([
   new ConnectionMetadataRule(
     ['packetLoss', 'consecutiveHeartbeats'],
     ({ packetLoss, consecutiveHeartbeats }) => {
-      // If there are more than three consecutive heartbeats, then for
-      // packet loss reasons, the connection is acceptable
+      // If there are more than three consecutive heartbeats, the connection
+      // is considered acceptable despite potential previous packet loss.
       if (consecutiveHeartbeats > 3) {
         return true
       }
