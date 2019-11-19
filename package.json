@@ -118,8 +118,7 @@
     "chai": "^4.2.0",
     "ts-node": "^8.4.1",
     "spectron": "^9.0.0",
-    "electron-chromedriver": "^7.0.0",
-    "@types/webdriverio": "^5.0.0"
+    "electron-chromedriver": "^7.0.0"
   },
   "description": "User configurable description",
   "license": "SEE LICENCE IN LICENCE.MD",
