@@ -7,9 +7,9 @@ import React from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { Slider } from '@electricui/components-desktop-blueprint'
 
-const areas = `
-  ChartArea ChartArea
-  LightArea SliderArea
+const layoutDescription = `
+  Chart Chart
+  Light Slider
 `
 
 export const OverviewPage = (props: RouteComponentProps) => {
@@ -17,10 +17,10 @@ export const OverviewPage = (props: RouteComponentProps) => {
     <React.Fragment>
       <IntervalRequester interval={200} variables={['led_state']} />
 
-      <Composition areas={areas} gap={10} templateCols="1fr 1fr">
-        {({ ChartArea, LightArea, SliderArea }) => (
+      <Composition areas={layoutDescription} gap={10} autoCols="1fr">
+        {Areas => (
           <React.Fragment>
-            <ChartArea>
+            <Areas.Chart>
               <Card>
                 <div style={{ textAlign: 'center', marginBottom: '1em' }}>
                   <b>LED State</b>
@@ -35,16 +35,16 @@ export const OverviewPage = (props: RouteComponentProps) => {
                   height={200}
                 />
               </Card>
-            </ChartArea>
+            </Areas.Chart>
 
-            <LightArea>
+            <Areas.Light>
               <LightBulb
                 containerStyle={{ margin: '20px auto', width: '80%' }}
                 width="40vw"
               />
-            </LightArea>
+            </Areas.Light>
 
-            <SliderArea>
+            <Areas.Slider>
               <Card>
                 <div style={{ margin: 20 }}>
                   <Slider
@@ -58,7 +58,7 @@ export const OverviewPage = (props: RouteComponentProps) => {
                   </Slider>
                 </div>
               </Card>
-            </SliderArea>
+            </Areas.Slider>
           </React.Fragment>
         )}
       </Composition>
