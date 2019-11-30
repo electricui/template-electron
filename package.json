@@ -122,7 +122,7 @@
     "electron-chromedriver": "^7.0.0"
   },
   "description": "User configurable description",
-  "license": "SEE LICENCE IN LICENCE.MD",
+  "license": "SEE LICENCE IN LICENCE",
   "main": "dist/main/main.js",
   "name": "user-configurable-name",
   "private": true,
