@@ -1,6 +1,5 @@
 require('@electricui/helpers')
 
-import 'react-hot-loader' // Enable hot reloading react components
 import './normalize.css'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 import '@blueprintjs/core/lib/css/blueprint.css'
@@ -9,15 +8,11 @@ import './index.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { RootWithHotReloading } from './Root'
+import { Root } from './Root'
 import { configureStore } from './state'
 import { setupSettingsListenersApplication } from '@electricui/utility-electron'
 
-// TODO: Figure out why the webpack env isn't taking
-declare const module: any
-
 setupSettingsListenersApplication()
-
 
 let root = document.createElement('div')
 root.className = 'root'
@@ -29,11 +24,4 @@ function render(Component: any) {
   ReactDOM.render(<Component store={store} />, root)
 }
 
-render(RootWithHotReloading)
-
-if (module.hot) {
-  module.hot.accept('./Root', () => {
-    const NextRoot = require('./Root').RootWithHotReloading
-    render(NextRoot)
-  })
-}
+render(Root)
