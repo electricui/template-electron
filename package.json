@@ -1,6 +1,12 @@
 {
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "dependencies": {
+    "serialport": "8.0.5",
+    "source-map-support": "^0.5.16",
+    "@electricui/node-usb": "^0.6.6",
+    "@electricui/helpers": "^0.6.8"
+  },
+  "devDependencies": {
     "@blueprintjs/core": "^3.19.1",
     "@electricui/components-core": "^0.6.6-prerelease.2",
     "@electricui/components-desktop": "^0.6.6-prerelease.2",
@@ -48,9 +54,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "serialport": "8.0.5",
-    "source-map-support": "^0.5.9"
-  },
-  "devDependencies": {
+    "source-map-support": "^0.5.9",
     "@babel/core": "^7.3.3",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
