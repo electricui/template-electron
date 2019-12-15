@@ -33,6 +33,7 @@ function createMainWindow() {
     height: 680,
     width: 1200,
     title: 'Electric UI',
+    backgroundColor: '#191b1d', // This needs to be set to something so the background on resize can be changed to match the dark / light mode theme
   })
 
   if (isDevelopment) {
