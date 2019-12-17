@@ -1,6 +1,6 @@
-import { DeviceID } from '@electricui/core'
+import { DataSource, TimeSeriesFactory } from '@electricui/core-timeseries'
 
-import { TimeSeriesFactory, DataSource } from '@electricui/core-timeseries'
+import { DeviceID } from '@electricui/core'
 
 /**
  * sourceFactory takes events from the device and turns them into 'data sources'. They are essentially component accessors that happen on the event stream.
@@ -12,6 +12,8 @@ export function sourceFactory(device: DeviceID): DataSource[] {
      */
     new DataSource({
       name: 'led_state',
+      maxDuration: 30 * 1000,
+      maxItems: 10000,
     }),
   ]
 }

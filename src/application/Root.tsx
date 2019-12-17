@@ -34,8 +34,6 @@ export class Root extends React.Component<RootProps> {
             <TimeSeriesDataStore
               sourceFactory={sourceFactory}
               timeseriesFactories={timeseriesFactories}
-              duration={30 * 1000}
-              maxItems={10000}
             >
               <DarkModeProvider>
                 <DarkModeWrapper>
