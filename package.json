@@ -108,7 +108,7 @@
     "styled-components": "^4.4.1",
     "ts-loader": "^6.2.1",
     "typesafe-actions": "^4.4.2",
-    "typescript": "^3.7.2",
+    "typescript": "^3.7.3",
     "url-loader": "^2.2.0",
     "utility-types": "^3.10.0",
     "webpack": "^4.41.2",
@@ -120,7 +120,7 @@
     "@types/mocha": "^5.2.6",
     "mocha": "^5.2.0",
     "chai": "^4.2.0",
-    "ts-node": "^8.4.1",
+    "ts-node": "^8.5.4",
     "spectron": "^9.0.0",
     "electron-chromedriver": "^7.0.0"
   },
