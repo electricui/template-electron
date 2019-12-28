@@ -12,7 +12,6 @@ export function sourceFactory(device: DeviceID): DataSource[] {
      */
     new DataSource({
       name: 'led_state',
-      maxDuration: 30 * 1000,
       maxItems: 10000,
     }),
   ]
