@@ -41,7 +41,9 @@ function hintValidators(hint: Hint, connection: Connection) {
 
   // Serial
   if (hint.getTransportKey() === 'serial') {
-    const validator = new HintValidatorBinaryHandshake(hint, connection, 2000) // 2 second timeout
+    const validator = new HintValidatorBinaryHandshake(hint, connection, {
+      timeout: 2000, // 2 second timeout
+    })
 
     return [validator]
   }
