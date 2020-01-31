@@ -1,8 +1,16 @@
+import {
+  ChartContainer,
+  LineChart,
+  RealTimeDomain,
+  TimeAxis,
+  VerticalAxis,
+} from '@electricui/components-desktop-charts'
+
 import { Card } from '@blueprintjs/core'
-import { Chart } from '@electricui/components-desktop-charts'
 import { Composition } from 'atomic-layout'
 import { IntervalRequester } from '@electricui/components-core'
 import { LightBulb } from '../../components/LightBulb'
+import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { Slider } from '@electricui/components-desktop-blueprint'
@@ -11,6 +19,8 @@ const layoutDescription = `
   Chart Chart
   Light Slider
 `
+
+const ledStateDataSource = new MessageDataSource('led_state')
 
 export const OverviewPage = (props: RouteComponentProps) => {
   return (
@@ -25,15 +35,12 @@ export const OverviewPage = (props: RouteComponentProps) => {
                 <div style={{ textAlign: 'center', marginBottom: '1em' }}>
                   <b>LED State</b>
                 </div>
-                <Chart
-                  timeseriesKey="led_state"
-                  duration={28000}
-                  delay={0}
-                  hideLegend={true}
-                  yMin={0}
-                  yMax={1}
-                  height={200}
-                />
+                <ChartContainer>
+                  <LineChart dataSource={ledStateDataSource} maxItems={10000} />
+                  <RealTimeDomain window={10000} />
+                  <TimeAxis />
+                  <VerticalAxis />
+                </ChartContainer>
               </Card>
             </Areas.Chart>
 
