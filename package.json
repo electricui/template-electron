@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@blueprintjs/core": "^3.19.1",
+    "@blueprintjs/icons": "^3.13.0",
     "@electricui/components-core": "^0.6.6-prerelease.2",
     "@electricui/components-desktop": "^0.6.6-prerelease.2",
     "@electricui/components-desktop-blueprint": "^0.6.6-prerelease.2",
@@ -38,6 +39,7 @@
     "about-window": "^1.13.0",
     "chart.js": "^2.9.3",
     "chartjs-plugin-annotation": "^0.5.7",
+    "csstype": "^2.6.8",
     "@electricui/chartjs-plugin-streaming": "^0.6.6-prerelease.2",
     "atomic-layout": "^0.10.2",
     "classnames": "^2.2.6",
