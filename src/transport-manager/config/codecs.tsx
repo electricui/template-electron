@@ -1,10 +1,7 @@
 import { Codec, Message, PushCallback } from '@electricui/core'
-import { SmartBuffer } from 'smart-buffer'
 
-export type LEDSettings = {
-  glow_time: number
-  enable: number
-}
+import { LEDSettings } from '../../application/typedState'
+import { SmartBuffer } from 'smart-buffer'
 
 /**
  * If you are following the hello-blink example, structure use needs to be added.
