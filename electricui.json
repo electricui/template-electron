@@ -25,8 +25,6 @@
       "@electricui/components-desktop-blueprint-loggers",
       "@electricui/components-desktop-charts",
       "@electricui/core",
-      "@electricui/core-actions",
-      "@electricui/core-quantities",
       "@electricui/core-redux-state",
       "@electricui/core-timeseries",
       "@electricui/pondjs",
