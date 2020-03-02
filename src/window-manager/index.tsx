@@ -17,6 +17,9 @@ import { join as pathJoin } from 'path'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
+// Disallow process reuse
+app.allowRendererProcessReuse = false
+
 // Setup persistent settings helpers
 setupSettingsPathing()
 setupSettingsListenersWindowManager()
