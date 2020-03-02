@@ -1,5 +1,4 @@
-require('@electricui/helpers')
-
+import 'source-map-support/register'
 import './normalize.css'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 import '@blueprintjs/core/lib/css/blueprint.css'

@@ -1,3 +1,5 @@
+import 'source-map-support/register'
+
 import { BrowserWindow, Menu, app } from 'electron'
 import {
   fetchSystemDarkModeFromWinManager,
