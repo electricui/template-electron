@@ -4,8 +4,7 @@
     "@electricui/node-usb": "^0.6.6",
     "@serialport/bindings": "8.0.7",
     "serialport": "8.0.7",
-    "source-map-support": "^0.5.16",
-    "immer": "^5.3.6"
+    "source-map-support": "^0.5.16"
   },
   "devDependencies": {
     "@blueprintjs/core": "^3.19.1",
