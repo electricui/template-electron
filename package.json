@@ -2,8 +2,6 @@
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "dependencies": {
     "@electricui/node-usb": "^0.6.6",
-    "@serialport/bindings": "8.0.7",
-    "serialport": "8.0.7",
     "source-map-support": "^0.5.16"
   },
   "devDependencies": {

@@ -1,3 +1,27 @@
+/* Make it feel like a native app, disable highlighting of text */
+a:not([draggable='true']),
+img:not([draggable='true']) {
+  -webkit-user-drag: none;
+}
+a[href^="http://"],
+a[href^="https://"],
+a[href^="ftp://"] {
+  -webkit-user-drag: auto;
+}
+
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  background: #f5f8fa;
+  color: #182026;
+}
+
+/* Device Pages CSS */
 .device-pages {
   display: flex;
   height: 100vh;
@@ -26,7 +50,6 @@
 }
 
 /* Dark mode */
-
 .bp3-dark {
   background: #191b1d;
 }

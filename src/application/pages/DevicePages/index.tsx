@@ -1,5 +1,3 @@
-import './device-pages.css'
-
 import { RouteComponentProps, Router } from '@reach/router'
 
 import { DisconnectionModal } from '@electricui/components-desktop-blueprint'
