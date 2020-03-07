@@ -116,7 +116,9 @@
     "chai": "^4.2.0",
     "ts-node": "^8.5.4",
     "spectron": "^9.0.0",
-    "electron-chromedriver": "^8.0.0"
+    "electron-chromedriver": "^8.0.0",
+    "@yarnpkg/pnpify": "2.0.0-rc.18",
+    "prettier": "^1.19.1"
   },
   "description": "User configurable description",
   "license": "SEE LICENCE IN LICENCE",
@@ -151,5 +153,10 @@
     "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\"",
     "test:e2e:win": "yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\""
   },
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "dependenciesMeta": {
+    "electron": {
+      "unplugged": true
+    }
+  }
 }
