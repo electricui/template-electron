@@ -102,11 +102,11 @@ module.exports = {
 
   const core_1 = __webpack_require__(1);
 
-  const add_prebuilt_dependencies_1 = __webpack_require__(2);
+  const fetcher_1 = __webpack_require__(2);
 
-  const fetcher_1 = __webpack_require__(3);
+  const resolver_1 = __webpack_require__(14);
 
-  const resolver_1 = __webpack_require__(15);
+  const add_prebuilt_dependencies_1 = __webpack_require__(15);
 
   const prebuildSettings = {
     prebuildRuntime: {
@@ -169,36 +169,6 @@ module.exports = {
   "use strict";
 
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  const core_1 = __webpack_require__(1);
-
-  const core_2 = __webpack_require__(1);
-
-  exports.reduceDependency = async (dependency, project, locator, initialDependency, extra) => {
-    if (dependency.name === 'bindings' && dependency.scope === null) {
-      extra.resolveOptions.report.reportInfo(core_1.MessageName.UNNAMED, `Found a bindings dependency in ${core_2.structUtils.stringifyIdent(locator)}, re-routing to prebuild.`);
-      const selector = `builtin<prebuild/${core_2.structUtils.stringifyIdent(locator)}>`;
-      return core_2.structUtils.makeDescriptor(dependency, core_2.structUtils.makeRange({
-        protocol: `prebuild:`,
-        source: `prebuilt-bindings-${core_2.structUtils.slugifyIdent(locator)}`,
-        selector,
-        params: null
-      }));
-    }
-
-    return dependency;
-  };
-
-  /***/ }),
-  /* 3 */
-  /***/ (function(module, exports, __webpack_require__) {
-
-  "use strict";
-
-
   var __importStar = this && this.__importStar || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -211,17 +181,13 @@ module.exports = {
     value: true
   });
 
-  const core_1 = __webpack_require__(1);
-
-  const core_2 = __webpack_require__(1);
-
-  const core_3 = __webpack_require__(1);
+  const utils = __importStar(__webpack_require__(3));
 
   const fslib_1 = __webpack_require__(4);
 
-  const libzip_1 = __webpack_require__(5);
+  const core_1 = __webpack_require__(1);
 
-  const utils = __importStar(__webpack_require__(11));
+  const libzip_1 = __webpack_require__(8);
 
   class PrebuildFetcher {
     supports(locator, opts) {
@@ -237,13 +203,13 @@ module.exports = {
       const expectedChecksum = null; // opts.checksums.get(locator.locatorHash) || null;
 
       const [packageFs, releaseFs, checksum] = await opts.cache.fetchPackageFromCache(locator, expectedChecksum, async () => {
-        opts.report.reportInfoOnce(core_2.MessageName.FETCH_NOT_CACHED, `${core_3.structUtils.prettyLocator(opts.project.configuration, locator)} can't be found in the cache and will be fetched from the registry`);
+        opts.report.reportInfoOnce(core_1.MessageName.FETCH_NOT_CACHED, `${core_1.structUtils.prettyLocator(opts.project.configuration, locator)} can't be found in the cache and will be fetched from the registry`);
         return await this.fetchPrebuild(locator, opts);
       });
       return {
         packageFs,
         releaseFs,
-        prefixPath: core_3.structUtils.getIdentVendorPath(locator),
+        prefixPath: core_1.structUtils.getIdentVendorPath(locator),
         localPath: this.getLocalPath(locator, opts),
         checksum
       };
@@ -257,11 +223,11 @@ module.exports = {
       const nativeModule = await utils.getNativeModule(opts.project, packageIdent, locator);
 
       if (nativeModule === null) {
-        throw new core_2.ReportError(core_2.MessageName.UNNAMED, `Could not find the native module that had a prebuild attempt`);
+        throw new core_1.ReportError(core_1.MessageName.UNNAMED, `Could not find the native module that had a prebuild attempt`);
       }
 
       if (nativeModule.version === null) {
-        throw new core_2.ReportError(core_2.MessageName.UNNAMED, `Could not find the native module version that had a prebuild attempt`);
+        throw new core_1.ReportError(core_1.MessageName.UNNAMED, `Could not find the native module version that had a prebuild attempt`);
       }
 
       const prebuildOptions = {
@@ -272,9 +238,9 @@ module.exports = {
       let prebuildPackage;
 
       try {
-        prebuildPackage = await opts.fetcher.fetch(core_3.structUtils.makeLocator(core_3.structUtils.makeIdent(`prebuilds`, `${core_3.structUtils.slugifyIdent(nativeModule)}-v${nativeModule.version}-${process.platform}-${process.arch}-${prebuildOptions.runtime}-${prebuildOptions.abi}`), prebuildUrl), opts);
+        prebuildPackage = await opts.fetcher.fetch(core_1.structUtils.makeLocator(core_1.structUtils.makeIdent(`prebuilds`, `${core_1.structUtils.slugifyIdent(nativeModule)}-v${nativeModule.version}-${process.platform}-${process.arch}-${prebuildOptions.runtime}-${prebuildOptions.abi}`), prebuildUrl), opts);
       } catch (e) {
-        opts.report.reportInfo(core_2.MessageName.UNNAMED, `Error fetching ${prebuildUrl}`);
+        opts.report.reportInfo(core_1.MessageName.UNNAMED, `Error fetching ${prebuildUrl}`);
         throw e;
       } // opts.report.reportInfo(MessageName.UNNAMED, `Fetched prebuild for ${structUtils.stringifyIdent(nativeModule)} version ${nativeModule.version} on runtime electron version ${electronVersion}`)
 
@@ -295,12 +261,12 @@ module.exports = {
       }, prebuildPackage.releaseFs);
 
       if (nodeContents === null) {
-        throw new core_2.ReportError(core_2.MessageName.UNNAMED, `Was unable to find node file in prebuild package for "${core_3.structUtils.stringifyIdent(nativeModule)}"`);
+        throw new core_1.ReportError(core_1.MessageName.UNNAMED, `Was unable to find node file in prebuild package for "${core_1.structUtils.stringifyIdent(nativeModule)}"`);
       }
 
       const tmpDir = await fslib_1.xfs.mktempPromise();
       const tmpFile = fslib_1.ppath.join(tmpDir, `prebuilt.zip`);
-      const prefixPath = core_3.structUtils.getIdentVendorPath(locator);
+      const prefixPath = core_1.structUtils.getIdentVendorPath(locator);
       const libzip = await libzip_1.getLibzipPromise();
       const zipPackage = new fslib_1.ZipFS(tmpFile, {
         libzip,
@@ -312,7 +278,7 @@ module.exports = {
       }); // Write our package.json
 
       await generatedPackage.writeJsonPromise('package.json', {
-        name: core_3.structUtils.slugifyLocator(locator),
+        name: core_1.structUtils.slugifyLocator(locator),
         main: "./index.js"
       }); // write our index.js
 
@@ -321,8 +287,6 @@ module.exports = {
 
   const staticRequire = require("./bindings.node");
   module.exports = (fileLookingFor) => {
-    console.log("was looking for file", fileLookingFor, "but we replaced it!");
-
     return staticRequire;
   };
       `;
@@ -337,6 +301,202 @@ module.exports = {
   exports.PrebuildFetcher = PrebuildFetcher;
 
   /***/ }),
+  /* 3 */
+  /***/ (function(module, exports, __webpack_require__) {
+
+  "use strict";
+
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  const core_1 = __webpack_require__(1);
+
+  const fslib_1 = __webpack_require__(4);
+
+  const node_abi_1 = __webpack_require__(5);
+
+  const plugin_npm_1 = __webpack_require__(7);
+
+  exports.getElectronVersion = async project => {
+    for (const pkg of project.storedPackages.values()) {
+      if (pkg.name === 'electron') {
+        return pkg.version;
+      }
+    }
+
+    return null;
+  };
+
+  exports.getNativeModule = async (project, packageIdent, ident) => {
+    // we need to find the package that matches packageIdent which has a dependency on our ephemeral bindings package
+    for (const pkg of project.storedPackages.values()) {
+      // see if it matches packageIdent
+      if (pkg.name === packageIdent.name && pkg.scope === packageIdent.scope) {
+        return pkg;
+      }
+    }
+
+    return null;
+  };
+
+  function parseSpec(spec) {
+    const payload = spec.substring(spec.indexOf("builtin<prebuild/") + 17, spec.length - 1);
+    const packageIdent = core_1.structUtils.parseIdent(payload);
+    return {
+      packageIdent
+    };
+  }
+
+  exports.parseSpec = parseSpec;
+
+  function getPrebuildConfiguration(scope, configuration) {
+    const prebuildScopedConfigurations = configuration.get(`prebuildScopes`);
+    const exactEntry = prebuildScopedConfigurations.get(scope);
+
+    if (typeof exactEntry !== `undefined`) {
+      return exactEntry;
+    }
+
+    return null;
+  }
+
+  exports.getPrebuildConfiguration = getPrebuildConfiguration;
+
+  function gitRepositoryToGithubLink(repository) {
+    var m = /github\.com\/([^\/]+)\/([^\/\.]+)\.git/.exec(repository);
+
+    if (m) {
+      return 'https://github.com/' + m[1] + '/' + m[2];
+    }
+
+    return null;
+  }
+
+  exports.gitRepositoryToGithubLink = gitRepositoryToGithubLink;
+
+  function getConfigEntry(nativeModule, entry, opts) {
+    const configuration = opts.project.configuration;
+    const scopeWithAt = `@${nativeModule.scope}`;
+    const scopedConfiguration = nativeModule.scope ? getPrebuildConfiguration(scopeWithAt, configuration) : null;
+    const effectiveConfiguration = scopedConfiguration || configuration;
+
+    if (effectiveConfiguration.get(entry)) {
+      return effectiveConfiguration.get(entry);
+    }
+
+    return configuration.get(entry);
+  }
+
+  function getElectronABI(electronVersion) {
+    return node_abi_1.getAbi(electronVersion, 'electron');
+  }
+
+  exports.getElectronABI = getElectronABI;
+
+  function runTemplate(template, templateValues) {
+    for (const [key, value] of Object.entries(templateValues)) {
+      template = template.replace(new RegExp(`{${key}}`, 'g'), value);
+    }
+
+    return template;
+  }
+
+  async function getGithubLink(nativeModule, opts) {
+    var _a;
+
+    const registryData = await plugin_npm_1.npmHttpUtils.get(plugin_npm_1.npmHttpUtils.getIdentUrl(nativeModule), {
+      configuration: opts.project.configuration,
+      ident: nativeModule,
+      json: true
+    });
+
+    if (!Object.prototype.hasOwnProperty.call(registryData, `versions`)) {
+      throw new core_1.ReportError(core_1.MessageName.REMOTE_INVALID, `Registry returned invalid data for - missing "versions" field`);
+    }
+
+    if (!Object.prototype.hasOwnProperty.call(registryData.versions, nativeModule.version)) {
+      throw new core_1.ReportError(core_1.MessageName.REMOTE_NOT_FOUND, `Registry failed to return reference "${nativeModule.version}"`);
+    }
+
+    const data = registryData.versions[nativeModule.version];
+    const repository = (_a = data.repository) === null || _a === void 0 ? void 0 : _a.url;
+
+    if (!repository) {
+      throw new core_1.ReportError(core_1.MessageName.UNNAMED, `Unable to find repository information for "${core_1.structUtils.stringifyIdent(nativeModule)}"`);
+    }
+
+    const githubUrl = gitRepositoryToGithubLink(repository);
+
+    if (!githubUrl) {
+      throw new core_1.ReportError(core_1.MessageName.UNNAMED, `Unable to find GitHub URL for "${core_1.structUtils.stringifyIdent(nativeModule)}"`);
+    }
+
+    return githubUrl;
+  }
+
+  async function getUrlOfPrebuild(nativeModule, opts, prebuildOpts) {
+    const convertedName = core_1.structUtils.stringifyIdent(nativeModule).replace(/^@\w+\//, '');
+    const name = convertedName;
+    const version = nativeModule.version;
+    const abi = prebuildOpts.abi;
+    const runtime = prebuildOpts.runtime;
+    const platform = process.platform;
+    const arch = process.arch;
+    const libc = process.env.LIBC || '';
+    const tag_prefix = getConfigEntry(nativeModule, `prebuildTagPrefix`, opts);
+    const packageName = `${name}-v${version}-${runtime}-v${abi}-${platform}${libc}-${arch}.tar.gz`;
+    const mirror_url = getConfigEntry(nativeModule, `prebuildHostMirrorUrl`, opts);
+
+    if (mirror_url) {
+      const template = getConfigEntry(nativeModule, `prebuildHostMirrorTemplate`, opts);
+      return runTemplate(template, {
+        mirror_url,
+        name,
+        version,
+        abi,
+        runtime,
+        platform,
+        arch,
+        libc,
+        tag_prefix,
+        scope: nativeModule.scope || '',
+        scopeWithAt: nativeModule.scope ? `@${nativeModule.scope}` : '',
+        scopeWithAtAndSlash: nativeModule.scope ? `@${nativeModule.scope}/` : '',
+        scopeWithSlash: nativeModule.scope ? `${nativeModule.scope}/` : ''
+      });
+    }
+
+    const githubLink = await getGithubLink(nativeModule, opts);
+    return `${githubLink}/releases/download/${tag_prefix}${version}/${packageName}`;
+  }
+
+  exports.getUrlOfPrebuild = getUrlOfPrebuild;
+
+  exports.walk = async (filesystem, currentPath, callback, cancellationSignal) => {
+    if (cancellationSignal.cancel) {
+      return;
+    }
+
+    const files = await filesystem.readdirPromise(currentPath);
+    await Promise.all(files.map(async filename => {
+      if (cancellationSignal.cancel) {
+        return;
+      }
+
+      const filepath = fslib_1.ppath.join(currentPath, filename);
+      const stat = await filesystem.statPromise(filepath);
+
+      if (stat.isDirectory()) {
+        await exports.walk(filesystem, filepath, callback, cancellationSignal);
+      } else if (stat.isFile()) {
+        await callback(filesystem, filepath);
+      }
+    }));
+  };
+
+  /***/ }),
   /* 4 */
   /***/ (function(module, exports) {
 
@@ -346,138 +506,264 @@ module.exports = {
   /* 5 */
   /***/ (function(module, exports, __webpack_require__) {
 
-  "use strict";
+  var semver = __webpack_require__(6)
 
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  const makeInterface_1 = __webpack_require__(6);
-
-  let mod = null;
-
-  function getLibzipSync() {
-    if (mod === null) mod = makeInterface_1.makeInterface(__webpack_require__(7));
-    return mod;
+  function getNextTarget (runtime, targets) {
+    if (targets == null) targets = allTargets
+    var latest = targets.filter(function (t) { return t.runtime === runtime }).slice(-1)[0]
+    var increment = runtime === 'electron' ? 'minor' : 'major'
+    return semver.inc(latest.target, increment)
   }
 
-  exports.getLibzipSync = getLibzipSync;
+  function getAbi (target, runtime) {
+    if (target === String(Number(target))) return target
+    if (target) target = target.replace(/^v/, '')
+    if (!runtime) runtime = 'node'
 
-  async function getLibzipPromise() {
-    return getLibzipSync();
+    if (runtime === 'node') {
+      if (!target) return process.versions.modules
+      if (target === process.versions.node) return process.versions.modules
+    }
+
+    var abi
+
+    for (var i = 0; i < allTargets.length; i++) {
+      var t = allTargets[i]
+      if (t.runtime !== runtime) continue
+      if (semver.lte(t.target, target)) abi = t.abi
+      else break
+    }
+
+    if (abi && semver.lt(target, getNextTarget(runtime))) return abi
+    throw new Error('Could not detect abi for version ' + target + ' and runtime ' + runtime + '.  Updating "node-abi" might help solve this issue if it is a new release of ' + runtime)
   }
 
-  exports.getLibzipPromise = getLibzipPromise;
+  function getTarget (abi, runtime) {
+    if (abi && abi !== String(Number(abi))) return abi
+    if (!runtime) runtime = 'node'
+
+    if (runtime === 'node' && !abi) return process.versions.node
+
+    var match = allTargets
+      .filter(function (t) {
+        return t.abi === abi && t.runtime === runtime
+      })
+      .map(function (t) {
+        return t.target
+      })
+    if (match.length) return match[0]
+
+    throw new Error('Could not detect target for abi ' + abi + ' and runtime ' + runtime)
+  }
+
+  var supportedTargets = [
+    {runtime: 'node', target: '5.0.0', abi: '47', lts: false},
+    {runtime: 'node', target: '6.0.0', abi: '48', lts: false},
+    {runtime: 'node', target: '7.0.0', abi: '51', lts: false},
+    {runtime: 'node', target: '8.0.0', abi: '57', lts: false},
+    {runtime: 'node', target: '9.0.0', abi: '59', lts: false},
+    {runtime: 'node', target: '10.0.0', abi: '64', lts: new Date(2018, 10, 1) < new Date() && new Date() < new Date(2020, 4, 31)},
+    {runtime: 'node', target: '11.0.0', abi: '67', lts: false},
+    {runtime: 'node', target: '12.0.0', abi: '72', lts: new Date(2019, 9, 21) < new Date() && new Date() < new Date(2020, 9, 31)},
+    {runtime: 'node', target: '13.0.0', abi: '79', lts: false},
+    {runtime: 'electron', target: '0.36.0', abi: '47', lts: false},
+    {runtime: 'electron', target: '1.1.0', abi: '48', lts: false},
+    {runtime: 'electron', target: '1.3.0', abi: '49', lts: false},
+    {runtime: 'electron', target: '1.4.0', abi: '50', lts: false},
+    {runtime: 'electron', target: '1.5.0', abi: '51', lts: false},
+    {runtime: 'electron', target: '1.6.0', abi: '53', lts: false},
+    {runtime: 'electron', target: '1.7.0', abi: '54', lts: false},
+    {runtime: 'electron', target: '1.8.0', abi: '57', lts: false},
+    {runtime: 'electron', target: '2.0.0', abi: '57', lts: false},
+    {runtime: 'electron', target: '3.0.0', abi: '64', lts: false},
+    {runtime: 'electron', target: '4.0.0', abi: '64', lts: false},
+    {runtime: 'electron', target: '4.0.4', abi: '69', lts: false},
+    {runtime: 'electron', target: '5.0.0', abi: '70', lts: false},
+    {runtime: 'electron', target: '6.0.0', abi: '73', lts: false},
+    {runtime: 'electron', target: '7.0.0', abi: '75', lts: false},
+    {runtime: 'electron', target: '8.0.0', abi: '76', lts: false}
+  ]
+
+  var additionalTargets = [
+    {runtime: 'node-webkit', target: '0.13.0', abi: '47', lts: false},
+    {runtime: 'node-webkit', target: '0.15.0', abi: '48', lts: false},
+    {runtime: 'node-webkit', target: '0.18.3', abi: '51', lts: false},
+    {runtime: 'node-webkit', target: '0.23.0', abi: '57', lts: false},
+    {runtime: 'node-webkit', target: '0.26.5', abi: '59', lts: false}
+  ]
+
+  var deprecatedTargets = [
+    {runtime: 'node', target: '0.2.0', abi: '1', lts: false},
+    {runtime: 'node', target: '0.9.1', abi: '0x000A', lts: false},
+    {runtime: 'node', target: '0.9.9', abi: '0x000B', lts: false},
+    {runtime: 'node', target: '0.10.4', abi: '11', lts: false},
+    {runtime: 'node', target: '0.11.0', abi: '0x000C', lts: false},
+    {runtime: 'node', target: '0.11.8', abi: '13', lts: false},
+    {runtime: 'node', target: '0.11.11', abi: '14', lts: false},
+    {runtime: 'node', target: '1.0.0', abi: '42', lts: false},
+    {runtime: 'node', target: '1.1.0', abi: '43', lts: false},
+    {runtime: 'node', target: '2.0.0', abi: '44', lts: false},
+    {runtime: 'node', target: '3.0.0', abi: '45', lts: false},
+    {runtime: 'node', target: '4.0.0', abi: '46', lts: false},
+    {runtime: 'electron', target: '0.30.0', abi: '44', lts: false},
+    {runtime: 'electron', target: '0.31.0', abi: '45', lts: false},
+    {runtime: 'electron', target: '0.33.0', abi: '46', lts: false}
+  ]
+
+  var futureTargets = [
+    {runtime: 'electron', target: '9.0.0-beta.1', abi: '80', lts: false}
+  ]
+
+  var allTargets = deprecatedTargets
+    .concat(supportedTargets)
+    .concat(additionalTargets)
+    .concat(futureTargets)
+
+  exports.getAbi = getAbi
+  exports.getTarget = getTarget
+  exports.deprecatedTargets = deprecatedTargets
+  exports.supportedTargets = supportedTargets
+  exports.additionalTargets = additionalTargets
+  exports.futureTargets = futureTargets
+  exports.allTargets = allTargets
+  exports._getNextTarget = getNextTarget
+
 
   /***/ }),
   /* 6 */
+  /***/ (function(module, exports) {
+
+  module.exports = require("semver");
+
+  /***/ }),
+  /* 7 */
+  /***/ (function(module, exports) {
+
+  module.exports = require("@yarnpkg/plugin-npm");
+
+  /***/ }),
+  /* 8 */
   /***/ (function(module, exports, __webpack_require__) {
 
   "use strict";
 
+  Object.defineProperty(exports, "__esModule", { value: true });
+  const makeInterface_1 = __webpack_require__(9);
+  let mod = null;
+  function getLibzipSync() {
+      if (mod === null)
+          mod = makeInterface_1.makeInterface(__webpack_require__(10));
+      return mod;
+  }
+  exports.getLibzipSync = getLibzipSync;
+  async function getLibzipPromise() {
+      return getLibzipSync();
+  }
+  exports.getLibzipPromise = getLibzipPromise;
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  const number64 = [`number`, `number`];
-
-  exports.makeInterface = libzip => ({
-    // Those are getters because they can change after memory growth
-    get HEAP8() {
-      return libzip.HEAP8;
-    },
-
-    get HEAPU8() {
-      return libzip.HEAPU8;
-    },
-
-    ZIP_CHECKCONS: 4,
-    ZIP_CREATE: 1,
-    ZIP_EXCL: 2,
-    ZIP_TRUNCATE: 8,
-    ZIP_RDONLY: 16,
-    ZIP_FL_OVERWRITE: 8192,
-    ZIP_OPSYS_DOS: 0x00,
-    ZIP_OPSYS_AMIGA: 0x01,
-    ZIP_OPSYS_OPENVMS: 0x02,
-    ZIP_OPSYS_UNIX: 0x03,
-    ZIP_OPSYS_VM_CMS: 0x04,
-    ZIP_OPSYS_ATARI_ST: 0x05,
-    ZIP_OPSYS_OS_2: 0x06,
-    ZIP_OPSYS_MACINTOSH: 0x07,
-    ZIP_OPSYS_Z_SYSTEM: 0x08,
-    ZIP_OPSYS_CPM: 0x09,
-    ZIP_OPSYS_WINDOWS_NTFS: 0x0a,
-    ZIP_OPSYS_MVS: 0x0b,
-    ZIP_OPSYS_VSE: 0x0c,
-    ZIP_OPSYS_ACORN_RISC: 0x0d,
-    ZIP_OPSYS_VFAT: 0x0e,
-    ZIP_OPSYS_ALTERNATE_MVS: 0x0f,
-    ZIP_OPSYS_BEOS: 0x10,
-    ZIP_OPSYS_TANDEM: 0x11,
-    ZIP_OPSYS_OS_400: 0x12,
-    ZIP_OPSYS_OS_X: 0x13,
-    uint08S: libzip._malloc(1),
-    uint16S: libzip._malloc(2),
-    uint32S: libzip._malloc(4),
-    uint64S: libzip._malloc(8),
-    malloc: libzip._malloc,
-    free: libzip._free,
-    getValue: libzip.getValue,
-    open: libzip.cwrap(`zip_open`, `number`, [`string`, `number`, `number`]),
-    openFromSource: libzip.cwrap(`zip_open_from_source`, `number`, [`number`, `number`, `number`]),
-    close: libzip.cwrap(`zip_close`, `number`, [`number`]),
-    discard: libzip.cwrap(`zip_discard`, null, [`number`]),
-    getError: libzip.cwrap(`zip_get_error`, `number`, [`number`]),
-    getName: libzip.cwrap(`zip_get_name`, `string`, [`number`, `number`, `number`]),
-    getNumEntries: libzip.cwrap(`zip_get_num_entries`, `number`, [`number`, `number`]),
-    stat: libzip.cwrap(`zip_stat`, `number`, [`number`, `string`, `number`, `number`]),
-    statIndex: libzip.cwrap(`zip_stat_index`, `number`, [`number`, ...number64, `number`, `number`]),
-    fopen: libzip.cwrap(`zip_fopen`, `number`, [`number`, `string`, `number`]),
-    fopenIndex: libzip.cwrap(`zip_fopen_index`, `number`, [`number`, ...number64, `number`]),
-    fread: libzip.cwrap(`zip_fread`, `number`, [`number`, `number`, `number`, `number`]),
-    fclose: libzip.cwrap(`zip_fclose`, `number`, [`number`]),
-    dir: {
-      add: libzip.cwrap(`zip_dir_add`, `number`, [`number`, `string`])
-    },
-    file: {
-      add: libzip.cwrap(`zip_file_add`, `number`, [`number`, `string`, `number`, `number`]),
-      getError: libzip.cwrap(`zip_file_get_error`, `number`, [`number`]),
-      getExternalAttributes: libzip.cwrap(`zip_file_get_external_attributes`, `number`, [`number`, ...number64, `number`, `number`, `number`]),
-      setExternalAttributes: libzip.cwrap(`zip_file_set_external_attributes`, `number`, [`number`, ...number64, `number`, `number`, `number`]),
-      setMtime: libzip.cwrap(`zip_file_set_mtime`, `number`, [`number`, ...number64, `number`, `number`])
-    },
-    error: {
-      initWithCode: libzip.cwrap(`zip_error_init_with_code`, null, [`number`, `number`]),
-      strerror: libzip.cwrap(`zip_error_strerror`, `string`, [`number`])
-    },
-    name: {
-      locate: libzip.cwrap(`zip_name_locate`, `number`, [`number`, `string`, `number`])
-    },
-    source: {
-      fromUnattachedBuffer: libzip.cwrap(`zip_source_buffer_create`, `number`, [`number`, `number`, `number`, `number`]),
-      fromBuffer: libzip.cwrap(`zip_source_buffer`, `number`, [`number`, `number`, ...number64, `number`]),
-      free: libzip.cwrap(`zip_source_free`, null, [`number`]),
-      setMtime: libzip.cwrap(`zip_source_set_mtime`, `number`, [`number`, `number`])
-    },
-    struct: {
-      stat: libzip.cwrap(`zipstruct_stat`, `number`, []),
-      statS: libzip.cwrap(`zipstruct_statS`, `number`, []),
-      statName: libzip.cwrap(`zipstruct_stat_name`, `string`, [`number`]),
-      statIndex: libzip.cwrap(`zipstruct_stat_index`, `number`, [`number`]),
-      statSize: libzip.cwrap(`zipstruct_stat_size`, `number`, [`number`]),
-      statMtime: libzip.cwrap(`zipstruct_stat_mtime`, `number`, [`number`]),
-      error: libzip.cwrap(`zipstruct_error`, `number`, []),
-      errorS: libzip.cwrap(`zipstruct_errorS`, `number`, [])
-    }
-  });
 
   /***/ }),
-  /* 7 */
+  /* 9 */
   /***/ (function(module, exports, __webpack_require__) {
 
-  var frozenFs = Object.assign({}, __webpack_require__(8));
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", { value: true });
+  const number64 = [
+      `number`,
+      `number`,
+  ];
+  exports.makeInterface = (libzip) => ({
+      // Those are getters because they can change after memory growth
+      get HEAP8() { return libzip.HEAP8; },
+      get HEAPU8() { return libzip.HEAPU8; },
+      ZIP_CHECKCONS: 4,
+      ZIP_CREATE: 1,
+      ZIP_EXCL: 2,
+      ZIP_TRUNCATE: 8,
+      ZIP_RDONLY: 16,
+      ZIP_FL_OVERWRITE: 8192,
+      ZIP_OPSYS_DOS: 0x00,
+      ZIP_OPSYS_AMIGA: 0x01,
+      ZIP_OPSYS_OPENVMS: 0x02,
+      ZIP_OPSYS_UNIX: 0x03,
+      ZIP_OPSYS_VM_CMS: 0x04,
+      ZIP_OPSYS_ATARI_ST: 0x05,
+      ZIP_OPSYS_OS_2: 0x06,
+      ZIP_OPSYS_MACINTOSH: 0x07,
+      ZIP_OPSYS_Z_SYSTEM: 0x08,
+      ZIP_OPSYS_CPM: 0x09,
+      ZIP_OPSYS_WINDOWS_NTFS: 0x0a,
+      ZIP_OPSYS_MVS: 0x0b,
+      ZIP_OPSYS_VSE: 0x0c,
+      ZIP_OPSYS_ACORN_RISC: 0x0d,
+      ZIP_OPSYS_VFAT: 0x0e,
+      ZIP_OPSYS_ALTERNATE_MVS: 0x0f,
+      ZIP_OPSYS_BEOS: 0x10,
+      ZIP_OPSYS_TANDEM: 0x11,
+      ZIP_OPSYS_OS_400: 0x12,
+      ZIP_OPSYS_OS_X: 0x13,
+      uint08S: libzip._malloc(1),
+      uint16S: libzip._malloc(2),
+      uint32S: libzip._malloc(4),
+      uint64S: libzip._malloc(8),
+      malloc: libzip._malloc,
+      free: libzip._free,
+      getValue: libzip.getValue,
+      open: libzip.cwrap(`zip_open`, `number`, [`string`, `number`, `number`]),
+      openFromSource: libzip.cwrap(`zip_open_from_source`, `number`, [`number`, `number`, `number`]),
+      close: libzip.cwrap(`zip_close`, `number`, [`number`]),
+      discard: libzip.cwrap(`zip_discard`, null, [`number`]),
+      getError: libzip.cwrap(`zip_get_error`, `number`, [`number`]),
+      getName: libzip.cwrap(`zip_get_name`, `string`, [`number`, `number`, `number`]),
+      getNumEntries: libzip.cwrap(`zip_get_num_entries`, `number`, [`number`, `number`]),
+      stat: libzip.cwrap(`zip_stat`, `number`, [`number`, `string`, `number`, `number`]),
+      statIndex: libzip.cwrap(`zip_stat_index`, `number`, [`number`, ...number64, `number`, `number`]),
+      fopen: libzip.cwrap(`zip_fopen`, `number`, [`number`, `string`, `number`]),
+      fopenIndex: libzip.cwrap(`zip_fopen_index`, `number`, [`number`, ...number64, `number`]),
+      fread: libzip.cwrap(`zip_fread`, `number`, [`number`, `number`, `number`, `number`]),
+      fclose: libzip.cwrap(`zip_fclose`, `number`, [`number`]),
+      dir: {
+          add: libzip.cwrap(`zip_dir_add`, `number`, [`number`, `string`]),
+      },
+      file: {
+          add: libzip.cwrap(`zip_file_add`, `number`, [`number`, `string`, `number`, `number`]),
+          getError: libzip.cwrap(`zip_file_get_error`, `number`, [`number`]),
+          getExternalAttributes: libzip.cwrap(`zip_file_get_external_attributes`, `number`, [`number`, ...number64, `number`, `number`, `number`]),
+          setExternalAttributes: libzip.cwrap(`zip_file_set_external_attributes`, `number`, [`number`, ...number64, `number`, `number`, `number`]),
+          setMtime: libzip.cwrap(`zip_file_set_mtime`, `number`, [`number`, ...number64, `number`, `number`]),
+      },
+      error: {
+          initWithCode: libzip.cwrap(`zip_error_init_with_code`, null, [`number`, `number`]),
+          strerror: libzip.cwrap(`zip_error_strerror`, `string`, [`number`]),
+      },
+      name: {
+          locate: libzip.cwrap(`zip_name_locate`, `number`, [`number`, `string`, `number`]),
+      },
+      source: {
+          fromUnattachedBuffer: libzip.cwrap(`zip_source_buffer_create`, `number`, [`number`, `number`, `number`, `number`]),
+          fromBuffer: libzip.cwrap(`zip_source_buffer`, `number`, [`number`, `number`, ...number64, `number`]),
+          free: libzip.cwrap(`zip_source_free`, null, [`number`]),
+          setMtime: libzip.cwrap(`zip_source_set_mtime`, `number`, [`number`, `number`]),
+      },
+      struct: {
+          stat: libzip.cwrap(`zipstruct_stat`, `number`, []),
+          statS: libzip.cwrap(`zipstruct_statS`, `number`, []),
+          statName: libzip.cwrap(`zipstruct_stat_name`, `string`, [`number`]),
+          statIndex: libzip.cwrap(`zipstruct_stat_index`, `number`, [`number`]),
+          statSize: libzip.cwrap(`zipstruct_stat_size`, `number`, [`number`]),
+          statMtime: libzip.cwrap(`zipstruct_stat_mtime`, `number`, [`number`]),
+          error: libzip.cwrap(`zipstruct_error`, `number`, []),
+          errorS: libzip.cwrap(`zipstruct_errorS`, `number`, []),
+      },
+  });
+
+
+  /***/ }),
+  /* 10 */
+  /***/ (function(module, exports, __webpack_require__) {
+
+  var frozenFs = Object.assign({}, __webpack_require__(11));
   var Module = typeof Module !== "undefined" ? Module : {};
   var moduleOverrides = {};
   var key;
@@ -513,7 +799,7 @@ module.exports = {
         return binary ? ret : ret.toString();
       }
       if (!nodeFS) nodeFS = frozenFs;
-      if (!nodePath) nodePath = __webpack_require__(9);
+      if (!nodePath) nodePath = __webpack_require__(12);
       filename = nodePath["normalize"](filename);
       return nodeFS["readFileSync"](filename, binary ? null : "utf8");
     };
@@ -3564,7 +3850,7 @@ module.exports = {
         };
       } else if (ENVIRONMENT_IS_NODE) {
         try {
-          var crypto_module = __webpack_require__(10);
+          var crypto_module = __webpack_require__(13);
           random_device = function() {
             return crypto_module["randomBytes"](1)[0];
           };
@@ -4782,7 +5068,7 @@ module.exports = {
   FS.staticInit();
   if (ENVIRONMENT_HAS_NODE) {
     var fs = frozenFs;
-    var NODEJS_PATH = __webpack_require__(9);
+    var NODEJS_PATH = __webpack_require__(12);
     NODEFS.staticInit();
   }
   if (ENVIRONMENT_IS_NODE) {
@@ -4999,456 +5285,25 @@ module.exports = {
 
 
   /***/ }),
-  /* 8 */
+  /* 11 */
   /***/ (function(module, exports) {
 
   module.exports = require("fs");
 
   /***/ }),
-  /* 9 */
+  /* 12 */
   /***/ (function(module, exports) {
 
   module.exports = require("path");
 
   /***/ }),
-  /* 10 */
+  /* 13 */
   /***/ (function(module, exports) {
 
   module.exports = require("crypto");
 
   /***/ }),
-  /* 11 */
-  /***/ (function(module, exports, __webpack_require__) {
-
-  "use strict";
-
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  const core_1 = __webpack_require__(1);
-
-  const core_2 = __webpack_require__(1);
-
-  const fslib_1 = __webpack_require__(4);
-
-  const node_abi_1 = __webpack_require__(12);
-
-  const plugin_npm_1 = __webpack_require__(14);
-
-  exports.getElectronVersion = async project => {
-    for (const pkg of project.storedPackages.values()) {
-      if (pkg.name === 'electron') {
-        return pkg.version;
-      }
-    }
-
-    return null;
-  };
-
-  exports.getNativeModule = async (project, packageIdent, ident) => {
-    // we need to find the package that matches packageIdent which has a dependency on our ephemeral bindings package
-    for (const pkg of project.storedPackages.values()) {
-      // see if it matches packageIdent
-      if (pkg.name === packageIdent.name && pkg.scope === packageIdent.scope) {
-        //for (const [identHash, dependency] of pkg.dependencies) {
-        //  if (dependency.name === "bindings") {
-        return pkg; //  }
-        //}
-      }
-    }
-
-    return null;
-  };
-
-  function parseSpec(spec) {
-    const payload = spec.substring(spec.indexOf("builtin<prebuild/") + 17, spec.length - 1);
-    const packageIdent = core_1.structUtils.parseIdent(payload);
-    return {
-      packageIdent
-    };
-  }
-
-  exports.parseSpec = parseSpec;
-
-  function getPrebuildConfiguration(scope, configuration) {
-    const prebuildScopedConfigurations = configuration.get(`prebuildScopes`);
-    const exactEntry = prebuildScopedConfigurations.get(scope);
-    if (typeof exactEntry !== `undefined`) return exactEntry;
-    return null;
-  }
-
-  exports.getPrebuildConfiguration = getPrebuildConfiguration;
-
-  function gitRepositoryToGithubLink(repository) {
-    var m = /github\.com\/([^\/]+)\/([^\/\.]+)\.git/.exec(repository);
-
-    if (m) {
-      return 'https://github.com/' + m[1] + '/' + m[2];
-    }
-
-    return null;
-  }
-
-  exports.gitRepositoryToGithubLink = gitRepositoryToGithubLink;
-
-  function getConfigEntry(nativeModule, entry, opts) {
-    const configuration = opts.project.configuration;
-    const scopeWithAt = `@${nativeModule.scope}`;
-    const scopedConfiguration = nativeModule.scope ? getPrebuildConfiguration(scopeWithAt, configuration) : null;
-    const effectiveConfiguration = scopedConfiguration || configuration;
-
-    if (effectiveConfiguration.get(entry)) {
-      return effectiveConfiguration.get(entry);
-    }
-
-    return configuration.get(entry);
-  }
-
-  function getElectronABI(electronVersion) {
-    return node_abi_1.getAbi(electronVersion, 'electron');
-  }
-
-  exports.getElectronABI = getElectronABI;
-
-  function runTemplate(template, templateValues) {
-    for (const [key, value] of Object.entries(templateValues)) {
-      template = template.replace(new RegExp(`{${key}}`, 'g'), value);
-    }
-
-    return template;
-  }
-
-  async function getGithubLink(nativeModule, opts) {
-    var _a;
-
-    const registryData = await plugin_npm_1.npmHttpUtils.get(plugin_npm_1.npmHttpUtils.getIdentUrl(nativeModule), {
-      configuration: opts.project.configuration,
-      ident: nativeModule,
-      json: true
-    });
-
-    if (!Object.prototype.hasOwnProperty.call(registryData, `versions`)) {
-      throw new core_2.ReportError(core_2.MessageName.REMOTE_INVALID, `Registry returned invalid data for - missing "versions" field`);
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(registryData.versions, nativeModule.version)) {
-      throw new core_2.ReportError(core_2.MessageName.REMOTE_NOT_FOUND, `Registry failed to return reference "${nativeModule.version}"`);
-    }
-
-    const data = registryData.versions[nativeModule.version];
-    const repository = (_a = data.repository) === null || _a === void 0 ? void 0 : _a.url;
-
-    if (!repository) {
-      throw new core_2.ReportError(core_2.MessageName.UNNAMED, `Unable to find repository information for "${core_1.structUtils.stringifyIdent(nativeModule)}"`);
-    }
-
-    const githubUrl = gitRepositoryToGithubLink(repository);
-
-    if (!githubUrl) {
-      throw new core_2.ReportError(core_2.MessageName.UNNAMED, `Unable to find GitHub URL for "${core_1.structUtils.stringifyIdent(nativeModule)}"`);
-    }
-
-    return githubUrl;
-  }
-
-  async function getUrlOfPrebuild(nativeModule, opts, prebuildOpts) {
-    const convertedName = core_1.structUtils.stringifyIdent(nativeModule).replace(/^@\w+\//, '');
-    const name = convertedName;
-    const version = nativeModule.version;
-    const abi = prebuildOpts.abi;
-    const runtime = prebuildOpts.runtime;
-    const platform = process.platform;
-    const arch = process.arch;
-    const libc = process.env.LIBC || '';
-    const tag_prefix = getConfigEntry(nativeModule, `prebuildTagPrefix`, opts);
-    const packageName = `${name}-v${version}-${runtime}-v${abi}-${platform}${libc}-${arch}.tar.gz`;
-    const mirror_url = getConfigEntry(nativeModule, `prebuildHostMirrorUrl`, opts);
-
-    if (mirror_url) {
-      const template = getConfigEntry(nativeModule, `prebuildHostMirrorTemplate`, opts);
-      return runTemplate(template, {
-        mirror_url,
-        name,
-        version,
-        abi,
-        runtime,
-        platform,
-        arch,
-        libc,
-        tag_prefix,
-        scope: nativeModule.scope || '',
-        scopeWithAt: nativeModule.scope ? `@${nativeModule.scope}` : '',
-        scopeWithAtAndSlash: nativeModule.scope ? `@${nativeModule.scope}/` : '',
-        scopeWithSlash: nativeModule.scope ? `${nativeModule.scope}/` : ''
-      });
-    }
-
-    const githubLink = await getGithubLink(nativeModule, opts);
-    return `${githubLink}/releases/download/${tag_prefix}${version}/${packageName}`;
-  }
-
-  exports.getUrlOfPrebuild = getUrlOfPrebuild;
-
-  exports.walk = async (filesystem, currentPath, callback, cancellationSignal) => {
-    if (cancellationSignal.cancel) {
-      return;
-    }
-
-    const files = await filesystem.readdirPromise(currentPath);
-    await Promise.all(files.map(async filename => {
-      if (cancellationSignal.cancel) {
-        return;
-      }
-
-      const filepath = fslib_1.ppath.join(currentPath, filename);
-      const stat = await filesystem.statPromise(filepath);
-
-      if (stat.isDirectory()) {
-        await exports.walk(filesystem, filepath, callback, cancellationSignal);
-      } else if (stat.isFile()) {
-        await callback(filesystem, filepath);
-      }
-    }));
-  };
-  /*
-  export function makeDescriptor(ident: Ident, {parentLocator, sourceDescriptor, patchPaths}: ReturnType<typeof parseDescriptor>) {
-    return structUtils.makeLocator(ident, makeSpec({parentLocator, sourceItem: sourceDescriptor, patchPaths}, structUtils.stringifyDescriptor));
-  }
-
-  https://github.com/serialport/node-serialport/releases/download/@serialport/bindings@8.0.7/bindings-v8.0.7-electron-v75-darwin-x64.tar.gz
-  https://github.com/serialport/node-serialport/releases/download/@serialport/bindings@8.0.7/bindings-v8.0.7-electron-v76-darwin-x64.tar.gz
-
-
-  type VisitPatchPathOptions<T> = {
-    onAbsolute: (p: PortablePath) => T,
-    onRelative: (p: PortablePath) => T,
-    onBuiltin: (name: string) => T,
-  };
-
-  function visitPatchPath<T>({onAbsolute, onRelative, onBuiltin}: VisitPatchPathOptions<T>, patchPath: PortablePath) {
-    const builtinMatch = patchPath.match(BUILTIN_REGEXP);
-    if (builtinMatch !== null)
-      return onBuiltin(builtinMatch[1]);
-
-    if (ppath.isAbsolute(patchPath)) {
-      return onAbsolute(patchPath);
-    } else {
-      return onRelative(patchPath);
-    }
-  }
-
-  export function isParentRequired(patchPath: PortablePath) {
-    return visitPatchPath({
-      onAbsolute: () => false,
-      onRelative: () => true,
-      onBuiltin: () => false,
-    }, patchPath);
-  }
-
-  export async function loadPatchFiles(parentLocator: Locator | null, patchPaths: Array<PortablePath>, opts: FetchOptions) {
-    // When the patch files use absolute paths we can directly access them via
-    // their location on the disk. Otherwise we must go through the package fs.
-    const parentFetch = parentLocator !== null
-      ? await opts.fetcher.fetch(parentLocator, opts)
-      : null;
-
-    // If the package fs publicized its "original location" (for example like
-    // in the case of "file:" packages), we use it to derive the real location.
-    const effectiveParentFetch = parentFetch && parentFetch.localPath
-      ? {packageFs: new NodeFS(), prefixPath: parentFetch.localPath, releaseFs: undefined}
-      : parentFetch;
-
-    // Discard the parent fs unless we really need it to access the files
-    if (parentFetch && parentFetch !== effectiveParentFetch && parentFetch.releaseFs)
-      parentFetch.releaseFs();
-
-    // First we obtain the specification for all the patches that we'll have to
-    // apply to the original package.
-    return await miscUtils.releaseAfterUseAsync(async () => {
-      return await Promise.all(patchPaths.map(async patchPath => visitPatchPath({
-        onAbsolute: async () => {
-          return await xfs.readFilePromise(patchPath, `utf8`);
-        },
-
-        onRelative: async () => {
-          if (parentFetch === null)
-            throw new Error(`Assertion failed: The parent locator should have been fetched`);
-
-          return await parentFetch.packageFs.readFilePromise(patchPath, `utf8`);
-        },
-
-        onBuiltin: async name => {
-          return await opts.project.configuration.firstHook((hooks: PatchHooks) => {
-            return hooks.getBuiltinPatch;
-          }, opts.project, name);
-        },
-      }, patchPath)));
-    });
-  }
-
-  export async function extractPackageToDisk(locator: Locator, {cache, project}: {cache: Cache, project: Project}) {
-    const checksums = project.storedChecksums;
-    const report = new ThrowReport();
-
-    const fetcher = project.configuration.makeFetcher();
-    const fetchResult = await fetcher.fetch(locator, {cache, project, fetcher, checksums, report});
-
-    const temp = await xfs.mktempPromise();
-    await xfs.copyPromise(temp, fetchResult.prefixPath, {
-      baseFs: fetchResult.packageFs,
-    });
-
-    await xfs.writeJsonPromise(ppath.join(temp, `.yarn-patch.json` as Filename), {
-      locator: structUtils.stringifyLocator(locator),
-    });
-
-    return temp;
-  }
-  */
-
-  /***/ }),
-  /* 12 */
-  /***/ (function(module, exports, __webpack_require__) {
-
-  var semver = __webpack_require__(13)
-
-  function getNextTarget (runtime, targets) {
-    if (targets == null) targets = allTargets
-    var latest = targets.filter(function (t) { return t.runtime === runtime }).slice(-1)[0]
-    var increment = runtime === 'electron' ? 'minor' : 'major'
-    return semver.inc(latest.target, increment)
-  }
-
-  function getAbi (target, runtime) {
-    if (target === String(Number(target))) return target
-    if (target) target = target.replace(/^v/, '')
-    if (!runtime) runtime = 'node'
-
-    if (runtime === 'node') {
-      if (!target) return process.versions.modules
-      if (target === process.versions.node) return process.versions.modules
-    }
-
-    var abi
-
-    for (var i = 0; i < allTargets.length; i++) {
-      var t = allTargets[i]
-      if (t.runtime !== runtime) continue
-      if (semver.lte(t.target, target)) abi = t.abi
-      else break
-    }
-
-    if (abi && semver.lt(target, getNextTarget(runtime))) return abi
-    throw new Error('Could not detect abi for version ' + target + ' and runtime ' + runtime + '.  Updating "node-abi" might help solve this issue if it is a new release of ' + runtime)
-  }
-
-  function getTarget (abi, runtime) {
-    if (abi && abi !== String(Number(abi))) return abi
-    if (!runtime) runtime = 'node'
-
-    if (runtime === 'node' && !abi) return process.versions.node
-
-    var match = allTargets
-      .filter(function (t) {
-        return t.abi === abi && t.runtime === runtime
-      })
-      .map(function (t) {
-        return t.target
-      })
-    if (match.length) return match[0]
-
-    throw new Error('Could not detect target for abi ' + abi + ' and runtime ' + runtime)
-  }
-
-  var supportedTargets = [
-    {runtime: 'node', target: '5.0.0', abi: '47', lts: false},
-    {runtime: 'node', target: '6.0.0', abi: '48', lts: false},
-    {runtime: 'node', target: '7.0.0', abi: '51', lts: false},
-    {runtime: 'node', target: '8.0.0', abi: '57', lts: false},
-    {runtime: 'node', target: '9.0.0', abi: '59', lts: false},
-    {runtime: 'node', target: '10.0.0', abi: '64', lts: new Date(2018, 10, 1) < new Date() && new Date() < new Date(2020, 4, 31)},
-    {runtime: 'node', target: '11.0.0', abi: '67', lts: false},
-    {runtime: 'node', target: '12.0.0', abi: '72', lts: new Date(2019, 9, 21) < new Date() && new Date() < new Date(2020, 9, 31)},
-    {runtime: 'node', target: '13.0.0', abi: '79', lts: false},
-    {runtime: 'electron', target: '0.36.0', abi: '47', lts: false},
-    {runtime: 'electron', target: '1.1.0', abi: '48', lts: false},
-    {runtime: 'electron', target: '1.3.0', abi: '49', lts: false},
-    {runtime: 'electron', target: '1.4.0', abi: '50', lts: false},
-    {runtime: 'electron', target: '1.5.0', abi: '51', lts: false},
-    {runtime: 'electron', target: '1.6.0', abi: '53', lts: false},
-    {runtime: 'electron', target: '1.7.0', abi: '54', lts: false},
-    {runtime: 'electron', target: '1.8.0', abi: '57', lts: false},
-    {runtime: 'electron', target: '2.0.0', abi: '57', lts: false},
-    {runtime: 'electron', target: '3.0.0', abi: '64', lts: false},
-    {runtime: 'electron', target: '4.0.0', abi: '64', lts: false},
-    {runtime: 'electron', target: '4.0.4', abi: '69', lts: false},
-    {runtime: 'electron', target: '5.0.0', abi: '70', lts: false},
-    {runtime: 'electron', target: '6.0.0', abi: '73', lts: false},
-    {runtime: 'electron', target: '7.0.0', abi: '75', lts: false},
-    {runtime: 'electron', target: '8.0.0', abi: '76', lts: false}
-  ]
-
-  var additionalTargets = [
-    {runtime: 'node-webkit', target: '0.13.0', abi: '47', lts: false},
-    {runtime: 'node-webkit', target: '0.15.0', abi: '48', lts: false},
-    {runtime: 'node-webkit', target: '0.18.3', abi: '51', lts: false},
-    {runtime: 'node-webkit', target: '0.23.0', abi: '57', lts: false},
-    {runtime: 'node-webkit', target: '0.26.5', abi: '59', lts: false}
-  ]
-
-  var deprecatedTargets = [
-    {runtime: 'node', target: '0.2.0', abi: '1', lts: false},
-    {runtime: 'node', target: '0.9.1', abi: '0x000A', lts: false},
-    {runtime: 'node', target: '0.9.9', abi: '0x000B', lts: false},
-    {runtime: 'node', target: '0.10.4', abi: '11', lts: false},
-    {runtime: 'node', target: '0.11.0', abi: '0x000C', lts: false},
-    {runtime: 'node', target: '0.11.8', abi: '13', lts: false},
-    {runtime: 'node', target: '0.11.11', abi: '14', lts: false},
-    {runtime: 'node', target: '1.0.0', abi: '42', lts: false},
-    {runtime: 'node', target: '1.1.0', abi: '43', lts: false},
-    {runtime: 'node', target: '2.0.0', abi: '44', lts: false},
-    {runtime: 'node', target: '3.0.0', abi: '45', lts: false},
-    {runtime: 'node', target: '4.0.0', abi: '46', lts: false},
-    {runtime: 'electron', target: '0.30.0', abi: '44', lts: false},
-    {runtime: 'electron', target: '0.31.0', abi: '45', lts: false},
-    {runtime: 'electron', target: '0.33.0', abi: '46', lts: false}
-  ]
-
-  var futureTargets = [
-    {runtime: 'electron', target: '9.0.0-beta.1', abi: '80', lts: false}
-  ]
-
-  var allTargets = deprecatedTargets
-    .concat(supportedTargets)
-    .concat(additionalTargets)
-    .concat(futureTargets)
-
-  exports.getAbi = getAbi
-  exports.getTarget = getTarget
-  exports.deprecatedTargets = deprecatedTargets
-  exports.supportedTargets = supportedTargets
-  exports.additionalTargets = additionalTargets
-  exports.futureTargets = futureTargets
-  exports.allTargets = allTargets
-  exports._getNextTarget = getNextTarget
-
-
-  /***/ }),
-  /* 13 */
-  /***/ (function(module, exports) {
-
-  module.exports = require("semver");
-
-  /***/ }),
   /* 14 */
-  /***/ (function(module, exports) {
-
-  module.exports = require("@yarnpkg/plugin-npm");
-
-  /***/ }),
-  /* 15 */
   /***/ (function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -5508,6 +5363,36 @@ module.exports = {
   }
 
   exports.PrebuildResolver = PrebuildResolver;
+
+  /***/ }),
+  /* 15 */
+  /***/ (function(module, exports, __webpack_require__) {
+
+  "use strict";
+
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  const core_1 = __webpack_require__(1);
+
+  const core_2 = __webpack_require__(1);
+
+  exports.reduceDependency = async (dependency, project, locator, initialDependency, extra) => {
+    if (dependency.name === 'bindings' && dependency.scope === null) {
+      extra.resolveOptions.report.reportInfo(core_1.MessageName.UNNAMED, `Found a bindings dependency in ${core_2.structUtils.stringifyIdent(locator)}, re-routing to prebuild.`);
+      const selector = `builtin<prebuild/${core_2.structUtils.stringifyIdent(locator)}>`;
+      return core_2.structUtils.makeDescriptor(dependency, core_2.structUtils.makeRange({
+        protocol: `prebuild:`,
+        source: `bindings<${core_2.structUtils.slugifyIdent(locator)}>${process.platform}-${process.arch}`,
+        selector,
+        params: null
+      }));
+    }
+
+    return dependency;
+  };
 
   /***/ })
   /******/ ]);
