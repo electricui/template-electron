@@ -157,6 +157,12 @@
   "dependenciesMeta": {
     "electron": {
       "unplugged": true
+    },
+    "@electricui/build-tools": {
+      "unplugged": true
+    },
+    "webpack-dev-server": {
+      "unplugged": true
     }
   }
 }
