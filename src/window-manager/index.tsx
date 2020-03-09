@@ -2,6 +2,7 @@ import 'source-map-support/register'
 
 import { BrowserWindow, Menu, app } from 'electron'
 import {
+  ExternallyResolvedPromise,
   fetchSystemDarkModeFromWinManager,
   getElectricWindow,
   getSettingFromWinManager,
@@ -27,6 +28,8 @@ setupSettingsListenersWindowManager()
 // global reference to mainWindows (necessary to prevent window from being garbage collected)
 let mainWindows: Array<BrowserWindow> = []
 
+const transportReady = setupElectricUIHandlers(mainWindows)
+
 function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
@@ -39,6 +42,7 @@ function createMainWindow() {
     width: 1200,
     title: 'Electric UI',
     backgroundColor: '#191b1d', // This needs to be set to something so the background on resize can be changed to match the dark / light mode theme
+    show: false, // The window is shown once the transport manager is ready
   })
 
   if (isDevelopment) {
@@ -105,7 +109,15 @@ app.on('activate', () => {
 
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
-  mainWindows.push(createMainWindow()) // add a new window
+  const firstWindow = createMainWindow()
+  mainWindows.push(firstWindow) // add a new window
+
+  const firstWindowReady = new ExternallyResolvedPromise()
+  firstWindow.once('ready-to-show', firstWindowReady.resolve)
+
+  Promise.all([firstWindowReady.getPromise(), transportReady]).then(() => {
+    firstWindow.show()
+  })
 
   // A secure policy to prevent running scripts external to this browser.
 
@@ -122,8 +134,6 @@ app.on('ready', () => {
   })
   */
 })
-
-setupElectricUIHandlers(mainWindows)
 
 /**
  * Setup our main menu bar
