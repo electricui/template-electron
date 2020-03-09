@@ -35,7 +35,6 @@ function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
-      backgroundThrottling: false, // Don't throttle, it needs to be awake to receive messages
       devTools: isDevelopment, // Only allow devTools in development mode
     },
     minHeight: 680,
