@@ -3,6 +3,7 @@ import 'source-map-support/register'
 import { BrowserWindow, Menu, app } from 'electron'
 import {
   ExternallyResolvedPromise,
+  createdNewUIWindow,
   fetchSystemDarkModeFromWinManager,
   getElectricWindow,
   getSettingFromWinManager,
@@ -34,6 +35,7 @@ function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
+      backgroundThrottling: false, // Don't throttle, it needs to be awake to receive messages
       devTools: isDevelopment, // Only allow devTools in development mode
     },
     minHeight: 680,
@@ -82,6 +84,9 @@ function createMainWindow() {
     window.webContents.openDevTools()
   }
 
+  // Notify the handler that we have a new window
+  createdNewUIWindow(window)
+
   return window
 }
 
@@ -115,6 +120,7 @@ app.on('ready', () => {
   const firstWindowReady = new ExternallyResolvedPromise()
   firstWindow.once('ready-to-show', firstWindowReady.resolve)
 
+  // Wait until the transport and the window is ready before showing the first window
   Promise.all([firstWindowReady.getPromise(), transportReady]).then(() => {
     firstWindow.show()
   })
