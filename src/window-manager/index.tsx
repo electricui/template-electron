@@ -169,26 +169,7 @@ const template = [
   // { role: 'fileMenu' }
   {
     label: 'File',
-    submenu: [
-      ...(process.env.NODE_ENV === 'development'
-        ? [
-            {
-              label: 'Show Transport Window',
-              click: () => {
-                const electricWindow = getElectricWindow()
-
-                if (electricWindow) {
-                  electricWindow.show()
-                  electricWindow.webContents.openDevTools({
-                    mode: 'undocked',
-                  })
-                }
-              },
-            },
-          ]
-        : []),
-      { role: 'quit', label: 'Quit Electric UI' },
-    ], // isMac ? { role: 'close' } : { role: 'quit' }
+    submenu: [{ role: 'quit', label: 'Quit Electric UI' }],
   },
   // { role: 'editMenu' }
   {
@@ -243,23 +224,13 @@ const template = [
       },
 
       { type: 'separator' },
-      { role: 'reload' },
-      { role: 'forcereload' },
-      { role: 'toggledevtools' },
-      { type: 'separator' },
-      { role: 'resetzoom' },
+      // Window magnification options
       { role: 'zoomin' },
       { role: 'zoomout' },
+      { role: 'resetzoom' },
       { type: 'separator' },
+      // Fullscreen Toggle
       { role: 'togglefullscreen' },
-    ],
-  },
-  // { role: 'windowMenu' }
-  {
-    label: 'Window',
-    submenu: [
-      { role: 'minimize' },
-      { role: 'zoom' },
       ...(isMac
         ? [
             { type: 'separator' },
@@ -267,12 +238,41 @@ const template = [
             { type: 'separator' },
             { role: 'window' },
           ]
-        : [{ role: 'close' }]),
+        : [{ type: 'separator' }, { role: 'close' }]),
     ],
   },
+  ...(process.env.NODE_ENV === 'development'
+    ? [
+        {
+          label: 'DevTools',
+          submenu: [
+            { role: 'reload' },
+            { role: 'forcereload' },
+            { type: 'separator' },
+
+            { role: 'toggledevtools' },
+            {
+              label: 'Show Transport Window',
+              click: () => {
+                const electricWindow = getElectricWindow()
+
+                if (electricWindow) {
+                  electricWindow.show()
+                  electricWindow.webContents.openDevTools({
+                    mode: 'undocked',
+                  })
+                }
+              },
+            },
+          ],
+        },
+      ]
+    : []),
   {
     role: 'help',
     submenu: [
+      { role: 'reload' },
+      { type: 'separator' },
       {
         label: 'Learn More about Electric UI',
         click() {
