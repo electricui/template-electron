@@ -24,10 +24,10 @@ class RequestName extends DiscoveryMetadataRequester {
     return device
       .write(nameRequest)
       .then(res => {
-        console.log('requested name, response:', res)
+        console.log('Requested name, response:', res)
       })
       .catch(err => {
-        console.log('Couldnt request name err:', err)
+        console.log("Couldn't request name err:", err)
       })
   }
 }
