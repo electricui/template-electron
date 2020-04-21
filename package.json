@@ -2,7 +2,7 @@
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "dependencies": {
     "@electricui/node-usb": "^0.6.6",
-    "source-map-support": "^0.5.16"
+    "source-map-support": "0.5.16"
   },
   "devDependencies": {
     "@blueprintjs/core": "^3.19.1",
