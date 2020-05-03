@@ -25,7 +25,7 @@ import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
 export const deviceManager = new DeviceManager()
 
 function createRouter(device: Device) {
-  return new MessageRouterLogRatioMetadata({ device, reportRankings: true })
+  return new MessageRouterLogRatioMetadata({ device })
 }
 
 function createQueue(device: Device) {
@@ -113,8 +113,8 @@ if (module.hot) {
     const devices = deviceManager.getDevicesMap()
 
     let deviceIDsWithUsageRequests = Array.from(devices.values())
-      .filter(device => device.getUsageRequests().includes('ui'))
-      .map(device => device.getDeviceID())
+      .filter((device) => device.getUsageRequests().includes('ui'))
+      .map((device) => device.getDeviceID())
 
     data['deviceIDsToConnectTo'] = deviceIDsWithUsageRequests
   })
