@@ -309,8 +309,6 @@ module.exports = {
 
   const staticRequire = require("./bindings.node");
   module.exports = (fileLookingFor) => {
-    console.log("was looking for file", fileLookingFor, "but we replaced it!");
-
     return staticRequire;
   };
       `;
