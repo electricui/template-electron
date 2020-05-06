@@ -5381,7 +5381,7 @@ module.exports = {
 
   exports.reduceDependency = async (dependency, project, locator, initialDependency, extra) => {
     if (dependency.name === 'bindings' && dependency.scope === null) {
-      extra.resolveOptions.report.reportInfo(core_1.MessageName.UNNAMED, `Found a bindings dependency in ${core_2.structUtils.stringifyIdent(locator)}, re-routing to prebuild.`);
+      // extra.resolveOptions.report.reportInfo(core_1.MessageName.UNNAMED, `Found a bindings dependency in ${core_2.structUtils.stringifyIdent(locator)}, re-routing to prebuild.`);
       const selector = `builtin<prebuild/${core_2.structUtils.stringifyIdent(locator)}>`;
       return core_2.structUtils.makeDescriptor(dependency, core_2.structUtils.makeRange({
         protocol: `prebuild:`,
