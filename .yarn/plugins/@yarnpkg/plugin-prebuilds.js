@@ -177,7 +177,7 @@ module.exports = {
 
   exports.reduceDependency = async (dependency, project, locator, initialDependency, extra) => {
     if (dependency.name === `bindings` && dependency.scope === null) {
-      extra.resolveOptions.report.reportInfo(core_1.MessageName.UNNAMED, `Found a bindings dependency in ${core_1.structUtils.stringifyIdent(locator)}, re-routing to prebuild.`);
+      // extra.resolveOptions.report.reportInfo(MessageName.UNNAMED, `Found a bindings dependency in ${structUtils.stringifyIdent(locator)}, re-routing to prebuild.`);
       const selector = `builtin<prebuild/${core_1.structUtils.stringifyIdent(locator)}>`; // TODO: Add process.platform and arch to this
 
       return core_1.structUtils.makeDescriptor(dependency, core_1.structUtils.makeRange({
@@ -454,15 +454,18 @@ module.exports = {
     const runtime = prebuildOpts.runtime;
     const platform = process.platform;
     const arch = process.arch;
-    const libc = process.env.LIBC || ``;
-    const tagPrefix = getConfigEntry(nativeModule, `prebuildTagPrefix`, opts);
-    const packageName = `${name}-v${version}-${runtime}-v${abi}-${platform}${libc}-${arch}.tar.gz`;
-    const mirrorUrl = getConfigEntry(nativeModule, `prebuildHostMirrorUrl`, opts);
+    const libc = process.env.LIBC || ``; // eslint-disable-next-line @typescript-eslint/camelcase
 
-    if (mirrorUrl) {
+    const tag_prefix = getConfigEntry(nativeModule, `prebuildTagPrefix`, opts);
+    const packageName = `${name}-v${version}-${runtime}-v${abi}-${platform}${libc}-${arch}.tar.gz`; // eslint-disable-next-line @typescript-eslint/camelcase
+
+    const mirror_url = getConfigEntry(nativeModule, `prebuildHostMirrorUrl`, opts); // eslint-disable-next-line @typescript-eslint/camelcase
+
+    if (mirror_url) {
       const template = getConfigEntry(nativeModule, `prebuildHostMirrorTemplate`, opts);
       return runTemplate(template, {
-        mirrorUrl,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        mirror_url,
         name,
         version,
         abi,
@@ -470,7 +473,8 @@ module.exports = {
         platform,
         arch,
         libc,
-        tagPrefix,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        tag_prefix,
         scope: nativeModule.scope || ``,
         scopeWithAt: nativeModule.scope ? `@${nativeModule.scope}` : ``,
         scopeWithAtAndSlash: nativeModule.scope ? `@${nativeModule.scope}/` : ``,
@@ -478,8 +482,9 @@ module.exports = {
       });
     }
 
-    const githubLink = await getGithubLink(nativeModule, opts);
-    return `${githubLink}/releases/download/${tagPrefix}${version}/${packageName}`;
+    const githubLink = await getGithubLink(nativeModule, opts); // eslint-disable-next-line @typescript-eslint/camelcase
+
+    return `${githubLink}/releases/download/${tag_prefix}${version}/${packageName}`;
   }
 
   exports.getUrlOfPrebuild = getUrlOfPrebuild;
