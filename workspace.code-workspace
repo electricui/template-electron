@@ -5,6 +5,7 @@
     }
   ],
   "settings": {
+    "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.tsdk": ".vscode/pnpify/typescript/lib"
   }
 }
