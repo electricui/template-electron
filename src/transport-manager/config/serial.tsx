@@ -45,7 +45,7 @@ const usbProducer = new USBHintProducer({
 })
 
 // Serial Ports
-const serialTransportFactory = new TransportFactory(options => {
+const serialTransportFactory = new TransportFactory((options) => {
   const connectionInterface = new ConnectionInterface()
 
   const transport = new SerialTransport(options)
@@ -120,17 +120,24 @@ const serialConsumer = new DiscoveryHintConsumer({
       // If you wanted to filter for specific serial devices, you would modify this section, removing the
       // return statement below and uncommenting the block below it, modifying it to your needs.
 
-      return true
-
-      /*
       const identification = hint.getIdentification()
 
+      // Filter out any /dev/ttyS____ comPaths since they're almost certainly terminals
+      if (identification.comPath.startsWith('/dev/ttyS')) {
+        return false
+      }
+
+      // An example of filtering devices with Arduino or Silicon in the manufacturers
+      /*
       return (
         identification.manufacturer && (
           identification.manufacturer.includes('Arduino') ||
           identification.manufacturer.includes('Silicon'))
       )
       */
+
+      // Try any device that isn't filtered out by this stage
+      return true
     }
     return false
   },
