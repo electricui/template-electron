@@ -49,7 +49,7 @@
     "redux": "4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "serialport": "8.0.7",
+    "serialport": "9.0.0",
     "@babel/core": "^7.3.3",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
