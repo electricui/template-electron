@@ -65,7 +65,7 @@ function createMainWindow() {
   })
 
   // since right now we only support one window, if it gets closed, kill the app.
-  window.on('close', event => {
+  window.on('close', () => {
     // Exit the app, don't 'quit', quit asks each window to close.
     app.exit()
   })
