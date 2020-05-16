@@ -15,6 +15,8 @@ import {
 } from '@electricui/utility-electron'
 
 import { format as formatUrl } from 'url'
+import iconIco from './icon.ico'
+import iconPng from './icon.png'
 import { join as pathJoin } from 'path'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -44,6 +46,7 @@ function createMainWindow() {
     title: 'Electric UI',
     backgroundColor: '#191b1d', // This needs to be set to something so the background on resize can be changed to match the dark / light mode theme
     show: false, // The window is shown once the transport manager is ready
+    icon: process.platform === 'win32' ? iconIco : iconPng, // Display an icon
   })
 
   if (isDevelopment) {
@@ -120,9 +123,11 @@ app.on('ready', () => {
   firstWindow.once('ready-to-show', firstWindowReady.resolve)
 
   // Wait until the transport and the window is ready before showing the first window
-  Promise.all([firstWindowReady.getPromise(), transportReady]).then(() => {
-    firstWindow.show()
-  })
+  Promise.all([firstWindowReady.getPromise(), transportReady])
+    .then(() => {
+      firstWindow.show()
+    })
+    .catch(console.error)
 
   // A secure policy to prevent running scripts external to this browser.
 
