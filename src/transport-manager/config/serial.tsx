@@ -24,15 +24,13 @@ import {
 import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-large-packet-handler'
 import { COBSPipeline } from '@electricui/protocol-binary-cobs'
 import { HeartbeatConnectionMetadataReporter } from '@electricui/protocol-binary-heartbeats'
+import SerialPort from 'serialport'
+import USB from '@electricui/node-usb'
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
 import { customCodecs } from './codecs'
 import { defaultCodecList } from '@electricui/protocol-binary-codecs'
 
 const typeCache = new TypeCache()
-
-const SerialPort = require('serialport')
-
-const USB = require('@electricui/node-usb')
 
 const serialProducer = new SerialPortHintProducer({
   SerialPort,
@@ -45,7 +43,7 @@ const usbProducer = new USBHintProducer({
 })
 
 // Serial Ports
-const serialTransportFactory = new TransportFactory((options) => {
+const serialTransportFactory = new TransportFactory(options => {
   const connectionInterface = new ConnectionInterface()
 
   const transport = new SerialTransport(options)
