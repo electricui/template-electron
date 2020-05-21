@@ -1,8 +1,8 @@
-  /* eslint-disable*/
-  module.exports = {
-    name: "@yarnpkg/plugin-prebuilds",
-    factory: function (require) {
-                            var plugin =
+/* eslint-disable */
+module.exports = {
+name: "@yarnpkg/plugin-prebuilds",
+factory: function (require) {
+var plugin =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -616,7 +616,8 @@ var supportedTargets = [
   {runtime: 'electron', target: '5.0.0', abi: '70', lts: false},
   {runtime: 'electron', target: '6.0.0', abi: '73', lts: false},
   {runtime: 'electron', target: '7.0.0', abi: '75', lts: false},
-  {runtime: 'electron', target: '8.0.0', abi: '76', lts: false}
+  {runtime: 'electron', target: '8.0.0', abi: '76', lts: false},
+  {runtime: 'electron', target: '9.0.0', abi: '80', lts: false}
 ]
 
 var additionalTargets = [
@@ -645,9 +646,7 @@ var deprecatedTargets = [
   {runtime: 'electron', target: '0.33.0', abi: '46', lts: false}
 ]
 
-var futureTargets = [
-  {runtime: 'electron', target: '9.0.0-beta.1', abi: '80', lts: false}
-]
+var futureTargets = []
 
 var allTargets = deprecatedTargets
   .concat(supportedTargets)
@@ -733,6 +732,6 @@ exports.PrebuildResolver = PrebuildResolver;
 
 /***/ })
 /******/ ]);
-      return plugin;
-    },
-  };
+return plugin;
+}
+};
