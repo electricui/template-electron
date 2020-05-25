@@ -255,18 +255,37 @@ class PrebuildFetcher {
   }
 
   async fetch(locator, opts) {
-    const expectedChecksum = null; // opts.checksums.get(locator.locatorHash) || null;
+    const baseFs = new fslib_1.NodeFS();
+    const zipFs = await this.fetchPrebuild(locator, opts);
+    const originalPath = zipFs.getRealPath();
+    zipFs.saveAndClose();
+    await fslib_1.xfs.chmodPromise(originalPath, 0o644); // Do this before moving the file so that we don't pollute the cache with corrupted archives
 
-    const [packageFs, releaseFs, checksum] = await opts.cache.fetchPackageFromCache(locator, expectedChecksum, {
-      onHit: () => opts.report.reportCacheHit(locator),
-      onMiss: () => opts.report.reportCacheMiss(locator),
-      loader: () => {
-        // opts.report.reportInfoOnce(MessageName.FETCH_NOT_CACHED, `${structUtils.prettyLocator(opts.project.configuration, locator)} can't be found in the cache and will be fetched from the registry`);
-        return this.fetchPrebuild(locator, opts);
+    const checksum = `${opts.cache.cacheKey}/${await core_1.hashUtils.checksumFile(originalPath)}`;
+    const cachePath = opts.cache.getLocatorPath(locator, checksum);
+    if (!cachePath) throw new Error(`Assertion failed: Expected the cache path to be available`);
+    await fslib_1.xfs.movePromise(originalPath, cachePath);
+    await fslib_1.xfs.mkdirpPromise(fslib_1.ppath.dirname(cachePath));
+    let readOnlyZipFs = null;
+    const libzip = await libzip_1.getLibzipPromise();
+    const lazyFs = new fslib_1.LazyFS(() => core_1.miscUtils.prettifySyncErrors(() => {
+      return readOnlyZipFs = new fslib_1.ZipFS(cachePath, {
+        baseFs,
+        libzip,
+        readOnly: true
+      });
+    }, message => {
+      return `Failed to open the cache entry for ${core_1.structUtils.prettyLocator(opts.project.configuration, locator)}: ${message}`;
+    }), fslib_1.ppath);
+
+    const releaseFs = () => {
+      if (readOnlyZipFs !== null) {
+        readOnlyZipFs.discardAndClose();
       }
-    });
+    };
+
     return {
-      packageFs,
+      packageFs: lazyFs,
       releaseFs,
       prefixPath: core_1.structUtils.getIdentVendorPath(locator),
       localPath: this.getLocalPath(locator, opts),
@@ -277,7 +296,8 @@ class PrebuildFetcher {
   async fetchPrebuild(locator, opts) {
     const {
       packageIdent
-    } = utils.parseSpec(locator.reference);
+    } = utils.parseSpec(locator.reference); // opts.report.reportInfo(MessageName.UNNAMED, `Fetching prebuild for ${structUtils.stringifyIdent(locator)}`);
+
     const electronVersion = await utils.getElectronVersion(opts.project);
     const nativeModule = await utils.getNativeModule(opts.project, packageIdent, locator);
     if (nativeModule === null) throw new core_1.ReportError(core_1.MessageName.UNNAMED, `Could not find the native module that had a prebuild attempt`);
@@ -294,7 +314,7 @@ class PrebuildFetcher {
     } catch (e) {
       opts.report.reportInfo(core_1.MessageName.UNNAMED, `Error fetching ${prebuildUrl}`);
       throw e;
-    } // opts.report.reportInfo(MessageName.UNNAMED, `Fetched prebuild for ${structUtils.stringifyIdent(nativeModule)} version ${nativeModule.version} on runtime electron version ${electronVersion}`)
+    } // opts.report.reportInfo(MessageName.UNNAMED, `Fetched prebuild for ${structUtils.stringifyIdent(nativeModule)} version ${nativeModule.version} on runtime electron version ${electronVersion}`);
 
 
     const cancellationSignal = {
