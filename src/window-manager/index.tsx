@@ -36,6 +36,7 @@ function createMainWindow() {
     webPreferences: {
       nodeIntegration: true,
       devTools: isDevelopment, // Only allow devTools in development mode
+      v8CacheOptions: 'bypassHeatCheckAndEagerCompile', // https://www.youtube.com/watch?v=YqHOUy2rYZ8
     },
     minHeight: 680,
     minWidth: 1200,
