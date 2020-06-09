@@ -150,10 +150,31 @@
   },
   "version": "0.1.0",
   "dependenciesMeta": {
-    "electron": {
+    "@electricui/app-builder-bin-darwin-x64": {
+      "unplugged": true
+    },
+    "@electricui/app-builder-bin-linux-arm": {
+      "unplugged": true
+    },
+    "@electricui/app-builder-bin-linux-arm64": {
+      "unplugged": true
+    },
+    "@electricui/app-builder-bin-linux-ia32": {
+      "unplugged": true
+    },
+    "@electricui/app-builder-bin-linux-x64": {
+      "unplugged": true
+    },
+    "@electricui/app-builder-bin-win32-x32": {
+      "unplugged": true
+    },
+    "@electricui/app-builder-bin-win32-x64": {
       "unplugged": true
     },
     "@electricui/build-tools": {
+      "unplugged": true
+    },
+    "electron": {
       "unplugged": true
     },
     "webpack-dev-server": {
