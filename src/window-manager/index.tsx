@@ -18,7 +18,7 @@ import { format as formatUrl } from 'url'
 import { join as pathJoin } from 'path'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
-const allowDevTools = process.env.ALLOW_DEV_TOOLS === 'true' ?? isDevelopment
+const allowDevTools = process.env.ALLOW_DEV_TOOLS === 'true' || isDevelopment
 
 // Disallow process reuse
 app.allowRendererProcessReuse = false
@@ -46,11 +46,6 @@ function createMainWindow() {
     title: 'Electric UI',
     backgroundColor: '#191b1d', // This needs to be set to something so the background on resize can be changed to match the dark / light mode theme
     show: false, // The window is shown once the transport manager is ready
-    icon: pathJoin(
-      __dirname,
-      'icons',
-      process.platform === 'win32' ? 'icon.ico' : 'icon.png',
-    ), // Display an icon
   })
 
   if (isDevelopment) {
