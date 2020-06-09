@@ -18,6 +18,7 @@ import { format as formatUrl } from 'url'
 import { join as pathJoin } from 'path'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
+const allowDevTools = process.env.ALLOW_DEV_TOOLS === 'true' ?? isDevelopment
 
 // Disallow process reuse
 app.allowRendererProcessReuse = false
@@ -35,7 +36,7 @@ function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
-      devTools: isDevelopment, // Only allow devTools in development mode
+      devTools: allowDevTools, // Only allow devTools in development mode
       v8CacheOptions: 'bypassHeatCheckAndEagerCompile', // https://www.youtube.com/watch?v=YqHOUy2rYZ8
     },
     minHeight: 680,
@@ -45,7 +46,11 @@ function createMainWindow() {
     title: 'Electric UI',
     backgroundColor: '#191b1d', // This needs to be set to something so the background on resize can be changed to match the dark / light mode theme
     show: false, // The window is shown once the transport manager is ready
-    icon: pathJoin(__dirname, 'icons', process.platform === 'win32' ? 'icon.ico' : 'icon.png'), // Display an icon
+    icon: pathJoin(
+      __dirname,
+      'icons',
+      process.platform === 'win32' ? 'icon.ico' : 'icon.png',
+    ), // Display an icon
   })
 
   if (isDevelopment) {
