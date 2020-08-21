@@ -113,8 +113,8 @@ if (module.hot) {
     const devices = deviceManager.getDevicesMap()
 
     let deviceIDsWithUsageRequests = Array.from(devices.values())
-      .filter((device) => device.getUsageRequests().includes('ui'))
-      .map((device) => device.getDeviceID())
+      .filter(device => device.getUsageRequests().includes('ui'))
+      .map(device => device.getDeviceID())
 
     data['deviceIDsToConnectTo'] = deviceIDsWithUsageRequests
   })
