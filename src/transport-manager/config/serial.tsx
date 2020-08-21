@@ -16,7 +16,7 @@ import {
 } from '@electricui/core'
 import {
   SerialPortHintProducer,
-  SerialPortHintTransformer,
+  SerialPortUSBHintTransformer,
   SerialTransport,
   SerialTransportOptions,
 } from '@electricui/transport-node-serial'
@@ -39,7 +39,6 @@ const serialProducer = new SerialPortHintProducer({
 
 const usbProducer = new USBHintProducer({
   USB,
-  attachmentDelay: 500,
 })
 
 // Serial Ports
@@ -154,7 +153,7 @@ const serialConsumer = new DiscoveryHintConsumer({
   },
 })
 
-const usbToSerialTransformer = new SerialPortHintTransformer({
+const usbToSerialTransformer = new SerialPortUSBHintTransformer({
   producer: serialProducer,
 })
 
