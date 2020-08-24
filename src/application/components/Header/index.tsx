@@ -1,12 +1,14 @@
+import { Alignment, Button, Navbar } from '@blueprintjs/core'
+import {
+  useDeadline,
+  useDeviceConnect,
+  useDeviceConnectionRequested,
+  useDeviceDisconnect,
+} from '@electricui/components-core'
+
 import React from 'react'
-import { Navbar, Button, Alignment } from '@blueprintjs/core'
 import { RouteComponentProps } from '@reach/router'
 import { navigate } from '@electricui/utility-electron'
-import {
-  useDeviceConnect,
-  useDeviceDisconnect,
-  useDeviceConnectionRequested,
-} from '@electricui/components-core'
 
 interface InjectDeviceIDFromLocation {
   deviceID?: string
@@ -19,6 +21,7 @@ export const Header = (
   const disconnect = useDeviceDisconnect()
   const connect = useDeviceConnect()
   const connectionRequested = useDeviceConnectionRequested()
+  const getDeadline = useDeadline()
 
   const page = props['*'] // we get passed the path as the wildcard, so we read it here
 
@@ -44,7 +47,7 @@ export const Header = (
                 icon="cross"
                 text="Disconnect"
                 onClick={() => {
-                  disconnect()
+                  disconnect(getDeadline())
                 }}
               />
             ) : (
@@ -54,7 +57,7 @@ export const Header = (
                 intent="success"
                 text="Connect again"
                 onClick={() => {
-                  connect()
+                  connect(getDeadline())
                 }}
               />
             )}
