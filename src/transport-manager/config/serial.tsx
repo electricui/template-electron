@@ -54,7 +54,6 @@ const serialTransportFactory = new TransportFactory(options => {
 
   const queryManager = new QueryManagerBinaryProtocol({
     connectionInterface,
-    timeout: 1000,
   })
 
   const cobsPipeline = new COBSPipeline()

@@ -1,4 +1,5 @@
 import {
+  CancellationToken,
   Connection,
   ConnectionMetadataRatio,
   ConnectionMetadataRule,
@@ -18,6 +19,7 @@ import {
 import { BinaryConnectionHandshake } from '@electricui/protocol-binary-connection-handshake'
 import { HintValidatorBinaryHandshake } from '@electricui/protocol-binary'
 import { MessageQueueBinaryFIFO } from '@electricui/protocol-binary-fifo-queue'
+import { SERIAL_TRANSPORT_KEY } from '@electricui/transport-node-serial'
 
 /**
  * Create our device manager!
@@ -36,14 +38,21 @@ function createQueue(device: Device) {
   })
 }
 
-function hintValidators(hint: Hint, connection: Connection) {
-  const identification = hint.getIdentification()
-
+function hintValidators(
+  hint: Hint,
+  connection: Connection,
+  cancellationToken: CancellationToken,
+) {
   // Serial
-  if (hint.getTransportKey() === 'serial') {
-    const validator = new HintValidatorBinaryHandshake(hint, connection, {
-      timeout: 2000, // 2 second timeout
-    })
+  if (hint.getTransportKey() === SERIAL_TRANSPORT_KEY) {
+    const validator = new HintValidatorBinaryHandshake(
+      hint,
+      connection,
+      cancellationToken,
+      {
+        attemptTiming: [0, 10, 100, 1000, 2000, 5000],
+      },
+    ) // 2 second timeout
 
     return [validator]
   }
@@ -51,13 +60,15 @@ function hintValidators(hint: Hint, connection: Connection) {
   return []
 }
 
-function createHandshakes(device: Device) {
-  const metadata = device.getMetadata()
-
+function createHandshakes(
+  device: Device,
+  cancellationToken: CancellationToken,
+) {
   // Assume it's an eUI device, do the binary handshakes
   const connectionHandshakeReadWrite = new BinaryConnectionHandshake({
     device: device,
     preset: 'default',
+    cancellationToken,
   })
 
   return [connectionHandshakeReadWrite]
@@ -99,8 +110,13 @@ deviceManager.addConnectionMetadataRules([
   ),
 ])
 
-// start polling immediately.
-deviceManager.poll()
+// start polling immediately, poll for 10 seconds
+const cancellationToken = new CancellationToken('inital poll').deadline(10_000)
+deviceManager.poll(cancellationToken).catch(err => {
+  if (cancellationToken.caused(err)) {
+    console.log("Didn't find any devices on initial poll")
+  }
+})
 
 if (module.hot) {
   /**
