@@ -27,7 +27,32 @@ import { SERIAL_TRANSPORT_KEY } from '@electricui/transport-node-serial'
 export const deviceManager = new DeviceManager()
 
 function createRouter(device: Device) {
-  return new MessageRouterLogRatioMetadata({ device })
+  const router = new MessageRouterLogRatioMetadata({ device })
+
+  router.addConnectionMetadataRatios([
+    new ConnectionMetadataRatio('latency', false, 1),
+    new ConnectionMetadataRatio('jitter', false, 0.1),
+    new ConnectionMetadataRatio('packetLoss', false, 2),
+  ])
+
+  router.addConnectionMetadataRules([
+    new ConnectionMetadataRule(['latency'], ({ latency }) => latency < 400),
+    new ConnectionMetadataRule(
+      ['packetLoss', 'consecutiveHeartbeats'],
+      ({ packetLoss, consecutiveHeartbeats }) => {
+        // If there are more than three consecutive heartbeats, the connection
+        // is considered acceptable despite potential previous packet loss.
+        if (consecutiveHeartbeats > 3) {
+          return true
+        }
+
+        // Otherwise we require less than 20% packet loss
+        return packetLoss <= 0.2
+      },
+    ),
+  ])
+
+  return router
 }
 
 function createQueue(device: Device) {
@@ -86,29 +111,6 @@ deviceManager.addDiscoveryMetadataProcessors([processName])
 deviceManager.setCreateRouterCallback(createRouter)
 deviceManager.setCreateQueueCallback(createQueue)
 deviceManager.setCreateHandshakesCallback(createHandshakes)
-
-deviceManager.addConnectionMetadataRatios([
-  new ConnectionMetadataRatio('latency', false, 1),
-  new ConnectionMetadataRatio('jitter', false, 0.1),
-  new ConnectionMetadataRatio('packetLoss', false, 2),
-])
-
-deviceManager.addConnectionMetadataRules([
-  new ConnectionMetadataRule(['latency'], ({ latency }) => latency < 400),
-  new ConnectionMetadataRule(
-    ['packetLoss', 'consecutiveHeartbeats'],
-    ({ packetLoss, consecutiveHeartbeats }) => {
-      // If there are more than three consecutive heartbeats, the connection
-      // is considered acceptable despite potential previous packet loss.
-      if (consecutiveHeartbeats > 3) {
-        return true
-      }
-
-      // Otherwise we require less than 20% packet loss
-      return packetLoss <= 0.2
-    },
-  ),
-])
 
 // start polling immediately, poll for 10 seconds
 const cancellationToken = new CancellationToken('inital poll').deadline(10_000)
