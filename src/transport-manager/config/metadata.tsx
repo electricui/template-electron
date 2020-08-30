@@ -1,4 +1,5 @@
 import {
+  CancellationToken,
   Device,
   DiscoveryMetadataProcessor,
   DiscoveryMetadataRequester,
@@ -21,8 +22,12 @@ class RequestName extends DiscoveryMetadataRequester {
     nameRequest.metadata.query = true
     nameRequest.metadata.internal = false
 
+    const cancellationToken = new CancellationToken(
+      'request name metadata',
+    ).deadline(1_000)
+
     return device
-      .write(nameRequest)
+      .write(nameRequest, cancellationToken)
       .then(res => {
         console.log('Requested name, response:', res)
       })
