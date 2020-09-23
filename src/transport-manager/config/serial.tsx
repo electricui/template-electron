@@ -42,72 +42,74 @@ const usbProducer = new USBHintProducer({
 })
 
 // Serial Ports
-const serialTransportFactory = new TransportFactory(options => {
-  const connectionInterface = new ConnectionInterface()
+const serialTransportFactory = new TransportFactory(
+  (options: SerialTransportOptions) => {
+    const connectionInterface = new ConnectionInterface()
 
-  const transport = new SerialTransport(options)
+    const transport = new SerialTransport(options)
 
-  const deliverabilityManager = new DeliverabilityManagerBinaryProtocol({
-    connectionInterface,
-    timeout: 1000,
-  })
+    const deliverabilityManager = new DeliverabilityManagerBinaryProtocol({
+      connectionInterface,
+      timeout: 1000,
+    })
 
-  const queryManager = new QueryManagerBinaryProtocol({
-    connectionInterface,
-  })
+    const queryManager = new QueryManagerBinaryProtocol({
+      connectionInterface,
+    })
 
-  const cobsPipeline = new COBSPipeline()
-  const binaryPipeline = new BinaryPipeline()
-  const typeCachePipeline = new BinaryTypeCachePipeline(typeCache)
+    const cobsPipeline = new COBSPipeline()
+    const binaryPipeline = new BinaryPipeline()
+    const typeCachePipeline = new BinaryTypeCachePipeline(typeCache)
 
-  // If you have runtime generated messageIDs, add them as an array as a second argument
-  // `name` is added because it is requested by the metadata requester before handshake.
-  const undefinedMessageIDGuard = new UndefinedMessageIDGuardPipeline(
-    typeCache,
-    ['name'],
-  )
+    // If you have runtime generated messageIDs, add them as an array as a second argument
+    // `name` is added because it is requested by the metadata requester before handshake.
+    const undefinedMessageIDGuard = new UndefinedMessageIDGuardPipeline(
+      typeCache,
+      ['name'],
+    )
 
-  const codecPipeline = new CodecDuplexPipeline()
+    const codecPipeline = new CodecDuplexPipeline()
 
-  // Pass the array of custom codecs to the pipeline
-  codecPipeline.addCodecs(customCodecs)
+    // Pass the array of custom codecs to the pipeline
+    codecPipeline.addCodecs(customCodecs)
 
-  codecPipeline.addCodecs(defaultCodecList)
+    codecPipeline.addCodecs(defaultCodecList)
 
-  const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
-    connectionInterface,
-    maxPayloadLength: 100,
-  })
+    const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
+      connectionInterface,
+      maxPayloadLength: 100,
+    })
 
-  const connectionStaticMetadata = new ConnectionStaticMetadataReporter({
-    name: 'Serial',
-    baudRate: options.baudRate,
-  })
+    const connectionStaticMetadata = new ConnectionStaticMetadataReporter({
+      name: 'Serial',
+      baudRate: options.baudRate,
+    })
 
-  const heartbeatMetadata = new HeartbeatConnectionMetadataReporter({
-    interval: 500,
-    timeout: 1000,
-    // measurePipeline: true,
-  })
+    const heartbeatMetadata = new HeartbeatConnectionMetadataReporter({
+      interval: 500,
+      timeout: 1000,
+      // measurePipeline: true,
+    })
 
-  connectionInterface.setTransport(transport)
-  connectionInterface.setQueryManager(queryManager)
-  connectionInterface.setDeliverabilityManager(deliverabilityManager)
-  connectionInterface.setPipelines([
-    cobsPipeline,
-    binaryPipeline,
-    largePacketPipeline,
-    codecPipeline,
-    typeCachePipeline,
-    undefinedMessageIDGuard,
-  ])
-  connectionInterface.addMetadataReporters([
-    connectionStaticMetadata,
-    heartbeatMetadata,
-  ])
+    connectionInterface.setTransport(transport)
+    connectionInterface.setQueryManager(queryManager)
+    connectionInterface.setDeliverabilityManager(deliverabilityManager)
+    connectionInterface.setPipelines([
+      cobsPipeline,
+      binaryPipeline,
+      largePacketPipeline,
+      codecPipeline,
+      typeCachePipeline,
+      undefinedMessageIDGuard,
+    ])
+    connectionInterface.addMetadataReporters([
+      connectionStaticMetadata,
+      heartbeatMetadata,
+    ])
 
-  return connectionInterface.finalise()
-})
+    return connectionInterface.finalise()
+  },
+)
 
 const serialConsumer = new DiscoveryHintConsumer({
   factory: serialTransportFactory,
@@ -148,6 +150,7 @@ const serialConsumer = new DiscoveryHintConsumer({
       // if you have an Arduino that resets on connection, uncomment this line to delay the connection
       // attachmentDelay: 2500,
     }
+
     return options
   },
 })
