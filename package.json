@@ -114,7 +114,8 @@
     "spectron": "^9.0.0",
     "electron-chromedriver": "^9.0.0",
     "@yarnpkg/pnpify": "2.0.0-rc.18",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "object-assign": "^4.1.1"
   },
   "description": "User configurable description",
   "license": "SEE LICENCE IN LICENCE",
