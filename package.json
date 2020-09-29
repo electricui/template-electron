@@ -80,6 +80,7 @@
     "fs-extra-p": "^7.0.0",
     "jscodeshift": "^0.6.4",
     "lazy-val": "^1.0.3",
+    "electron-builder": "22.8.1",
     "lodash.debounce": "^4.0.8",
     "mini-css-extract-plugin": "^0.8.0",
     "moize": "^5.4.1",
