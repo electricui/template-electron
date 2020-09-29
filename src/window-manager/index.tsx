@@ -1,17 +1,15 @@
 import 'source-map-support/register'
 
-import { BrowserWindow, Menu, app } from 'electron'
+import { BrowserWindow, Menu, app, nativeTheme } from 'electron'
 import {
-  ExternallyResolvedPromise,
+  Deferred,
   createdNewUIWindow,
-  fetchSystemDarkModeFromWinManager,
   getElectricWindow,
-  getSettingFromWinManager,
+  getUserDarkMode,
   installDevTools,
-  setSettingFromWinManager,
+  setUserDarkMode,
+  setupDarkModeListenersWindowManager,
   setupElectricUIHandlers,
-  setupSettingsListenersWindowManager,
-  setupSettingsPathing,
 } from '@electricui/utility-electron'
 
 import { format as formatUrl } from 'url'
@@ -23,9 +21,8 @@ const allowDevTools = process.env.ALLOW_DEV_TOOLS === 'true' || isDevelopment
 // Disallow process reuse
 app.allowRendererProcessReuse = false
 
-// Setup persistent settings helpers
-setupSettingsPathing()
-setupSettingsListenersWindowManager()
+// Setup dark mode listeners
+setupDarkModeListenersWindowManager()
 
 // global reference to mainWindows (necessary to prevent window from being garbage collected)
 let mainWindows: Array<BrowserWindow> = []
@@ -118,11 +115,11 @@ app.on('ready', () => {
   const firstWindow = createMainWindow()
   mainWindows.push(firstWindow) // add a new window
 
-  const firstWindowReady = new ExternallyResolvedPromise()
+  const firstWindowReady = new Deferred()
   firstWindow.once('ready-to-show', firstWindowReady.resolve)
 
   // Wait until the transport and the window is ready before showing the first window
-  Promise.all([firstWindowReady.getPromise(), transportReady])
+  Promise.all([firstWindowReady.promise, transportReady])
     .then(() => {
       firstWindow.show()
     })
@@ -207,23 +204,23 @@ const template = [
       {
         label: 'Toggle Dark Mode',
         click: () => {
-          const userDark = getSettingFromWinManager('darkMode', null)
+          const userDark = getUserDarkMode()
 
           if (userDark === null) {
             // if the user mode is not set, set the dark mode to the opposite of the current system dark mode
-            const sys = fetchSystemDarkModeFromWinManager()
+            const sys = nativeTheme.shouldUseDarkColors
 
-            setSettingFromWinManager('darkMode', !sys)
+            setUserDarkMode(!sys)
             return
           }
 
-          setSettingFromWinManager('darkMode', !userDark)
+          setUserDarkMode(!userDark)
         },
       },
       {
         label: 'Use system dark mode',
         click: () => {
-          setSettingFromWinManager('darkMode', null)
+          setUserDarkMode(null)
         },
       },
 
