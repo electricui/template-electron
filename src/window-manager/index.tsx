@@ -10,6 +10,7 @@ import {
   setUserDarkMode,
   setupDarkModeListenersWindowManager,
   setupElectricUIHandlers,
+  setupSaveDialogInvoker,
 } from '@electricui/utility-electron'
 
 import { format as formatUrl } from 'url'
@@ -23,6 +24,9 @@ app.allowRendererProcessReuse = false
 
 // Setup dark mode listeners
 setupDarkModeListenersWindowManager()
+
+// Setup file saving dialog handlers
+setupSaveDialogInvoker()
 
 // global reference to mainWindows (necessary to prevent window from being garbage collected)
 let mainWindows: Array<BrowserWindow> = []
