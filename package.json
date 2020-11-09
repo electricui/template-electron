@@ -7,6 +7,7 @@
   "devDependencies": {
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/icons": "^3.20.1",
+    "@blueprintjs/select": "^3.14.3",
     "@electricui/components-core": "^0.6.6-prerelease.2",
     "@electricui/components-desktop": "^0.6.6-prerelease.2",
     "@electricui/components-desktop-blueprint": "^0.6.6-prerelease.2",
