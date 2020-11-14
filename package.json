@@ -124,7 +124,8 @@
   "private": true,
   "resolutions": {
     "upath": "^1.2.0",
-    "chokidar": "3.3.0"
+    "chokidar": "3.3.0",
+    "webpack": "^4.44.2"
   },
   "build": {
     "productName": "Electric UI",
