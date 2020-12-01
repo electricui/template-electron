@@ -74,12 +74,12 @@
     "chalk": "^2.4.1",
     "crocket": "^0.9.11",
     "css-loader": "^3.2.0",
-    "debug": "^4.1.1",
+    "debug": "^4.3.1",
     "deepmerge": "^4.1.1",
     "electron": "10.1.4",
     "file-loader": "^3.0.1",
     "fs-extra-p": "^7.0.0",
-    "jscodeshift": "^0.6.4",
+    "jscodeshift": "^0.11.0",
     "lazy-val": "^1.0.3",
     "electron-builder": "22.8.1",
     "lodash.debounce": "^4.0.8",
@@ -114,7 +114,7 @@
     "ts-node": "^9.0.0",
     "spectron": "^9.0.0",
     "electron-chromedriver": "^10.0.0",
-    "@yarnpkg/pnpify": "2.3.3",
+    "@yarnpkg/pnpify": "2.4.0",
     "prettier": "^1.19.1",
     "object-assign": "^4.1.1"
   },
@@ -148,6 +148,9 @@
     },
     "npmRebuild": false
   },
+  "migrations": [
+    "0.7.34-prerelease.0"
+  ],
   "scripts": {
     "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\"",
     "test:e2e:win": "yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\""
