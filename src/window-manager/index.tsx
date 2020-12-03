@@ -251,10 +251,6 @@ const template = [
         {
           label: 'DevTools',
           submenu: [
-            { role: 'reload' },
-            { role: 'forcereload' },
-            { type: 'separator' },
-
             { role: 'toggledevtools' },
             {
               label: 'Show Transport Window',
