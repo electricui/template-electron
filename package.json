@@ -126,7 +126,8 @@
   "resolutions": {
     "upath": "^1.2.0",
     "chokidar": "3.3.0",
-    "webpack": "^4.44.2"
+    "webpack": "^4.44.2",
+    "@serialport/bindings": "9.0.3"
   },
   "build": {
     "productName": "Electric UI",
