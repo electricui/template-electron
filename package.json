@@ -127,7 +127,8 @@
     "upath": "^1.2.0",
     "chokidar": "3.3.0",
     "webpack": "^4.44.2",
-    "@serialport/bindings": "9.0.3"
+    "@serialport/bindings": "9.0.3",
+    "three": "0.123.0"
   },
   "build": {
     "productName": "Electric UI",
