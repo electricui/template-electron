@@ -15,7 +15,6 @@
       "react-redux",
       "three",
       "react-three-fiber",
-      "@react-three/drei",
       "victory",
       "react",
       "react-dom",
