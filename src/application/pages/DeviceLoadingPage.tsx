@@ -5,7 +5,7 @@ import React from 'react'
 export const DeviceLoadingPage = (props: RouteComponentProps) => {
   return (
     <div style={{ height: '100vh' }}>
-      <DeviceLoadingScreen />{' '}
+      <DeviceLoadingScreen />
     </div>
   )
 }
