@@ -131,7 +131,9 @@
     "chokidar": "3.3.0",
     "webpack": "^4.44.2",
     "@serialport/bindings": "9.0.3",
-    "three": "0.123.0"
+    "three": "0.123.0",
+    "dmg-builder": "22.9.1",
+    "app-builder-lib": "22.9.1"
   },
   "build": {
     "productName": "Electric UI",
@@ -143,7 +145,7 @@
       "output": "release/"
     },
     "mac": {
-      "target": "zip"
+      "target": "dmg"
     },
     "win": {
       "target": "zip"
@@ -162,6 +164,9 @@
   },
   "version": "0.1.0",
   "dependenciesMeta": {
+    "dmg-builder": {
+      "unplugged": true
+    },
     "electron": {
       "unplugged": true
     },
