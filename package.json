@@ -145,7 +145,8 @@
       "output": "release/"
     },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "hardenedRuntime": true
     },
     "win": {
       "target": "zip"
