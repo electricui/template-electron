@@ -152,7 +152,7 @@
       "target": "zip"
     },
     "linux": {
-      "target": "zip"
+      "target": "AppImage"
     },
     "npmRebuild": false
   },
