@@ -67,6 +67,7 @@
     "@types/resolve": "^0.0.8",
     "@types/webpack-env": "^1.14.1",
     "@types/serialport": "^8.0.1",
+    "@types/three": "^0.129.1",
     "async-exit-hook": "^2.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-component": "^1.1.1",
@@ -118,7 +119,7 @@
     "@yarnpkg/pnpify": "2.4.0",
     "prettier": "^1.19.1",
     "@react-three/fiber": "^6.2.2",
-    "three": "0.123.0",
+    "three": "0.129.0",
     "object-assign": "^4.1.1"
   },
   "description": "User configurable description",
@@ -131,7 +132,7 @@
     "chokidar": "3.3.0",
     "webpack": "^4.44.2",
     "@serialport/bindings": "9.0.3",
-    "three": "0.123.0",
+    "three": "0.129.0",
     "dmg-builder": "22.11.4",
     "app-builder-lib": "22.11.4"
   },
