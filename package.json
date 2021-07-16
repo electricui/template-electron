@@ -16,6 +16,7 @@
     "@electricui/components-desktop-blueprint-loggers": "workspace:*",
     "@electricui/components-desktop-charts": "workspace:*",
     "@electricui/core": "workspace:*",
+    "@electricui/core-device-manager-proxy": "workspace:*",
     "@electricui/core-redux-state": "workspace:*",
     "@electricui/core-timeseries": "workspace:*",
     "@electricui/loader": "workspace:*",
