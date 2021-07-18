@@ -52,7 +52,7 @@
     "redux": "4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "serialport": "9.0.0",
+    "serialport": "9.2.0",
     "@babel/core": "^7.3.3",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
@@ -132,7 +132,7 @@
     "upath": "^1.2.0",
     "chokidar": "3.3.0",
     "webpack": "^4.44.2",
-    "@serialport/bindings": "9.0.3",
+    "@serialport/bindings": "9.2.0",
     "three": "0.129.0",
     "dmg-builder": "22.11.4",
     "app-builder-lib": "22.11.4"
