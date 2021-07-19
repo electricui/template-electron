@@ -1,7 +1,7 @@
 {
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "dependencies": {
-    "@electricui/node-usb": "workspace:*",
+    "usb": "1.7.1",
     "source-map-support": "0.5.16"
   },
   "devDependencies": {
@@ -68,6 +68,7 @@
     "@types/resolve": "^0.0.8",
     "@types/webpack-env": "^1.14.1",
     "@types/serialport": "^8.0.1",
+    "@types/usb": "^1.5.3",
     "@types/three": "^0.129.1",
     "async-exit-hook": "^2.0.1",
     "babel-loader": "^8.0.4",
