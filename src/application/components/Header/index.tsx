@@ -47,14 +47,8 @@ export const Header = (
                 icon="cross"
                 text="Disconnect"
                 onClick={() => {
-                  const cancellationToken = getDeadline()
-                  
-                  disconnect(cancellationToken).catch(err => {
-                    if (cancellationToken.caused(err)) {
-                      return
-                    }
-
-                    console.warn("Failed to connect", err)
+                  disconnect().catch(err => {
+                    console.warn('Failed to disconnect', err)
                   })
                 }}
               />
@@ -71,8 +65,8 @@ export const Header = (
                     if (cancellationToken.caused(err)) {
                       return
                     }
-                    
-                    console.warn("Failed to connect", err)
+
+                    console.warn('Failed to connect', err)
                   })
                 }}
               />

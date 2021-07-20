@@ -6,13 +6,13 @@ import lightOn from './light-on.png'
 import lightOff from './light-off.png'
 import { useDarkMode, ImageSwitcher } from '@electricui/components-desktop'
 import { useHardwareState } from '@electricui/components-core'
-import { WidthProperty } from 'csstype'
+import CSS from 'csstype'
 
 type LightBulbProps = {
   style?: React.CSSProperties
   containerStyle?: React.CSSProperties
-  width?: WidthProperty<string | number>
-  height?: WidthProperty<string | number>
+  width?: CSS.Properties['width']
+  height?: CSS.Properties['height']
 }
 
 export const LightBulb = (props: LightBulbProps) => {

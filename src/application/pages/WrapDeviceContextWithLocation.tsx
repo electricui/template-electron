@@ -6,10 +6,10 @@ import { navigate } from '@electricui/utility-electron'
 import { DeviceIDContextProvider } from '@electricui/components-core'
 import { NonIdealState } from '@blueprintjs/core'
 
-import { remote } from 'electron'
+import { DeviceID } from '@electricui/core'
 
 interface InjectDeviceIDFromLocation {
-  deviceID?: string
+  deviceID?: DeviceID
 }
 interface PotentialErrorState {
   hasError: boolean
@@ -47,19 +47,7 @@ export class WrapDeviceContextWithLocation extends React.Component<
             description={
               <React.Fragment>
                 <p>Something went wrong, go back to the connections page?</p>
-                {process.env.NODE_ENV === 'development' ? (
-                  <React.Fragment>
-                    <p>Open the devtools to view the error. </p>
-                    <Button
-                      onClick={() =>
-                        remote.getCurrentWindow().webContents.openDevTools()
-                      }
-                    >
-                      Open Devtools
-                    </Button>
-                    <br />
-                  </React.Fragment>
-                ) : null}
+
                 <br />
                 <Button
                   onClick={() => {
