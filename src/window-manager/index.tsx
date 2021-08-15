@@ -40,6 +40,7 @@ function createMainWindow() {
       contextIsolation: false,
       devTools: allowDevTools, // Only allow devTools in development mode
       v8CacheOptions: 'bypassHeatCheck', // https://www.youtube.com/watch?v=YqHOUy2rYZ8
+      enableBlinkFeatures: 'CSSColorSchemeUARendering', // Enable dark scrollbars in dark mode
     },
     minHeight: 680,
     minWidth: 1200,
