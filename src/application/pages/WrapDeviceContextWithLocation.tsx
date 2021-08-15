@@ -2,10 +2,9 @@ import React from 'react'
 import { Button } from '@blueprintjs/core'
 import { RouteComponentProps } from '@reach/router'
 import { navigate } from '@electricui/utility-electron'
-
+import { TimeSeriesProvider } from '@electricui/core-timeseries'
 import { DeviceIDContextProvider } from '@electricui/components-core'
 import { NonIdealState } from '@blueprintjs/core'
-
 import { DeviceID } from '@electricui/core'
 
 interface InjectDeviceIDFromLocation {
@@ -66,7 +65,7 @@ export class WrapDeviceContextWithLocation extends React.Component<
 
     return (
       <DeviceIDContextProvider deviceID={deviceID!}>
-        {children}
+        <TimeSeriesProvider deviceID={deviceID!}>{children}</TimeSeriesProvider>
       </DeviceIDContextProvider>
     )
   }
