@@ -1,3 +1,6 @@
+import "@blueprintjs/icons/lib/css/blueprint-icons.css"
+import "@blueprintjs/core/lib/css/blueprint.css"
+import "@electricui/components-desktop-blueprint/lib/bundle.css"
 import './styles.css'
 
 import {
