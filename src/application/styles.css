@@ -1,3 +1,8 @@
+/* Import Blueprint CSS */
+@import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
+@import '~@blueprintjs/core/lib/css/blueprint.css';
+@import '~@electricui/components-desktop-blueprint/lib/bundle.css';
+
 /* Make it feel like a native app, disable highlighting of text */
 a:not([draggable='true']),
 img:not([draggable='true']) {
