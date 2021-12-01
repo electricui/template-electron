@@ -135,7 +135,6 @@
   "resolutions": {
     "upath": "^1.2.0",
     "chokidar": "3.3.0",
-    "webpack": "^4.44.2",
     "@serialport/bindings": "9.2.0",
     "three": "0.134.0",
     "dmg-builder": "22.11.4",
