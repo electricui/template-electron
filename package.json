@@ -167,7 +167,7 @@
   ],
   "scripts": {
     "dev": "electricui-build-tools dev",
-    "build": "electricui-build-tools build",
+    "build": "electricui-build-tools app && electron-builder",
     "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\"",
     "test:e2e:win": "yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\""
   },
