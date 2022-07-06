@@ -6,7 +6,6 @@ import {
   UndefinedMessageIDGuardPipeline,
 } from '@electricui/protocol-binary'
 import {
-  CodecDuplexPipeline,
   ConnectionInterface,
   ConnectionStaticMetadataReporter,
   DiscoveryHintConsumer,
@@ -28,7 +27,7 @@ import SerialPort from 'serialport'
 import USB from 'usb'
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
 import { customCodecs } from './codecs'
-import { defaultCodecList } from '@electricui/protocol-binary-codecs'
+import { CodecDuplexPipelineWithDefaults } from '@electricui/protocol-binary-codecs'
 
 const typeCache = new TypeCache()
 
@@ -68,10 +67,8 @@ const serialTransportFactory = new TransportFactory(
       ['name'],
     )
 
-    const codecPipeline = new CodecDuplexPipeline()
-    // Add the default codecs first so that queries are dealt with preferentially
-    codecPipeline.addCodecs(defaultCodecList)
-    // Add custom codecs after the default ones.
+    const codecPipeline = new CodecDuplexPipelineWithDefaults()
+    // Add custom codecs.
     codecPipeline.addCodecs(customCodecs)
 
     const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
