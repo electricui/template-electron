@@ -1,5 +1,3 @@
-import 'source-map-support/register'
-
 import { BrowserWindow, Menu, app, nativeTheme } from 'electron'
 import {
   Deferred,
