@@ -253,7 +253,7 @@ const template = [
         : [{ type: 'separator' }, { role: 'close' }]),
     ],
   },
-  ...(process.env.NODE_ENV === 'development'
+  ...(allowDevTools
     ? [
         {
           label: 'DevTools',
