@@ -77,7 +77,7 @@
     "debug": "^4.3.1",
     "deepmerge": "^4.1.1",
     "electron": "13.1.7",
-    "electron-builder": "22.11.4",
+    "electron-builder": "23.1.0",
     "electron-chromedriver": "^10.0.0",
     "electron-devtools-installer": "3.1.1",
     "file-loader": "^3.0.1",
@@ -136,8 +136,8 @@
     "chokidar": "3.3.0",
     "@serialport/bindings": "9.2.0",
     "three": "0.134.0",
-    "dmg-builder": "22.11.4",
-    "app-builder-lib": "22.11.4",
+    "dmg-builder": "23.3.1",
+    "app-builder-lib": "23.3.1",
     "esbuild": "npm:esbuild-wasm@^0.11.20"
   },
   "build": {
