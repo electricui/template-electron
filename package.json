@@ -58,7 +58,7 @@
     "@types/three": "^0.131.0",
     "@types/webdriverio": "^4.13.3",
     "@types/webpack-env": "^1.14.1",
-    "@yarnpkg/pnpify": "2.4.0",
+    "@yarnpkg/sdks": "3.0.0-rc.12",
     "about-window": "^1.13.0",
     "async-exit-hook": "^2.0.1",
     "atomic-layout": "^0.13.0",
@@ -164,9 +164,7 @@
   ],
   "scripts": {
     "dev": "electricui-build-tools dev",
-    "build": "electricui-build-tools app && electron-builder",
-    "test:e2e": "TS_NODE_PROJECT='./tsconfig-test-e2e.json' yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\"",
-    "test:e2e:win": "yarn run mocha --require ts-node/register \"test-e2e/**/*.ts\""
+    "build": "electricui-build-tools app && electron-builder"
   },
   "version": "0.1.0",
   "dependenciesMeta": {
