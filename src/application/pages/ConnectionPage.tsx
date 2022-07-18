@@ -8,7 +8,7 @@ import { useDeviceMetadataKey } from '@electricui/components-core'
 import React from 'react'
 
 const CardInternals = () => {
-  const metadataName = useDeviceMetadataKey('name') || 'No name'
+  const metadataName = useDeviceMetadataKey('name') ?? 'No name'
 
   return (
     <React.Fragment>

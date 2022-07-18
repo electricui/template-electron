@@ -14,6 +14,9 @@ declare global {
     led_state: number
     lit_time: number
   }
+  interface ElectricUIDeviceMetadataState {
+    name: string
+  }
 }
 
 // Export custom struct types for use in both codecs and the application
