@@ -17,7 +17,7 @@ const hotReloadHandler = setupProxyAndDebugInterface(root, deviceManager)
 setupTransportWindow()
 
 const remoteQueryExecutor = new ElectronIPCRemoteQueryExecutor()
-const messageIDQueryable = new QueryableMessageIDProvider(
+const queryableMessageIDProvider = new QueryableMessageIDProvider(
   deviceManager,
   remoteQueryExecutor,
 )
