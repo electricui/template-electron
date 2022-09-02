@@ -43,7 +43,7 @@
     "@electricui/utility-electron": "workspace:*",
     "@electricui/utility-ipc": "workspace:*",
     "@reach/router": "^1.2.1",
-    "@react-three/drei": "^8.3.1",
+    "@react-three/drei": "8.18.10",
     "@react-three/fiber": "^7.0.24",
     "@types/chai": "^4.1.7",
     "@types/classnames": "^2.2.8",
@@ -136,7 +136,8 @@
     "three": "0.134.0",
     "dmg-builder": "23.3.1",
     "app-builder-lib": "23.3.1",
-    "esbuild": "npm:esbuild-wasm@^0.11.20"
+    "esbuild": "npm:esbuild-wasm@^0.11.20",
+    "three-stdlib": "2.7.0"
   },
   "build": {
     "productName": "Electric UI",
