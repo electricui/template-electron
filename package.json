@@ -134,6 +134,7 @@
     "upath": "^1.2.0",
     "chokidar": "3.3.0",
     "three": "0.134.0",
+    "fsevents": "2.3.2",
     "dmg-builder": "23.3.1",
     "app-builder-lib": "23.3.1",
     "esbuild": "npm:esbuild-wasm@^0.11.20",
