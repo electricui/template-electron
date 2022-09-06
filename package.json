@@ -132,7 +132,7 @@
   "private": true,
   "resolutions": {
     "upath": "^1.2.0",
-    "chokidar": "3.3.0",
+    "chokidar": "3.5.3",
     "three": "0.134.0",
     "fsevents": "2.3.2",
     "dmg-builder": "23.3.1",
