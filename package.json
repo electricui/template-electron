@@ -5,7 +5,7 @@
     "usb": "2.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.3",
+    "@babel/core": "^7.12.3",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@blueprintjs/core": "^3.50.4",
@@ -128,7 +128,7 @@
   "description": "User configurable description",
   "license": "SEE LICENCE IN LICENCE",
   "main": "dist/main/main.js",
-  "name": "user-configurable-name",
+  "name": "@electricui/template-electron-inner",
   "private": true,
   "resolutions": {
     "upath": "^1.2.0",
@@ -168,6 +168,7 @@
     "dev": "electricui-build-tools dev",
     "build": "electricui-build-tools app && electron-builder"
   },
+  "electricui": true,
   "version": "0.1.0",
   "dependenciesMeta": {
     "dmg-builder": {
