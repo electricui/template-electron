@@ -164,7 +164,7 @@
   "migrations": [],
   "scripts": {
     "start": "electricui-build-tools dev",
-    "setup": "arc install-electron && yarn sdks",
+    "setup": "arc install-electron && yarn sdks vscode",
     "build": "electricui-build-tools app && electron-builder"
   },
   "electricui": true,
