@@ -42,6 +42,7 @@
     "@electricui/utility-crc16": "workspace:*",
     "@electricui/utility-electron": "workspace:*",
     "@electricui/utility-ipc": "workspace:*",
+    "@electricui/async-utilities": "workspace:*",
     "@reach/router": "^1.2.1",
     "@react-three/drei": "8.18.10",
     "@react-three/fiber": "^7.0.24",
