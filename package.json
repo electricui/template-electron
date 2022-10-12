@@ -180,5 +180,6 @@
     "webpack-dev-server": {
       "unplugged": true
     }
-  }
+  },
+  "arcVersionRange": ">=0.5.0"
 }
