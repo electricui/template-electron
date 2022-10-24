@@ -58,7 +58,7 @@
     "@types/resolve": "^0.0.8",
     "@types/three": "^0.131.0",
     "@types/webdriverio": "^4.13.3",
-    "@types/webpack-env": "^1.14.1",
+    "@types/webpack-env": "^1.18.0",
     "about-window": "^1.13.0",
     "async-exit-hook": "^2.0.1",
     "atomic-layout": "^0.13.0",
