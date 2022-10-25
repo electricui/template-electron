@@ -25,7 +25,7 @@ const ledStateDataSource = new MessageDataSource('led_state')
 export const OverviewPage = (props: RouteComponentProps) => {
   return (
     <React.Fragment>
-      <IntervalRequester interval={200} variables={['led_state']} />
+      <IntervalRequester interval={50} variables={['led_state']} />
 
       <Composition areas={layoutDescription} gap={10} autoCols="1fr">
         {Areas => (
