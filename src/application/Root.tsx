@@ -12,37 +12,30 @@ import {
   AcceptableDeviceContinuityProvider,
 } from '@electricui/components-desktop-charts'
 import { DeviceIDBridgeContext } from '@electricui/components-desktop-charts'
-import { DeviceLoadingPage } from './pages/DeviceLoadingPage'
 import { DeviceManagerProxy } from '@electricui/core-device-manager-proxy'
-import { DevicePages } from './pages/DevicePages'
-import { Provider } from 'react-redux'
-import React from 'react'
-import { ReactReduxContext } from '@electricui/core-redux-state'
+import React, { Suspense } from 'react'
 import { RefreshIndicator } from '@electricui/components-desktop-blueprint'
-import { Store } from 'redux'
 import { WrapDeviceContextWithLocation } from './pages/WrapDeviceContextWithLocation'
 import { history } from '@electricui/utility-electron'
+import { StateProvider } from '@electricui/components-core'
 
 import { FocusStyleManager } from '@blueprintjs/core'
 FocusStyleManager.onlyShowFocusOnTabs()
 
-interface RootProps {
-  store: Store
-}
+import { DevicePages } from './pages/DevicePages'
+import { DeviceLoadingPage } from './pages/DeviceLoadingPage'
 
-export class Root extends React.Component<RootProps> {
-  render() {
-    const { store } = this.props
-
-    return (
-      <RefreshIndicator>
-        <Provider store={store} context={ReactReduxContext}>
-          <DeviceManagerProxy renderIfNoIPC={<NoIPCModal />}>
-            <DarkModeWrapper>
-              <DeviceIDBridgeContext>
-                <DarkModeChartThemeProvider>
-                  <AcceptableDeviceContinuityProvider>
-                    <LocationProvider history={history}>
+export function Root() {
+  return (
+    <RefreshIndicator>
+      <StateProvider>
+        <DeviceManagerProxy renderIfNoIPC={<NoIPCModal />}>
+          <DarkModeWrapper>
+            <DeviceIDBridgeContext>
+              <DarkModeChartThemeProvider>
+                <AcceptableDeviceContinuityProvider>
+                  <LocationProvider history={history}>
+                    <Suspense fallback={<div>Loading...</div>}>
                       <Router>
                         <ConnectionPage path="/" />
                         <WrapDeviceContextWithLocation path="device_loading/:deviceID/">
@@ -52,14 +45,14 @@ export class Root extends React.Component<RootProps> {
                           <DevicePages path="*" />
                         </WrapDeviceContextWithLocation>
                       </Router>
-                    </LocationProvider>
-                  </AcceptableDeviceContinuityProvider>
-                </DarkModeChartThemeProvider>
-              </DeviceIDBridgeContext>
-            </DarkModeWrapper>
-          </DeviceManagerProxy>
-        </Provider>
-      </RefreshIndicator>
-    )
-  }
+                    </Suspense>
+                  </LocationProvider>
+                </AcceptableDeviceContinuityProvider>
+              </DarkModeChartThemeProvider>
+            </DeviceIDBridgeContext>
+          </DarkModeWrapper>
+        </DeviceManagerProxy>
+      </StateProvider>
+    </RefreshIndicator>
+  )
 }
