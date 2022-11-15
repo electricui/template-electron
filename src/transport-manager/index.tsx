@@ -1,6 +1,7 @@
 import 'source-map-support/register'
 
 import { deviceManager } from './config'
+import { store } from '../application/state'
 import { setupProxyAndDebugInterface } from '@electricui/components-desktop-blueprint'
 import { setupTransportWindow } from '@electricui/utility-electron'
 import {
@@ -13,7 +14,7 @@ import './styles.css'
 const root = document.createElement('div')
 document.body.appendChild(root)
 
-const hotReloadHandler = setupProxyAndDebugInterface(root, deviceManager)
+const hotReloadHandler = setupProxyAndDebugInterface(root, deviceManager, store)
 setupTransportWindow()
 
 const remoteQueryExecutor = new ElectronIPCRemoteQueryExecutor()
