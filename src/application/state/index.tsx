@@ -1,4 +1,4 @@
 import { rootReducer } from './reducers'
-import { configureStore } from './store/configureStore'
+import { store } from './store/configureStore'
 
-export { configureStore, rootReducer }
+export { store, rootReducer }

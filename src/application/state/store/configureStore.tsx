@@ -11,4 +11,4 @@ if (process.env.NODE_ENV === 'production') {
   configureStoreWithEnv = configureStoreDev
 }
 
-export const configureStore = configureStoreWithEnv
+export const store = configureStoreWithEnv()
