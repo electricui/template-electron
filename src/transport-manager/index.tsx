@@ -10,6 +10,9 @@ import {
 
 import './styles.css'
 
+import { FocusStyleManager } from '@blueprintjs/core'
+FocusStyleManager.onlyShowFocusOnTabs()
+
 const root = document.createElement('div')
 document.body.appendChild(root)
 
