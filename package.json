@@ -2,7 +2,7 @@
   "author": "Electric UI <support@electricui.com> (https://electricui.com)",
   "dependencies": {
     "source-map-support": "0.5.16",
-    "usb": "2.8.0"
+    "usb": "2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
