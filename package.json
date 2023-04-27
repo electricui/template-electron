@@ -75,7 +75,7 @@
     "csv-writer": "^1.5.0",
     "debug": "^4.3.4",
     "deepmerge": "^4.1.1",
-    "electron": "20.0.0",
+    "electron": "21.3.1",
     "electron-builder": "23.1.0",
     "electron-devtools-installer": "3.1.1",
     "file-loader": "^3.0.1",
