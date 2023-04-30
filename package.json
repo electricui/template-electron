@@ -16,7 +16,7 @@
     "@electricui/components-core": "workspace:*",
     "@electricui/components-desktop": "workspace:*",
     "@electricui/components-desktop-blueprint": "workspace:*",
-    "@electricui/components-desktop-blueprint-loggers": "workspace:*",
+    "@electricui/components-desktop-blueprint-timeseries": "workspace:*",
     "@electricui/components-desktop-charts": "workspace:*",
     "@electricui/components-desktop-three": "workspace:*",
     "@electricui/core": "workspace:*",
