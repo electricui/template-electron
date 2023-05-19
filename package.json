@@ -33,6 +33,7 @@
     "@electricui/protocol-binary-fifo-queue": "workspace:*",
     "@electricui/protocol-binary-heartbeats": "workspace:*",
     "@electricui/protocol-binary-large-packet-handler": "workspace:*",
+    "@electricui/signals": "workspace:*",
     "@electricui/timeseries": "workspace:*",
     "@electricui/timeseries-react": "workspace:*",
     "@electricui/timing": "workspace:*",
