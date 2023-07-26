@@ -160,8 +160,7 @@
     "linux": {
       "target": "AppImage"
     },
-    "npmRebuild": false,
-    "remoteBuild": false
+    "npmRebuild": false
   },
   "migrations": [],
   "scripts": {
