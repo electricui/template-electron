@@ -10,7 +10,7 @@ import { Card } from '@blueprintjs/core'
 import { Composition } from 'atomic-layout'
 import { IntervalRequester } from '@electricui/components-core'
 import { LightBulb } from '../../components/LightBulb'
-import { MessageDataSource } from '@electricui/core-timeseries'
+import { useMessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { Slider } from '@electricui/components-desktop-blueprint'
@@ -20,9 +20,9 @@ const layoutDescription = `
   Light Slider
 `
 
-const ledStateDataSource = new MessageDataSource('led_state')
-
 export const OverviewPage = (props: RouteComponentProps) => {
+  const ledStateDataSource = useMessageDataSource('led_state')
+
   return (
     <React.Fragment>
       <IntervalRequester interval={50} variables={['led_state']} />
