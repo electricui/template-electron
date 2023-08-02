@@ -36,7 +36,7 @@ export const OverviewPage = (props: RouteComponentProps) => {
                   <b>LED State</b>
                 </div>
                 <ChartContainer>
-                  <LineChart dataSource={ledStateDataSource} maxItems={10000} />
+                  <LineChart dataSource={ledStateDataSource} />
                   <RealTimeDomain window={10000} />
                   <TimeAxis />
                   <VerticalAxis />
